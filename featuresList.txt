@@ -1,0 +1,46 @@
+## Features List ##
+
+
+REQUIREMENTS
+
+  ES6 for server-side (Node) code
+  ES5 for front-end code
+  Node
+  Express
+    RESTful routes
+    Using AJAX or complete SPA approach is optional
+  One of the following two CSS grid and UI frameworks
+    Bootstrap 3
+    Zurb Foundation 5
+  jQuery
+  SASS for styling
+  PostgreSQL for DB
+  Knex.js for querying and migrations
+  git for version control
+  ** OPTIONAL **  heroku for hosting (hosting is optional)
+
+
+MVP's
+
+1) Register/Login
+2) Intelligent Sorting using APIs into Categories (watch, eat, read, buy)
+3) Update Profile -
+4) Mark/Update Status
+5) Manual categorization override
+6) Delete Tasks
+7) Admin page
+
+*) Reorganize Order/Priority of Task (up and down button)
+
+stuff we'd like to see
+
+*) Add URL to a todo
+*) Image support
+*) linking IMDB to film list
+*) goodreads api for books
+*) SMS reminder
+*) registration - phone number
+*) filter by status
+*) top page pre-login/register what people are TODOing, son!
+*) choose desktop background image
+**) connect TODO with friends
