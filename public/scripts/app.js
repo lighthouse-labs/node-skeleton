@@ -1,3 +1,4 @@
+
 $(() => {
     $.ajax({
         method: "GET",
