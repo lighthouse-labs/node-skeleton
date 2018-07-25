@@ -8,12 +8,6 @@ $(() => {
             $("<div>").text(user.name).appendTo($("body"));
         }
     });
-
-    $.ajax({
-        method: 'GET'
-        url: ''
-    })
-
 });
 
 // PRE_LOGIN PAGE

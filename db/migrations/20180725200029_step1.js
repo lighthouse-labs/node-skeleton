@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return createToDoUsersTable()
     .then(createToDoCategoryTable)
     .then(createToDoTasksTable);
-  
+
     function createToDoUsersTable() {
       return knex.schema.createTable('todo_users', function (table) {
         table.increments('id');
@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
         table.date('dob');
         table.string('gender');
         table.string('rating');
-        table.timestamps();  
+        table.timestamps();
       });
     }
 
@@ -25,7 +25,7 @@ exports.up = function(knex, Promise) {
           table.increments('id');
           table.string('category_name');
           table.string('description');
-          table.timestamps();  
+          table.timestamps();
         });
       }
 
@@ -38,12 +38,12 @@ exports.up = function(knex, Promise) {
           table.string('url');
           table.boolean('priority');
           table.boolean('status');
-          table.timestamps();  
+          table.timestamps();
           table.foreign('user_id').references('todo_users.id')
           table.foreign('category_id').references('category.id')
         });
       }
-      
+
 
 };
 
@@ -52,5 +52,5 @@ exports.down = function(knex, Promise) {
         knex.schema.dropTableIfExists('tasks'),
         knex.schema.dropTableIfExists('todo_users'),
         knex.schema.dropTableIfExists('category')
-    ])  
+    ])
 };
