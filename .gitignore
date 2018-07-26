@@ -1,6 +1,5 @@
 node_modules/
 public/styles
 .env
-package-lock.json
 *.log
 *.sqlite3
