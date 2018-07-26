@@ -92,7 +92,7 @@ app.use((req, res, next) => {
 
 
 
-// Home pag
+// Home page
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -155,38 +155,44 @@ app.get("/tasks", (req, res) => {
   res.render("tasks");
 });
 
-app.get("/tasks/new", (req, res) => {
-  res.render("newTask");
-});
+// WOULD DISPLAY A NEW TASK PAGE
+// app.get("/tasks/new", (req, res) => {
+//   res.render("newTask");
+// });
 
 app.post("/tasks", (req, res) => {
-  res.redirect("/tasks"); // redirect to tasks/:id eventually
+  res.redirect("/tasks"); // redirect to tasks of specific id
 });
 
+// displays page of a tasks of a specific id
 app.get("/tasks/:id", (req, res) => {
-  res.render("specifcTask");
+  res.render("tasks");
 });
 
+// displays page of tasks for editing for a specific id
 app.get("/tasks/:id/edit", (req, res) => {
-  res.render("editTask");
+  res.render("tasks/edit");
 });
 
+// add a task of a specific id
 app.put("/tasks/:id", (req, res) => {
   res.redirect("/tasks/:id");
 });
 
+// delete call for removing specific task
 app.delete("/tasks/:id", (req, res) => {
   res.redirect("/tasks");
 });
 
-app.get("/profile/edit", (req, res) => {
-  res.render("profileEdit");
+// displays profile editing page of specific user
+app.get("/profile", (req, res) => {
+  res.render("profile");
 });
 
+// updates user profile
 app.put("/profile", (req, res) => {
   res.redirect("/tasks"); // TBD
 });
-
 
 // ******************************************************
 
