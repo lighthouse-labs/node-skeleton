@@ -1,7 +1,24 @@
 body {
-    background-color: #EEE;
+  background-color: #fff;
 
-    h1 {
-        color: #244751;
+  .about {
+    // background-image: url("../public/imgs/teddy-kelley-70401-unsplash.jpg");
+  }
+
+  .sampleTaskList {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 80%;
+
+    .sample-films, .sample-books, .sample-restaurants, .sample-products {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+
+      h2 {
+        text-align: center
+      }
     }
+  }
 }
