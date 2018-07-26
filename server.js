@@ -92,7 +92,7 @@ app.use((req, res, next) => {
 
 
 
-// Home page
+// Home pag
 app.get("/", (req, res) => {
     res.render("index");
 });
