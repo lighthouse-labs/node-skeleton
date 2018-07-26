@@ -3,10 +3,91 @@
   <head>
     <meta charset="UTF-8">
     <title>Personal User Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+
+    <link rel="stylesheet" href="/styles/personal.css" type="text/css" />
   </head>
 
   <body>
-    <h1>Welcome USER</h1> <!--Input User Name/nickname here -->
+    <header class="header">
+      <h1>ToDo List</h1>
+      <!-- User information on the right hand side -->
+    </header>
+
+    <section>
+      <div class="taskbar">
+        <div class="taskbar-title">
+          <h1 class="taskbar-title_task">Enter a Task</h1>
+        </div>
+        <form class="taskbar-form"method="PUT" action="">
+          <input class="taskbar-form_input" type="text">
+        </form>
+      </div>
+    </section>
+
+    <section class="tasks">
+      <div class="films">
+        <h2>Films</h2>
+        <div class="task">
+          <div class="task_header">
+            <input class="checkbox" type="checkbox" name="completed" value="completed">
+            <h3>The Lord of the Rings</h3>
+          </div>
+          <a class="link" href="">https://www.imdb.com</a>
+          <div class="task_info">
+            <p>Created On: 2018-07-26</p>
+            <input class="checkbox" type="checkbox" name="important" value="important">
+          </div>
+        </div>
+      </div>
+
+      <div class="books">
+        <h2>Books</h2>
+        <div class="task">
+          <div class="task_header">
+            <input class="checkbox" type="checkbox" name="completed" value="completed">
+            <h3>Catcher and the Rye</h3>
+          </div>
+          <a class="link" href="">https://www.imdb.com</a>
+          <div class="task_info">
+            <p>Created On: 2018-07-26</p>
+            <input class="checkbox" type="checkbox" name="important" value="important">
+          </div>
+        </div>
+      </div>
+
+      <div class="restaurants">
+        <h2>Restaurants</h2>
+        <div class="task">
+          <div class="task_header">
+            <input class="checkbox" type="checkbox" name="completed" value="completed">
+            <h3>Fynn's of Temple Bar</h3>
+          </div>
+          <a class="link" href="">https://www.fynnsoftemple.com</a>
+          <div class="task_info">
+            <p>Created On: 2018-07-26</p>
+            <input class="checkbox" type="checkbox" name="important" value="important">
+          </div>
+        </div>
+      </div>
+
+      <div class="products">
+        <h2>Products</h2>
+        <div class="task">
+          <div class="task_header">
+            <input class="checkbox" type="checkbox" name="completed" value="completed">
+            <h3>Headphones</h3>
+          </div>
+          <a class="link" href="">https://www.ebay.com</a>
+          <div class="task_info">
+            <p>Created On: 2018-07-26</p>
+            <input class="checkbox" type="checkbox" name="important" value="important">
+          </div>
+        </div>
+      </div>
+    </section>
 
   </body>
 </html>
