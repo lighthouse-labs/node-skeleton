@@ -54,26 +54,26 @@ app.use(cookieSession({
 // ******************************************************
 // FUNCTIONS
 
-function encryptedString(nakedPassword) {
-  var tempStr = "qwe"
-  const encrpytedPassword = bcrypt.hashSync(tempStr, 10);
-  return encrpytedPassword;
-};
+// function encryptedString(nakedPassword) {
+//   var tempStr = "qwe"
+//   const encrpytedPassword = bcrypt.hashSync(tempStr, 10);
+//   return encrpytedPassword;
+// };
 
-function userAuthorization(userName, userPassword){
-  const tempPassword = getsUserDBData(userName);
-  if (bcrypt.compareSync(userPassword, tempPassword)){
-    return;
-  } else {
-    return false;
-  }
-};
+// function userAuthorization(userName, userPassword){
+//   const tempPassword = getsUserDBData(userName);
+//   if (bcrypt.compareSync(userPassword, tempPassword)){
+//     return;
+//   } else {
+//     return false;
+//   }
+// };
 
-function getsUserDBData (userName){
-  const knexReturn = knex('todo_users').where({username: userName}).select('password')
-  console.log(knexReturn);
-  return (encryptedDBPassword || false);
-};
+// function getsUserDBData (userName){
+//   const knexReturn = knex('todo_users').where({username: userName}).select('password')
+//   console.log(knexReturn);
+//   return (encryptedDBPassword || false);
+// };
 
 
 // // ******************************************************
@@ -88,7 +88,6 @@ app.use((req, res, next) => {
   console.log("req.body.telephone: " + req.body.telephone);
   console.log("req.body.birthdate: " + req.body.birthdate);
   console.log("req.body.address:   " + req.body.address);
-  console.log("bcrypted password:  " + encryptedString(req.body.password));
   console.log("#################  - END OF LIST  - #############");
   next();
 });
@@ -101,9 +100,13 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+app.get("/personal", (req, res) => {
+  res.render("personal");
+})
+
 app.post("/personal", (req,res) => {
   const userName      = req.body.userName;
-  const userPassword  = encryptedString(req.body.password);
+  const userPassword  = req.body.password;
 
 console.log("userPassword: ", userPassword);
 

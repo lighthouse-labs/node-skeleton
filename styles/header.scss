@@ -1,10 +1,11 @@
 .header {
-  background-color: #fff;
+  // background-image: url("../public/imgs/teddy-kelley-70401-unsplash.jpg");
+  background-color: #2E75D6;
   width: 100%;
 
   .header-nav {
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #092956;
     display: flex;
     height: 100px;
     justify-content: space-around;
@@ -12,6 +13,7 @@
     width: 100%;
 
     .header-nav_title {
+      color: #fff;
       font-size: 2rem;
       margin: 0;
     }
@@ -24,7 +26,7 @@
 
       .nav-login_username, .nav-login_password {
         border-radius: 5px;
-        border: 1px solid black;
+        border: 1px solid #092956;
         margin-right: 15px;
       }
 
@@ -39,6 +41,7 @@
       flex-direction: column;
 
       div {
+        color: #fff;
         margin-bottom: 10px;
       }
 
