@@ -4,3 +4,4 @@ public/styles
 package-lock.json
 *.log
 *.sqlite3
+sandbox.js

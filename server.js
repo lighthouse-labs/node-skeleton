@@ -10,7 +10,6 @@ const sass          = require("node-sass-middleware");
 const app           = express();
 const bcrypt        = require("bcryptjs");
 const cookieSession = require("cookie-session");
-// we will need bcrypt and cookieSession in our package.json and express
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -19,15 +18,8 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
-// ******************************************************
-// STANDARD CONSTANTS
-
-const saltRounds = 10;
 
 
-
-// ******************************************************
-//USES
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -62,18 +54,62 @@ app.use(cookieSession({
 // ******************************************************
 // FUNCTIONS
 
+function encryptedString(nakedPassword) {
+  const encrpytedPassword = bcrypt.hashSync(nakedPassword, 10);
+  return encrpytedPassword;
+};
+
+function userAuthorization(userName, userPassword){
+  const tempPassword = getsUserDBData(userName);
+  if (bcrypt.compareSync(userPassword, tempPassword)){
+    return;
+  } else {
+    return false;
+  }
+};
+
+function getsUserDBData (userName){
+  const knexReturn = knex('todo_users').where({username: userName}).select('password')
+  console.log(knexReturn);
+  return (encryptedDBPassword || false);
+};
 
 
+// // ******************************************************
+// CONSOLE LOG DEBUG TOOL
+app.use("/", (req,res) => {
+  console.log("********** - CONSOLE LOG DEBUG TOOL - ***********");
+  console.log("req.body.username:  " + req.body.username);
+  console.log("req.body.password:  " + req.body.password);
+  console.log("req.body.firstName: " + req.body.firstName);
+  console.log("req.body.lastName:  " + req.body.lastName);
+  console.log("req.body.email:     " + req.body.email);
+  console.log("req.body.telephone: " + req.body.telephone);
+  console.log("req.body.birthdate: " + req.body.birthdate);
+  console.log("req.body.address:   " + req.body.address);
+  console.log("bcrypted password:  " + encryptedString(req.body.password));
+  console.log("#################  - END OF LIST  - #############");
+});
+// // ******************************************************
 
-// ******************************************************
+
 
 // Home page
 app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.post("/session", (req,res) => {
-  res.redirect("/");
+app.post("/personal", (req,res) => {
+  const userName      = req.body.userName;
+  const userPassword  = encryptedString(req.body.password);
+
+console.log("userPassword: ", userPassword);
+
+  if (userAuthorization(userName, userPassword)){
+    res.redirect("/tasks");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/registration", (req, res) => {
@@ -81,8 +117,10 @@ app.get("/registration", (req, res) => {
 });
 
 app.post("/registration", (req, res) => {
-  const userName = req.body.userName;
-  const password = req.body.password;
+  const userName      = req.body.userName;
+  const userPassword  = encryptedString(req.body.password);
+  const
+
   res.redirect("/");
 });
 
