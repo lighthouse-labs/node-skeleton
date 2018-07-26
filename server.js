@@ -55,7 +55,8 @@ app.use(cookieSession({
 // FUNCTIONS
 
 function encryptedString(nakedPassword) {
-  const encrpytedPassword = bcrypt.hashSync(nakedPassword, 10);
+  var tempStr = "qwe"
+  const encrpytedPassword = bcrypt.hashSync(tempStr, 10);
   return encrpytedPassword;
 };
 
@@ -77,7 +78,7 @@ function getsUserDBData (userName){
 
 // // ******************************************************
 // CONSOLE LOG DEBUG TOOL
-app.use("/", (req,res) => {
+app.use((req, res, next) => {
   console.log("********** - CONSOLE LOG DEBUG TOOL - ***********");
   console.log("req.body.username:  " + req.body.username);
   console.log("req.body.password:  " + req.body.password);
@@ -89,6 +90,7 @@ app.use("/", (req,res) => {
   console.log("req.body.address:   " + req.body.address);
   console.log("bcrypted password:  " + encryptedString(req.body.password));
   console.log("#################  - END OF LIST  - #############");
+  next();
 });
 // // ******************************************************
 
@@ -117,9 +119,26 @@ app.get("/registration", (req, res) => {
 });
 
 app.post("/registration", (req, res) => {
-  const userName      = req.body.userName;
-  const userPassword  = encryptedString(req.body.password);
-  const
+  // const userName      = req.body.username;
+  // const userPassword  = req.body.password;
+  // const firstName     = req.body.firstName;
+  // const lastName      = req.body.lastName;
+  // const email         = req.body.email;
+  // const mobile        = req.body.tel;
+  // const dob           = req.body.birthdate;
+  // const address       = req.body.address;
+
+  const userObj = {
+    username  : req.body.username,
+    password  : req.body.password,
+    first_name: req.body.firstName,
+    last_name : req.body.lastName,
+    address   : req.body.address,
+    email     : req.body.email,
+    mobile    : req.body.tel,
+    dob       : req.body.birthdate, // check format output from page -- sent as HTML type 'date'
+    gender    :
+  }
 
   res.redirect("/");
 });
