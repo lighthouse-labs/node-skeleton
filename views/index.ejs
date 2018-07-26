@@ -1,40 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Home Page</title>
+  <head>
+      <title>Home Page</title>
 
-        <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-        <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-        <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+      <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+      <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+      <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+      <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
-        <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-        <script type="text/javascript" src="/scripts/app.js"></script>
-    </head>
+      <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+      <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
 
-    <body>
-        <% include ./_partials/_header.ejs %>
-        <h1>Hello World!</h1>
+  <body>
+    <% include ./_partials/_header.ejs %>
 
-        <section>
-            <div>
-                <h3>Films</h3>
-            </div>
+    <div>
+      <div>Don't have an account?</div>
+      <button>Register</button> <!-- onclick redirect to register page -->
+    </div>
 
-            <div>
-                <h3>Books</h3>
-            </div>
+    <section>
+      <div>
+        <h2>Films</h2>
+        <div>
+          <h3>Task Title</h3>
+          <div>
+            <p>Date Created</p>
+            <a href="">URL goes here</a>
+          </div>
+        </div>
+      </div>
 
-            <div>
-                <h3>Restaurants</h3>
-            </div>
+      <div>
+        <h2>Books</h2>
+        <div>
+          <h3>Task Title</h3>
+          <div>
+            <p>Date Created</p>
+            <a href="">URL goes here</a>
+          </div>
+        </div>
+      </div>
 
-            <div>
-                <h3>Products</h3>
-            </div>
-        </section>
+      <div>
+        <h2>Restaurants</h2>
+        <div>
+          <h3>Task Title</h3>
+          <div>
+            <p>Date Created</p>
+            <a href="">URL goes here</a>
+          </div>
+        </div>
+      </div>
 
-        <footer>
+      <div>
+        <h2>Products</h2>
+        <div>
+          <h3>Task Title</h3>
+          <div>
+            <p>Date Created</p>
+            <a href="">URL goes here</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        </footer>
-    </body>
+    <footer>
+
+    </footer>
+  </body>
 </html>

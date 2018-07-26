@@ -8,19 +8,20 @@
     </head>
 
     <body>
+      <% include ./_partials/_header.ejs %>
 
-        <header>
-        </header>
-
-        <section>
-            <form action="">
-                <input type="text" name="firstName" placeholder="First Name" />
-                <input type="text" name="lastName" placeholder="Last Name" />
-                <input type="email" name="email" placeholder="Email" />
-                <input type="password" name="password" placeholder="Password" />
-                <input type="tel" name="telephone" placeholder="Telephone Number">
-                <input type="date" name="birthdate">
-            </form>
-        </section>
+      <section>
+        <form action="">
+          <input type="text" name="firstName" placeholder="First Name" />
+          <input type="text" name="lastName" placeholder="Last Name" />
+          <input type="email" name="email" placeholder="Email" />
+          <input type="password" name="password" placeholder="Password" />
+          <input type="tel" name="telephone" placeholder="Telephone Number">
+          <input type="date" name="birthdate">
+          <input type="text" name="address" placeholder="Address">
+          <input type="checkbox">
+          <button>Register</button> <!-- Agree to Terms -->
+        </form>
+      </section>
     </body>
 </html>

@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>User Profile Page</title>
-</head>
-<body>
+  </head>
 
-</body>
+  <body>
+    <% include ./_partials/_header.ejs %>
+
+    <h2>Your Profile</h2>
+    <form action="">
+      <input type="text" name="firstName" placeholder="First Name" />
+      <input type="text" name="lastName" placeholder="Last Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="Password" />
+      <input type="tel" name="telephone" placeholder="Telephone Number">
+      <input type="date" name="birthdate">
+      <input type="text" name="address" placeholder="Address">
+      <button>Update Profile</button>
+    </form>
+  </body>
 </html>
