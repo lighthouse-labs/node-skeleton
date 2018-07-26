@@ -54,15 +54,15 @@ app.use(cookieSession({
 // ******************************************************
 // FUNCTIONS
 
-function userAuthorization(userName, userPassword){
-  const username = "joe";
-  const password = "12345";
-  if (username === userName && password === userPassword){
-    return;
-  } else {
-    return false;
-  }
-};
+// function userAuthorization(userName, userPassword){
+//   const username = "joe";
+//   const password = "12345";
+//   if (username === userName && password === userPassword){
+//     return;
+//   } else {
+//     return false;
+//   }
+// };
 
 // function encryptedString(nakedPassword) {
 //   var tempStr = "qwe"
