@@ -119,15 +119,6 @@ app.get("/registration", (req, res) => {
 });
 
 app.post("/registration", (req, res) => {
-  // const userName      = req.body.username;
-  // const userPassword  = req.body.password;
-  // const firstName     = req.body.firstName;
-  // const lastName      = req.body.lastName;
-  // const email         = req.body.email;
-  // const mobile        = req.body.tel;
-  // const dob           = req.body.birthdate;
-  // const address       = req.body.address;
-
   const userObj = {
     username  : req.body.username,
     password  : req.body.password,
@@ -137,8 +128,10 @@ app.post("/registration", (req, res) => {
     email     : req.body.email,
     mobile    : req.body.tel,
     dob       : req.body.birthdate, // check format output from page -- sent as HTML type 'date'
-    gender    :
+    gender    : req.body.gender,
   }
+
+//  knexMakeNewUser(userObj);
 
   res.redirect("/");
 });
