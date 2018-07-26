@@ -1,0 +1,149 @@
+body {
+  background-color: #eee;
+  // background-image: url("../imgs/matt-bluejay-734298-unsplash.jpg");
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // margin-top: 100px;
+
+  .header {
+    background-color: white;
+    height: 100px;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .taskbar {
+    margin: 25px auto;
+    width: 50%;
+
+    .taskbar-title {
+      display: block;
+
+      .taskbar-title_task {
+        font-size: 3rem;
+        text-align: center;
+      }
+    }
+
+    .taskbar-form {
+      display: block;
+
+      .taskbar-form_input {
+        border: 1px solid black;
+        border-radius: 25px;
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+      }
+    }
+  }
+
+
+  .tasks {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 90%;
+
+    .films {
+      background-color: #8c1010;
+    }
+
+    .books {
+      background-color: #0a5606;
+    }
+
+    .restaurants {
+      background-color: #350656;
+    }
+
+    .products {
+      background-color: #c4710b;
+    }
+
+    .films, .books, .restaurants, .products {
+      border: 1px solid #000;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      width: 22%;
+
+      h2 {
+        text-align: center;
+        text-decoration: underline;
+      }
+
+      .task {
+        background-color: #fff;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 10px auto;
+        max-width: 90%;
+        min-width: 90%;
+
+        .task_header {
+          align-content: center;
+          display: flex;
+          margin: 10px;
+
+          .checkbox {
+            -webkit-appearance: none;
+            background-color: #fff;
+            border: 1px solid #cacece;
+            border-radius: 3px;
+            display: inline-block;
+            padding: 9px;
+            position: absolute;
+
+            &:checked {
+              background-color: #0000ff;
+              border: 1px solid #adb8c0;
+            }
+          }
+
+          h3 {
+            margin: 0 auto;
+            padding: 0;
+            text-decoration: underline;
+          }
+        }
+
+        .link {
+          color: blue;
+          display: block;
+          padding: 0 10px;
+          text-align: center;
+        }
+
+        .task_info {
+          display: flex;
+          justify-content: space-between;
+          max-width: 100%;
+          margin: 10px;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+
+          .checkbox {
+            -webkit-appearance: none;
+            background-color: #fff;
+            border: 1px solid #cacece;
+            border-radius: 3px;
+            display: inline-block;
+            padding: 9px;
+
+            &:checked {
+              background-color: #0000ff;
+              border: 1px solid #adb8c0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
