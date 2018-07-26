@@ -21,7 +21,7 @@
         "knex": "^0.11.7",
         "knex-logger": "^0.1.0",
         "morgan": "^1.7.0",
-        "node-sass-middleware": "^0.9.8",
+        "node-sass-middleware": "^0.11.0",
         "pg": "^6.0.2"
     },
     "devDependencies": {
