@@ -2,12 +2,14 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const sass        = require("node-sass-middleware");
-const app         = express();
+const PORT          = process.env.PORT || 8080;
+const ENV           = process.env.ENV || "development";
+const express       = require("express");
+const bodyParser    = require("body-parser");
+const sass          = require("node-sass-middleware");
+const app           = express();
+const bcrypt        = require("bcryptjs");
+const cookieSession = require("cookie-session");
 // we will need bcrypt and cookieSession in our package.json and express
 
 const knexConfig  = require("./knexfile");
@@ -52,10 +54,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 // USES cookieSession
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['key1', 'key2']
-// }))
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 // ******************************************************
 // FUNCTIONS
