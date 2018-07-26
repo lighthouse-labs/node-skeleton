@@ -59,22 +59,19 @@ app.use(cookieSession({
 //   const encrpytedPassword = bcrypt.hashSync(tempStr, 10);
 //   return encrpytedPassword;
 // };
-
 // function userAuthorization(userName, userPassword){
 //   const tempPassword = getsUserDBData(userName);
 //   if (bcrypt.compareSync(userPassword, tempPassword)){
+
+// function userAuthorization(userName, userPassword){
+//   const username = "joe";
+//   const password = "12345";
+//   if (username === userName && password === userPassword){
 //     return;
 //   } else {
 //     return false;
 //   }
 // };
-
-// function getsUserDBData (userName){
-//   const knexReturn = knex('todo_users').where({username: userName}).select('password')
-//   console.log(knexReturn);
-//   return (encryptedDBPassword || false);
-// };
-
 
 // // ******************************************************
 // CONSOLE LOG DEBUG TOOL
@@ -105,23 +102,22 @@ app.get("/personal", (req, res) => {
 })
 
 app.post("/personal", (req,res) => {
-  const userName      = req.body.userName;
+
+  const userName      = req.body.username;
   const userPassword  = req.body.password;
 
-console.log("userPassword: ", userPassword);
-
   if (userAuthorization(userName, userPassword)){
-    res.redirect("/tasks");
+    res.redirect("/personal");
   } else {
     res.redirect("/");
   }
 });
 
-app.get("/registration", (req, res) => {
-  res.render("registration");
+app.get("/register", (req, res) => {
+  res.render("register");
 });
 
-app.post("/registration", (req, res) => {
+app.post("/register", (req, res) => {
   const userObj = {
     username  : req.body.username,
     password  : req.body.password,
@@ -136,8 +132,24 @@ app.post("/registration", (req, res) => {
 
 //  knexMakeNewUser(userObj);
 
-  res.redirect("/");
+  res.redirect("/personal");
 });
+
+app.get("/personal", (req, res) => {
+// what we need from the DB:tasks
+// key = serverVar : value = DBcolumn
+  // const DBTemplateVars = {
+  //   task_name
+  //   user_id
+  //   category_id
+  //   url
+  //   priority
+  //   status
+  //   created_at
+  // }
+
+  res.render("personal");
+})
 
 app.get("/tasks", (req, res) => {
   res.render("tasks");
