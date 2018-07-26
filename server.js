@@ -120,14 +120,6 @@ app.put("/profile", (req, res) => {
   res.redirect("/tasks"); // TBD
 });
 
-app.get("/admin/users", (req, res) => {
-  res.render("adminUsers");
-});
-
-app.delete("/admin/users/:id", (req, res) => {
-  res.redirect("/admin/users");
-});
-
 
 // ******************************************************
 
