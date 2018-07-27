@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
         <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
         <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-
+        <link rel="stylesheet" href="/styles/register.css" type="text/css" />
 
         <script type="text/javascript" src="/scripts/app.js"></script>
     </head>
@@ -23,18 +23,20 @@
         </nav>
       </header>
 
+      <h1>Register</h1>
+      <div>Please provide a few details about yourself before you begin</div>
+
       <section class="register">
-        <form class="register-form" action="">
+        <form class="register-form" action="/personal" method="POST">
           <input class="firstname" type="text" name="firstName" placeholder="First Name" />
           <input class="lastname" type="text" name="lastName" placeholder="Last Name" />
           <input class="email" type="email" name="email" placeholder="Email" />
           <input class="username" type="username" name="username" placeholder="Username">
           <input class="password" type="password" name="password" placeholder="Password" />
           <input class="telephone" type="tel" name="telephone" placeholder="Telephone Number">
-          <input class="birthdate" type="date" name="birthdate">
           <input class="address" type="text" name="address" placeholder="Address">
-          <input class="terms" type="checkbox">
-          <button>Register</button> <!-- Agree to Terms -->
+          <input class="birthdate" type="date" name="birthdate">
+          <button class="register-form_button">Register</button> <!-- Agree to Terms -->
         </form>
       </section>
     </body>

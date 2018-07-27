@@ -7,11 +7,28 @@ body {
   // margin-top: 100px;
 
   .header {
+    align-items: center;
     background-color: #2E75D6;
+    display: flex;
     height: 100px;
+    justify-content: space-around;
 
     h1 {
+      font-size: 3rem;
       margin: 0;
+    }
+
+    form {
+      display: block;
+
+      .header-logout {
+        border: 1px solid black;
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 2rem;
+        margin: 0 auto;
+        padding: 3px;
+      }
     }
   }
 
@@ -41,105 +58,91 @@ body {
     }
   }
 
-
-  .tasks {
+  main {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
-    margin: 0 auto;
-    width: 90%;
+    width: 100%;
 
-    .films {
-      background-color: #8c1010;
-    }
-
-    .books {
-      background-color: #0a5606;
-    }
-
-    .restaurants {
-      background-color: #350656;
-    }
-
-    .products {
-      background-color: #c4710b;
-    }
-
-    .films, .books, .restaurants, .products {
-      border: 1px solid #000;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
+    .tasks {
       width: 22%;
 
-      h2 {
-        text-align: center;
-        text-decoration: underline;
-      }
+      .films, .books, .restaurants, .products {
+        border: 1px solid #000;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
 
-      .task {
-        background-color: #fff;
-        border: 1px solid black;
-        border-radius: 5px;
-        margin: 10px auto;
-        max-width: 90%;
-        min-width: 90%;
+        h2 {
+          text-align: center;
+          text-decoration: underline;
+        }
 
-        .task_header {
-          align-content: center;
-          display: flex;
-          margin: 10px;
+        .task {
+          background-color: #fff;
+          border: 1px solid black;
+          border-radius: 5px;
+          margin: 10px auto;
+          max-width: 90%;
+          min-width: 90%;
 
-          .checkbox {
-            -webkit-appearance: none;
-            background-color: #fff;
-            border: 1px solid #cacece;
-            border-radius: 3px;
-            display: inline-block;
-            padding: 9px;
-            position: absolute;
+          .task_header {
+            align-content: center;
+            display: flex;
+            margin: 10px;
 
-            &:checked {
-              background-color: #0000ff;
-              border: 1px solid #adb8c0;
+            .checkbox {
+              -webkit-appearance: none;
+              background-color: #fff;
+              border: 1px solid #cacece;
+              border-radius: 3px;
+              display: inline-block;
+              padding: 9px;
+              position: absolute;
+
+              &:checked {
+                background-color: #0000ff;
+                border: 1px solid #adb8c0;
+              }
+            }
+
+            h3 {
+              margin: 0 auto;
+              padding: 0;
+              text-decoration: underline;
             }
           }
 
-          h3 {
-            margin: 0 auto;
-            padding: 0;
-            text-decoration: underline;
-          }
-        }
-
-        .link {
-          color: blue;
-          display: block;
-          padding: 0 10px;
-          text-align: center;
-        }
-
-        .task_info {
-          display: flex;
-          justify-content: space-between;
-          max-width: 100%;
-          margin: 10px;
-
-          p {
-            margin: 0;
-            padding: 0;
+          .link {
+            color: blue;
+            display: block;
+            padding: 0 10px;
+            text-align: center;
           }
 
-          .checkbox {
-            -webkit-appearance: none;
-            background-color: #fff;
-            border: 1px solid #cacece;
-            border-radius: 3px;
-            display: inline-block;
-            padding: 9px;
+          .task_info {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%;
+            margin: 10px;
 
-            &:checked {
-              background-color: #0000ff;
-              border: 1px solid #adb8c0;
+            p {
+              margin: 0;
+              padding: 0;
+            }
+
+            .checkbox {
+              -webkit-appearance: none;
+              background-color: #fff;
+              border: 1px solid #cacece;
+              border-radius: 3px;
+              display: inline-block;
+              padding: 9px;
+
+              &:checked {
+                background-color: #0000ff;
+                border: 1px solid #adb8c0;
+              }
             }
           }
         }

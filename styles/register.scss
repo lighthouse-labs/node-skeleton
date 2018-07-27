@@ -1,0 +1,33 @@
+h1 {
+  font-size: 3rem;
+  text-align: center
+}
+
+div {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 10px
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 30%;
+
+  input {
+    border: 1px solid #a0a4aa;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .register-form_button {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 5px;
+    width: 25%
+  }
+}
