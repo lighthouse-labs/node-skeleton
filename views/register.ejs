@@ -3,24 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <title>Register</title>
+        <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+        <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+        <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
 
         <script type="text/javascript" src="/scripts/app.js"></script>
     </head>
 
     <body>
-      <% include ./_partials/_header.ejs %>
+      <header class="header">
+        <nav class="header-nav">
+          <h1 class="header-nav_title">TO DO APP</h1>
+          <form class="header-nav_login" method="POST" action="/personal">
+            <input class="nav-login_username" type="username" name="username" placeholder="username"/>
+            <input class="nav-login_password" type="password" name="password" placeholder="password"/>
+            <button class="nav-login_button">Login</button>
+          </form>
+        </nav>
+      </header>
 
-      <section>
-        <form action="">
-          <input type="text" name="firstName" placeholder="First Name" />
-          <input type="text" name="lastName" placeholder="Last Name" />
-          <input type="email" name="email" placeholder="Email" />
-          <input type="username" name="username" placeholder="Username">
-          <input type="password" name="password" placeholder="Password" />
-          <input type="tel" name="telephone" placeholder="Telephone Number">
-          <input type="date" name="birthdate">
-          <input type="text" name="address" placeholder="Address">
-          <input type="checkbox">
+      <section class="register">
+        <form class="register-form" action="">
+          <input class="firstname" type="text" name="firstName" placeholder="First Name" />
+          <input class="lastname" type="text" name="lastName" placeholder="Last Name" />
+          <input class="email" type="email" name="email" placeholder="Email" />
+          <input class="username" type="username" name="username" placeholder="Username">
+          <input class="password" type="password" name="password" placeholder="Password" />
+          <input class="telephone" type="tel" name="telephone" placeholder="Telephone Number">
+          <input class="birthdate" type="date" name="birthdate">
+          <input class="address" type="text" name="address" placeholder="Address">
+          <input class="terms" type="checkbox">
           <button>Register</button> <!-- Agree to Terms -->
         </form>
       </section>

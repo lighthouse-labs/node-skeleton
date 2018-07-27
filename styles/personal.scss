@@ -7,7 +7,7 @@ body {
   // margin-top: 100px;
 
   .header {
-    background-color: white;
+    background-color: #2E75D6;
     height: 100px;
 
     h1 {
@@ -29,14 +29,14 @@ body {
     }
 
     .taskbar-form {
-      display: block;
+      font-size: 2rem;
+      margin: 0 25%;
 
       .taskbar-form_input {
         border: 1px solid black;
         border-radius: 25px;
-        display: flex;
-        justify-content: space-around;
-        width: 50%;
+        text-align: center;
+        width: 100%;
       }
     }
   }
