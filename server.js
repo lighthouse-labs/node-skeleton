@@ -185,8 +185,29 @@ app.delete("/tasks/:id", (req, res) => {
 });
 
 // displays profile editing page of specific user
-app.get("/profile", (req, res) => {
-  res.render("profile");
+app.get("/profile/:userName", (req, res) => {
+
+let templateVars = {};
+const userName = req.params.userName;
+
+  knex
+    .select()
+    .from('todo_users')
+    .where('username', '=', userName)
+    .then((profile) => {
+      templateVars = {
+        username  : profile[0].username,
+        firstName : profile[0].first_name,
+        lastName  : profile[0].last_name,
+        email     : profile[0].email,
+        address   : profile[0].address,
+        telephone : profile[0].mobile,
+        birthdate : profile[0].dob,
+      }
+      console.log(templateVars);
+    })
+
+  res.render("profile", templateVars);
 });
 
 // updates user profile
