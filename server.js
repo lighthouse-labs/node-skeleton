@@ -100,7 +100,7 @@ let templateVar = {
     if (!data) {
       res.status(403).send('Username already exists - try a different one')
     } else {
-      console.log("Success");
+      console.log("Success1");
       res.render("personal");
     }
   });
@@ -119,7 +119,7 @@ app.post("/login", (req,res) => {
     if (!data) {
       res.status(403).send('Username or Password is incorrect - please check again')
     } else {
-      console.log("Success");
+      console.log("Success2");
       res.redirect("/personal");
     }
   });
@@ -137,7 +137,6 @@ app.get("/personal", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      console.log("Success");
       let taskData = { data }
       console.log(taskData);
       res.render("personal", taskData);
@@ -167,7 +166,7 @@ app.post("/tasks", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      console.log("Success");
+      console.log("Success3");
       res.render("personal");
     }
   });
@@ -186,7 +185,7 @@ app.get("/tasks/:id", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      console.log("Success");
+      console.log("Success4");
       res.render("tasks");
     }
   });
@@ -210,7 +209,7 @@ app.put("/tasks/:id", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Update')
     } else {
-      console.log("Success");
+      console.log("Success5");
       res.render("personal");
     }
   });
@@ -230,7 +229,7 @@ app.delete("/tasks/:id", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Delete')
     } else {
-      console.log("Success");
+      console.log("Success6");
       res.render("personal");
     }
   });
@@ -251,7 +250,7 @@ DataHelpers.dbGetUserDet(templateVar)
   if (!data) {
     res.status(403).send('Failed to get details for user')
   } else {
-    console.log("Success");
+    console.log("Success7");
     console.log(data);
     res.render("profile", data);
     }
@@ -278,7 +277,7 @@ app.put("/profile", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Update specific user')
     } else {
-      console.log("Success");
+      console.log("Success8");
       res.render("personal");
     }
   });

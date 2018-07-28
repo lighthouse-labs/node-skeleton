@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/personal.css" type="text/css" />
 
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
@@ -27,7 +28,7 @@
           </div>
           <div class="taskbar-form">
             <form method="PUT" action="">
-              <input class="taskbar-form_input" type="text">
+              <input id="newTask" class="taskbar-form_input" type="text">
             </form>
           </div>
         </div>
@@ -37,61 +38,38 @@
       <section class="tasks">
         <div class="films">
           <h2>Films</h2>
-          <div class="task">
-            <div class="task_header">
-              <input class="checkbox" type="checkbox" name="completed" value="completed">
-              <h3>The Lord of the Rings</h3>
-            </div>
-            <a class="link" href="">https://www.imdb.com</a>
-            <div class="task_info">
-              <p>Created On: 2018-07-26</p>
-              <input class="checkbox" type="checkbox" name="important" value="important">
-            </div>
-          </div>
+          <!-- <div id="newTask" class="task"></div> -->
+          <% data.filter(t => t.category_name === 'To Watch').forEach((task) => { %>
+            <%- include('./_partials/_taskCard.ejs', { task: task }) %>
+          <% }) %>
         </div>
       </section>
 
       <section class="tasks">
         <div class="books">
           <h2>Books</h2>
-          <div class="task">
-            <div class="task_header">
-              <input class="checkbox" type="checkbox" name="completed" value="completed">
-              <h3>Catcher and the Rye</h3>
-            </div>
-            <a class="link" href="">https://www.imdb.com</a>
-            <div class="task_info">
-              <p>Created On: 2018-07-26</p>
-              <input class="checkbox" type="checkbox" name="important" value="important">
-            </div>
-          </div>
-
-          <div id="newTask" class="task"></div>
-
+          <!-- <div id="newTask" class="task"></div> -->
+          <% data.filter(t => t.category_name === 'To Read').forEach((task) => { %>
+            <%- include('./_partials/_taskCard.ejs', { task: task }) %>
+          <% }) %>
         </div>
       </section>
 
       <section class="tasks">
         <div class="restaurants">
           <h2>Restaurants</h2>
-          <div class="task">
-            <div class="task_header">
-              <input class="checkbox" type="checkbox" name="completed" value="completed">
-              <h3>Fynn's of Temple Bar</h3>
-            </div>
-            <a class="link" href="">https://www.fynnsoftemple.com</a>
-            <div class="task_info">
-              <p>Created On: 2018-07-26</p>
-              <input class="checkbox" type="checkbox" name="important" value="important">
-            </div>
-          </div>
+          <!-- <div id="newTask" class="task"></div> -->
+          <% data.filter(t => t.category_name === 'To Eat').forEach((task) => { %>
+            <%- include('./_partials/_taskCard.ejs', { task: task }) %>
+          <% }) %>
         </div>
       </section>
 
       <section class="tasks">
         <div class="products">
           <h2>Products</h2>
-          <% data.filter(t => t.category_name === 'To Read').forEach((task) => { %>
+          <!-- <div id="newTask" class="task"></div> -->
+          <% data.filter(t => t.category_name === 'To Buy').forEach((task) => { %>
             <%- include('./_partials/_taskCard.ejs', { task: task }) %>
           <% }) %>
         </div>
