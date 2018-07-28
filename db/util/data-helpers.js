@@ -15,7 +15,7 @@ module.exports = function makeDataHelpers(knex) {
         dbCheckUser: (username, password) => {
             return new Promise((resolve, reject) => {
                 knex
-                    .select('username', 'password')
+                    .select('username', 'password','id')
                     .from('todo_users')
                     .where({
                         username, username,
@@ -23,7 +23,7 @@ module.exports = function makeDataHelpers(knex) {
                     })
                     .then((output) => {
                         if (output.length > 0) {
-                            resolve(true);
+                            resolve(output);
                         } else {
                             resolve(false);
                         }
@@ -43,6 +43,7 @@ module.exports = function makeDataHelpers(knex) {
                             resolve(false);
                         } else {
                             knex('todo_users')
+<<<<<<< HEAD
                                 .insert({ username: newUser.userName,
                                           password: newUser.password,
                                           email: newUser.email,
@@ -52,6 +53,17 @@ module.exports = function makeDataHelpers(knex) {
                                           mobile: newUser.mobile,
                                           dob: newUser.dob,
                                           gender: newUser.gender
+=======
+                                .insert({ username: newUser.userName, 
+                                          password: newUser.password, 
+                                          email: newUser.email, 
+                                          first_name: newUser.first_name, 
+                                          last_name: newUser.last_name, 
+                                          address: newUser.address, 
+                                          mobile: newUser.mobile, 
+                                          dob: newUser.dob, 
+                                          gender: newUser.gender 
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                                         })
                                 .returning('id')
                                 .then((newuser) => {
@@ -67,11 +79,19 @@ module.exports = function makeDataHelpers(knex) {
             return new Promise((resolve, reject) => {
                 knex
                     .insert({ task_name : newTask.task_name,
+<<<<<<< HEAD
                               user_id: newTask.userid,
                               category_id : newTask.category_id,
                               url : newTask.url,
                               priority : newTask.priority,
                               status : newTask.status
+=======
+                              user_id: newTask.user_id, 
+                              category_id : newTask.category_id, 
+                              url : newTask.url, 
+                              priority : newTask.priority, 
+                              status : newTask.status 
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                             })
                     .into('tasks')
                     .returning('id')
@@ -94,7 +114,11 @@ module.exports = function makeDataHelpers(knex) {
                     .orderBy('priority', 'asc')
                     .orderBy('created_at', 'desc')
                     .from('tasks')
+<<<<<<< HEAD
                     .where('tasks.user_id', validUser.userid)
+=======
+                    .where('tasks.user_id', validUser.user_id)
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                     .then((output) => {
                         if (output.length > 0) {
                             resolve(output);
@@ -110,12 +134,21 @@ module.exports = function makeDataHelpers(knex) {
             return new Promise((resolve, reject) => {
                 knex('tasks')
                     .update({
+<<<<<<< HEAD
                             taskname : taskId.task_name,
                             user_id : user_id,
                             category_id : category_id,
                             url : url,
                             priority : priority,
                             status : status,
+=======
+                            taskname : taskId.task_name, 
+                            user_id : taskId.user_id,
+                            category_id : taskId.category_id,
+                            url : taskId.url, 
+                            priority : taskId.priority, 
+                            status : taskId.status,
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                             updated_at : knex.fn.now()
                         })
                     .where ('id',taskID.task_id)
@@ -135,14 +168,19 @@ module.exports = function makeDataHelpers(knex) {
         dbGet1Tasks: (taskId) => {
             return new Promise((resolve, reject) => {
                 knex
-                    .select('id', 'taskname', 'user_id', 'category_id', 'url', 'priority', 'status', 'EXTRACT(EPOCH FROM created_at) * 100000 AS created_at')
+                    .select('tasks.id', 'task_name', 'tasks.user_id', 'category.category_name', 'url', 'priority', 'status', 'tasks.created_at')
+                    .join('category', 'tasks.category_id', '=', 'category.id')
                     .orderBy('priority', 'asc')
-                    .orderBy('name', 'desc')
+                    .orderBy('created_at', 'desc')
                     .from('tasks')
+<<<<<<< HEAD
                     .where({
                         'id': taskId.userid,
                         'user_id': taskID.taskid
                     })
+=======
+                    .where('tasks.id', taskId.taskid)
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                     .then((output) => {
                         if (output.length > 0) {
                             resolve(output);
@@ -157,13 +195,22 @@ module.exports = function makeDataHelpers(knex) {
         // Takes an Object as Input. Returns true if deleted. Else returns false if no records found.
         dbDelete1Tasks: (taskId) => {
             return new Promise((resolve, reject) => {
+<<<<<<< HEAD
                 console.log('Delete Task',taskID);
+=======
+                console.log('Delete Task');
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                 knex
                     .delete()
                     .from('tasks')
                     .where({
+<<<<<<< HEAD
                         // 'user_id': taskID.user_id,
                         'id': 8
+=======
+                        'user_id': taskId.user_id,
+                        'id': taskId.task_id
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                     })
                     .then((output) => {
                         if (output.length > 0) {
@@ -175,7 +222,11 @@ module.exports = function makeDataHelpers(knex) {
             });
         },
 
+<<<<<<< HEAD
         // Leads from the Edit User Page to retrieve details for the specific user.
+=======
+        // Leads from the Edit User Page to retrieve details for the specific user. 
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
         // Takes an Object as Input. Returns details if available. Else returns false if no records found.
         dbGetUserDet: (userId) => {
             return new Promise((resolve, reject) => {
@@ -183,7 +234,11 @@ module.exports = function makeDataHelpers(knex) {
                 knex
                     .select('id', 'username', 'first_name', 'last_name', 'address', 'email', 'mobile', 'dob', 'gender', 'rating')
                     .from('todo_users')
+<<<<<<< HEAD
                     .where("id", userId.id)
+=======
+                    .where("id", userId.user_id)
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                     .then((output) => {
                         if (output.length > 0) {
                             resolve(output);
@@ -200,6 +255,7 @@ module.exports = function makeDataHelpers(knex) {
             return new Promise((resolve, reject) => {
                 knex('todo_users')
                     .update({
+<<<<<<< HEAD
                         first_name : userId.first_name,
                         last_name : userId.last_name,
                         address : userId.address,
@@ -209,6 +265,17 @@ module.exports = function makeDataHelpers(knex) {
                         gender : userId.gender,
                         })
                     .where ('id',userId.id)
+=======
+                        first_name : userId.first_name, 
+                        last_name : userId.last_name, 
+                        address : userId.address, 
+                        email : userId.email, 
+                        mobile : userId.mobile, 
+                        dob : userId.dob, 
+                        gender : userId.gender, 
+                        })
+                    .where ('id',userId.user_id)    
+>>>>>>> d52f58819a6990c8c67d4abe82e4f1640a8f7f91
                     .returning('id')
                     .then((output) => {
                         if (output.length > 0) {

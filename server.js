@@ -9,8 +9,9 @@ const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
 const bcrypt        = require("bcryptjs");
-const cookieSession = require("cookie-session");
-const api           = require("api")
+const session = require("cookie-session");
+const api           = require("api");
+const request       = require("request");
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -57,11 +58,16 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-// USES cookieSession
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
+// Use a cookie to store session data
+app.use(
+  session({
+    name: "session",
+    keys: ['my super secret', 'awesome key'],
+
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  })
+);
 
 // ******************************************************
 // FUNCTIONS
@@ -84,6 +90,7 @@ app.get("/register", (req, res) => {
 // Save New User - Insert New record into todo_users table
 app.post("/register", (req, res) => {
 let templateVar = {
+  // user_id: req.session.user_id,
   userName : req.body.username,
   password : req.body.password,
   email : req.body.email,
@@ -100,7 +107,7 @@ let templateVar = {
     if (!data) {
       res.status(403).send('Username already exists - try a different one')
     } else {
-      console.log("Success1");
+      console.log("Success");
       res.render("personal");
     }
   });
@@ -108,7 +115,7 @@ let templateVar = {
 });
 
 
-// Dashboard - Check if the Username and Password checks out with the DB.
+// Check if the Username and Password checks out with the DB.
 app.post("/login", (req,res) => {
   const userName = req.body.username;
   const userPassword  = req.body.password;
@@ -119,27 +126,37 @@ app.post("/login", (req,res) => {
     if (!data) {
       res.status(403).send('Username or Password is incorrect - please check again')
     } else {
-      console.log("Success2");
+      console.log("Success");
+      // console.log("Success", data[0].id);
+      req.session.user_id = data[0].id;
+      console.log("Success", req.session.user_id);
+      req.session.user_name = data[0].username;
       res.redirect("/personal");
     }
   });
 });
 
+// Logout and clear the cookies.
+app.post("/logout", (req,res) => {
+  res.clearCookie('user_id');
+  res.redirect('/login');
+});
+
+
 // Dashboard - Get all the Tasks from the DB for the logged in User.
 app.get("/personal", (req, res) => {
   let templateVar = {
-    userid: "1"
+    user_id: req.session.user_id
   }
   console.log(req.body);
-  DataHelpers
-  .dbAllGetTasks(templateVar)
+  DataHelpers.dbAllGetTasks(templateVar)
   .then(function(data) {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      let taskData = { data }
-      console.log(taskData);
-      res.render("personal", taskData);
+      console.log("Success");
+      console.log(data);
+      res.render("personal",data);
     }
   });
   // res.render("personal");
@@ -154,19 +171,20 @@ app.get("/tasks/new", (req, res) => {
 app.post("/tasks", (req, res) => {
   let templateVar = {
     task_name : "Hard Disk",
-    userid: "1",
+    user_id: req.session.user_id,
     category_id : "4",
     url : "www.seagate.com",
     priority : "false",
     status : "false"
   }
   console.log(req.body);
+  console.log(templateVar);
   DataHelpers.dbInsertTask(templateVar)
   .then(function(data) {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      console.log("Success3");
+      console.log("Success");
       res.render("personal");
     }
   });
@@ -176,16 +194,18 @@ app.post("/tasks", (req, res) => {
 // displays page of a tasks of a specific id
 app.get("/tasks/:id", (req, res) => {
   let templateVar = {
-    userid: "1",
+    user_id: req.session.user_id,
     taskid: "5"
   }
   console.log(req.body);
+  console.log(templateVar);
   DataHelpers.dbGet1Tasks(templateVar)
   .then(function(data) {
     if (!data) {
       res.status(403).send('Failed to Insert')
     } else {
-      console.log("Success4");
+      console.log("Success");
+      console.log(data);
       res.render("tasks");
     }
   });
@@ -197,7 +217,7 @@ app.put("/tasks/:id", (req, res) => {
   let templateVar = {
     task_id : "8",
     task_name : "Hard Disk",
-    userid: "1",
+    user_id: req.session.user_id,
     category_id : "3",
     url : "www.seagate.ca",
     priority : "false",
@@ -209,7 +229,7 @@ app.put("/tasks/:id", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Update')
     } else {
-      console.log("Success5");
+      console.log("Success");
       res.render("personal");
     }
   });
@@ -219,8 +239,8 @@ app.put("/tasks/:id", (req, res) => {
 // delete call for removing specific task
 app.delete("/tasks/:id", (req, res) => {
   let templateVar = {
-    task_id : "8",
-    user_id: 1
+    task_id : "10",
+    user_id: req.session.user_id
   }
   console.log(req.body);
   console.log(templateVar);
@@ -229,20 +249,17 @@ app.delete("/tasks/:id", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Delete')
     } else {
-      console.log("Success6");
-      res.render("personal");
+      console.log("Success");
+      res.redirect("/tasks");
     }
   });
-  res.redirect("/tasks");
 });
 
 // displays profile editing page of specific user
 app.get("/profile/:id", (req, res) => {
 
 let templateVar = {
-  // userName : req.cookieSession.id
-  id : 1 // For testing, replace with actual cookie value(above line)
-
+  user_id: req.session.user_id
 }
 console.log(req.body);
 DataHelpers.dbGetUserDet(templateVar)
@@ -250,7 +267,7 @@ DataHelpers.dbGetUserDet(templateVar)
   if (!data) {
     res.status(403).send('Failed to get details for user')
   } else {
-    console.log("Success7");
+    console.log("Success");
     console.log(data);
     res.render("profile", data);
     }
@@ -261,8 +278,8 @@ DataHelpers.dbGetUserDet(templateVar)
 // updates user profile
 app.put("/profile", (req, res) => {
   let templateVar = {
-    // id : req.cookieSession.id,
-    id : "1",
+    // id : req.session.id,
+    user_id: req.session.user_id,
     first_name : "Kermit",
     last_name : "Lee",
     address : "ON",
@@ -277,7 +294,7 @@ app.put("/profile", (req, res) => {
     if (!data) {
       res.status(403).send('Failed to Update specific user')
     } else {
-      console.log("Success8");
+      console.log("Success");
       res.render("personal");
     }
   });
