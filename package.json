@@ -12,6 +12,7 @@
     "author": "Lighthouse Labs",
     "license": "ISC",
     "dependencies": {
+        "api": "^1.0.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.15.2",
         "cookie-session": "^2.0.0-beta.3",

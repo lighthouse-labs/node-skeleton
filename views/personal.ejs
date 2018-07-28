@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/personal.css" type="text/css" />
 
-
+    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
     <header class="header">
-      <h1>${user} ToDo List</h1>
+      <h1><%= data[0].task_name %> ToDo List</h1>
       <div></div>
       <form action="/logout" method="POST">
         <button class="header-logout">Logout</button>
@@ -65,6 +65,9 @@
               <input class="checkbox" type="checkbox" name="important" value="important">
             </div>
           </div>
+
+          <div id="newTask" class="task"></div>
+
         </div>
       </section>
 
@@ -88,17 +91,9 @@
       <section class="tasks">
         <div class="products">
           <h2>Products</h2>
-          <div class="task">
-            <div class="task_header">
-              <input class="checkbox" type="checkbox" name="completed" value="completed">
-              <h3>Headphones</h3>
-            </div>
-            <a class="link" href="">https://www.ebay.com</a>
-            <div class="task_info">
-              <p>Created On: 2018-07-26</p>
-              <input class="checkbox" type="checkbox" name="important" value="important">
-            </div>
-          </div>
+          <% data.filter(t => t.category_name === 'To Read').forEach((task) => { %>
+            <%- include('./_partials/_taskCard.ejs', { task: task }) %>
+          <% }) %>
         </div>
       </section>
     </main>

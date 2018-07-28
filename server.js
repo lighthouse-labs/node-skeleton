@@ -2,12 +2,12 @@
 
 require('dotenv').config();
 
-const PORT          = process.env.PORT || 8080;
-const ENV           = process.env.ENV || "development";
-const express       = require("express");
-const bodyParser    = require("body-parser");
-const sass          = require("node-sass-middleware");
-const app           = express();
+const PORT        = process.env.PORT || 8080;
+const ENV         = process.env.ENV || "development";
+const express     = require("express");
+const bodyParser  = require("body-parser");
+const sass        = require("node-sass-middleware");
+const app         = express();
 const bcrypt        = require("bcryptjs");
 const cookieSession = require("cookie-session");
 const api           = require("api")
@@ -17,10 +17,21 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const DataHelpers = require("./db/util/data-helpers.js")(knex);
+
+const usersRoutes = require("./routes/users")(DataHelpers);
+
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
+//const usersRoutes = require("./routes/users");
+// ******************************************************
+// STANDARD CONSTANTS
+
+const saltRounds = 10;
 
 
+
+// ******************************************************
+//USES
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -41,7 +52,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+// app.use("/api/users", usersRoutes(knex));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -55,166 +66,226 @@ app.use(cookieSession({
 // ******************************************************
 // FUNCTIONS
 
-// function encryptedString(nakedPassword) {
-//   var tempStr = "qwe"
-//   const encrpytedPassword = bcrypt.hashSync(tempStr, 10);
-//   return encrpytedPassword;
-// };
-// function userAuthorization(userName, userPassword){
-//   const tempPassword = getsUserDBData(userName);
-//   if (bcrypt.compareSync(userPassword, tempPassword)){
-
-// function userAuthorization(userName, userPassword){
-//   const username = "joe";
-//   const password = "12345";
-//   if (username === userName && password === userPassword){
-//     return;
-//   } else {
-//     return false;
-//   }
-// };
-
-// // ******************************************************
-// CONSOLE LOG DEBUG TOOL
-app.use((req, res, next) => {
-  console.log("********** - CONSOLE LOG DEBUG TOOL - ***********");
-  console.log("req.body.username:  " + req.body.username);
-  console.log("req.body.password:  " + req.body.password);
-  console.log("req.body.firstName: " + req.body.firstName);
-  console.log("req.body.lastName:  " + req.body.lastName);
-  console.log("req.body.email:     " + req.body.email);
-  console.log("req.body.telephone: " + req.body.telephone);
-  console.log("req.body.birthdate: " + req.body.birthdate);
-  console.log("req.body.address:   " + req.body.address);
-  console.log("#################  - END OF LIST  - #############");
-  next();
-});
-// // ******************************************************
 
 
 
-// Home page
+// ******************************************************
+
+// Home page - No DB Interaction
 app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.get("/personal", (req, res) => {
-  res.render("personal");
-})
-
-app.post("/personal", (req,res) => {
-
-  const userName      = req.body.username;
-  const userPassword  = req.body.password;
-
-  if (userAuthorization(userName, userPassword)){
-    res.redirect("/personal");
-  } else {
-    res.redirect("/");
-  }
-});
-
+// Register New User page - No DB Interaction
 app.get("/register", (req, res) => {
   res.render("register");
 });
 
+// Save New User - Insert New record into todo_users table
 app.post("/register", (req, res) => {
-  const userObj = {
-    username  : req.body.username,
-    password  : req.body.password,
-    first_name: req.body.firstName,
-    last_name : req.body.lastName,
-    address   : req.body.address,
-    email     : req.body.email,
-    mobile    : req.body.tel,
-    dob       : req.body.birthdate, // check format output from page -- sent as HTML type 'date'
-    gender    : req.body.gender,
-  }
+let templateVar = {
+  userName : req.body.username,
+  password : req.body.password,
+  email : req.body.email,
+  first_name : req.body.firstName,
+  last_name : req.body.lastName,
+  address : req.body.address,
+  mobile : req.body.telephone,
+  dob : req.body.birthdate || "01/01/1980",
+  gender : req.body.gender || "U"
+}
+  console.log(req.body);
+  DataHelpers.dbInsertUser(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Username already exists - try a different one')
+    } else {
+      console.log("Success");
+      res.render("personal");
+    }
+  });
 
-//  knexMakeNewUser(userObj);
-
-  res.redirect("/personal");
 });
 
+
+// Dashboard - Check if the Username and Password checks out with the DB.
+app.post("/login", (req,res) => {
+  const userName = req.body.username;
+  const userPassword  = req.body.password;
+
+  DataHelpers.dbCheckUser(userName, userPassword)
+  .then(function(data) {
+    console.log('X',data);
+    if (!data) {
+      res.status(403).send('Username or Password is incorrect - please check again')
+    } else {
+      console.log("Success");
+      res.redirect("/personal");
+    }
+  });
+});
+
+// Dashboard - Get all the Tasks from the DB for the logged in User.
 app.get("/personal", (req, res) => {
-// what we need from the DB:tasks
-// key = serverVar : value = DBcolumn
-  // const DBTemplateVars = {
-  //   task_name
-  //   user_id
-  //   category_id
-  //   url
-  //   priority
-  //   status
-  //   created_at
-  // }
-
-  res.render("personal");
-})
-
-app.get("/tasks", (req, res) => {
-  res.render("tasks");
+  let templateVar = {
+    userid: "1"
+  }
+  console.log(req.body);
+  DataHelpers
+  .dbAllGetTasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Insert')
+    } else {
+      console.log("Success");
+      let taskData = { data }
+      console.log(taskData);
+      res.render("personal", taskData);
+    }
+  });
+  // res.render("personal");
 });
 
-// WOULD DISPLAY A NEW TASK PAGE
-// app.get("/tasks/new", (req, res) => {
-//   res.render("newTask");
-// });
+// Show New Task screen the logged in User. No DB Interaction.
+app.get("/tasks/new", (req, res) => {
+  res.render("newTask");
+});
 
+// Insert New Task for the logged in User into DB .
 app.post("/tasks", (req, res) => {
-  res.redirect("/tasks"); // redirect to tasks of specific id
+  let templateVar = {
+    task_name : "Hard Disk",
+    userid: "1",
+    category_id : "4",
+    url : "www.seagate.com",
+    priority : "false",
+    status : "false"
+  }
+  console.log(req.body);
+  DataHelpers.dbInsertTask(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Insert')
+    } else {
+      console.log("Success");
+      res.render("personal");
+    }
+  });
+  // res.redirect("/tasks"); // redirect to tasks of specific id
 });
 
 // displays page of a tasks of a specific id
 app.get("/tasks/:id", (req, res) => {
-  res.render("tasks");
-});
+  let templateVar = {
+    userid: "1",
+    taskid: "5"
+  }
+  console.log(req.body);
+  DataHelpers.dbGet1Tasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Insert')
+    } else {
+      console.log("Success");
+      res.render("tasks");
+    }
+  });
 
-// displays page of tasks for editing for a specific id
-app.get("/tasks/:id/edit", (req, res) => {
-  res.render("tasks/edit");
 });
 
 // add a task of a specific id
 app.put("/tasks/:id", (req, res) => {
+  let templateVar = {
+    task_id : "8",
+    task_name : "Hard Disk",
+    userid: "1",
+    category_id : "3",
+    url : "www.seagate.ca",
+    priority : "false",
+    status : "false"
+  }
+  console.log(req.body);
+  DataHelpers.dbUpdate1Tasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Update')
+    } else {
+      console.log("Success");
+      res.render("personal");
+    }
+  });
   res.redirect("/tasks/:id");
 });
 
 // delete call for removing specific task
 app.delete("/tasks/:id", (req, res) => {
+  let templateVar = {
+    task_id : "8",
+    user_id: 1
+  }
+  console.log(req.body);
+  console.log(templateVar);
+  DataHelpers.dbDelete1Tasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Delete')
+    } else {
+      console.log("Success");
+      res.render("personal");
+    }
+  });
   res.redirect("/tasks");
 });
 
 // displays profile editing page of specific user
-app.get("/profile/:userName", (req, res) => {
+app.get("/profile/:id", (req, res) => {
 
-let templateVars = {};
-const userName = req.params.userName;
+let templateVar = {
+  // userName : req.cookieSession.id
+  id : 1 // For testing, replace with actual cookie value(above line)
 
-  knex
-    .select()
-    .from('todo_users')
-    .where('username', '=', userName)
-    .then((profile) => {
-      templateVars = {
-        username  : profile[0].username,
-        firstName : profile[0].first_name,
-        lastName  : profile[0].last_name,
-        email     : profile[0].email,
-        address   : profile[0].address,
-        telephone : profile[0].mobile,
-        birthdate : profile[0].dob,
-      }
-      console.log(templateVars);
-    })
+}
+console.log(req.body);
+DataHelpers.dbGetUserDet(templateVar)
+.then(function(data) {
+  if (!data) {
+    res.status(403).send('Failed to get details for user')
+  } else {
+    console.log("Success");
+    console.log(data);
+    res.render("profile", data);
+    }
+});
 
-  res.render("profile", templateVars);
 });
 
 // updates user profile
 app.put("/profile", (req, res) => {
-  res.redirect("/tasks"); // TBD
+  let templateVar = {
+    // id : req.cookieSession.id,
+    id : "1",
+    first_name : "Kermit",
+    last_name : "Lee",
+    address : "ON",
+    email : "joe@joe.ca",
+    mobile : "2222222",
+    dob : "01/01/1980",
+    gender : "M"
+  }
+  console.log(req.body);
+  DataHelpers.dbUpdate1User(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Update specific user')
+    } else {
+      console.log("Success");
+      res.render("personal");
+    }
+  });
+
+  // res.redirect("/tasks"); // TBD
 });
+
 
 // ******************************************************
 

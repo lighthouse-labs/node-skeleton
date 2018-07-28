@@ -43,7 +43,16 @@ module.exports = function makeDataHelpers(knex) {
                             resolve(false);
                         } else {
                             knex('todo_users')
-                                .insert({ username: newUser.userName, password: newUser.password, email: newUser.email, first_name: newUser.first_name, last_name: newUser.last_name, address: newUser.address, mobile: newUser.mobile, dob: newUser.dob, gender: newUser.gender })
+                                .insert({ username: newUser.userName,
+                                          password: newUser.password,
+                                          email: newUser.email,
+                                          first_name: newUser.first_name,
+                                          last_name: newUser.last_name,
+                                          address: newUser.address,
+                                          mobile: newUser.mobile,
+                                          dob: newUser.dob,
+                                          gender: newUser.gender
+                                        })
                                 .returning('id')
                                 .then((newuser) => {
                                     resolve(true);
@@ -52,17 +61,17 @@ module.exports = function makeDataHelpers(knex) {
                     }).catch(console.error)
             });
         },
-        // Leads from the Add new Task Page. 
+        // Leads from the Add new Task Page.
         // Takes an Object as Input. Returns true if inserted and false otherwise.
         dbInsertTask: (newTask) => {
             return new Promise((resolve, reject) => {
                 knex
                     .insert({ task_name : newTask.task_name,
-                              userid: newTask.userid, 
-                              category_id : newTask.category_id, 
-                              url : newTask.url, 
-                              priority : newTask.priority, 
-                              status : newTask.status 
+                              user_id: newTask.userid,
+                              category_id : newTask.category_id,
+                              url : newTask.url,
+                              priority : newTask.priority,
+                              status : newTask.status
                             })
                     .into('tasks')
                     .returning('id')
@@ -75,19 +84,17 @@ module.exports = function makeDataHelpers(knex) {
                     })
             });
         },
-        // Leads from the Task Page to display all tasks for the user. 
+        // Leads from the Task Page to display all tasks for the user.
         // Takes an Object as Input. Returns object with all tasks. Else returns false if no records found.
         dbAllGetTasks: (validUser) => {
             return new Promise((resolve, reject) => {
                 knex
-                    .select('id', 'taskname', 'user_id', 'category_name', 'url', 'priority', 'status', 'EXTRACT(EPOCH FROM created_at) * 100000 AS created_at')
+                    .select('tasks.id', 'task_name', 'tasks.user_id', 'category.category_name', 'url', 'priority', 'status', 'tasks.created_at')
                     .join('category', 'tasks.category_id', '=', 'category.id')
                     .orderBy('priority', 'asc')
-                    .orderBy('name', 'desc')
+                    .orderBy('created_at', 'desc')
                     .from('tasks')
-                    .where({
-                        username, username
-                    })
+                    .where('tasks.user_id', validUser.userid)
                     .then((output) => {
                         if (output.length > 0) {
                             resolve(output);
@@ -97,21 +104,21 @@ module.exports = function makeDataHelpers(knex) {
                     })
             });
         },
-        // Leads from the edit Task Page to update specific task. 
+        // Leads from the edit Task Page to update specific task.
         // Takes an Object as Input. Returns true if record is updated Else returns false.
         dbUpdate1Tasks: (taskId) => {
             return new Promise((resolve, reject) => {
                 knex('tasks')
                     .update({
-                            taskname : taskId.task_name, 
+                            taskname : taskId.task_name,
                             user_id : user_id,
                             category_id : category_id,
-                            url : url, 
-                            priority : priority, 
+                            url : url,
+                            priority : priority,
                             status : status,
                             updated_at : knex.fn.now()
                         })
-                    .where ('id',taskID.task_id)    
+                    .where ('id',taskID.task_id)
                     .returning('id')
                     .then((output) => {
                         if (output.length > 0) {
@@ -121,9 +128,9 @@ module.exports = function makeDataHelpers(knex) {
                         }
                     })
             });
-        }, 
+        },
 
-        // Leads from the Task Page to display selected tasks under the user. 
+        // Leads from the Task Page to display selected tasks under the user.
         // Takes an Object as Input. Returns object with specified tasks. Else returns false if no records found.
         dbGet1Tasks: (taskId) => {
             return new Promise((resolve, reject) => {
@@ -133,8 +140,8 @@ module.exports = function makeDataHelpers(knex) {
                     .orderBy('name', 'desc')
                     .from('tasks')
                     .where({
-                        username, username,
-                        user_id, taskID:user_id
+                        'id': taskId.userid,
+                        'user_id': taskID.taskid
                     })
                     .then((output) => {
                         if (output.length > 0) {
@@ -146,16 +153,17 @@ module.exports = function makeDataHelpers(knex) {
             });
         },
 
-        // Leads from the Task Delete Page to delete specific tasks under the user. 
+        // Leads from the Task Delete Page to delete specific tasks under the user.
         // Takes an Object as Input. Returns true if deleted. Else returns false if no records found.
         dbDelete1Tasks: (taskId) => {
             return new Promise((resolve, reject) => {
+                console.log('Delete Task',taskID);
                 knex
                     .delete()
                     .from('tasks')
                     .where({
-                        username, username,
-                        user_id, taskID:user_id
+                        // 'user_id': taskID.user_id,
+                        'id': 8
                     })
                     .then((output) => {
                         if (output.length > 0) {
@@ -167,44 +175,40 @@ module.exports = function makeDataHelpers(knex) {
             });
         },
 
-        // Leads from the Task Delete Page to delete specific tasks under the user. 
-        // Takes an Object as Input. Returns true if deleted. Else returns false if no records found.
+        // Leads from the Edit User Page to retrieve details for the specific user.
+        // Takes an Object as Input. Returns details if available. Else returns false if no records found.
         dbGetUserDet: (userId) => {
             return new Promise((resolve, reject) => {
+                console.log('XYZ',userId.id);
                 knex
                     .select('id', 'username', 'first_name', 'last_name', 'address', 'email', 'mobile', 'dob', 'gender', 'rating')
                     .from('todo_users')
-                    .where({
-                        user_id, userId:user_id
-                    })
+                    .where("id", userId.id)
                     .then((output) => {
                         if (output.length > 0) {
-                            resolve(true);
+                            resolve(output);
                         } else {
-                            resolve(false);
+                            reject(false);
                         }
                     })
             });
         },
 
-        // Leads from the edit User Profile Page to update specific User. 
+        // Leads from the edit User Profile Page to update specific User.
         // Takes an Object as Input. Returns true if record is updated Else returns false.
         dbUpdate1User: (userId) => {
             return new Promise((resolve, reject) => {
                 knex('todo_users')
                     .update({
-                        id : userId.id, 
-                        username : userId.username, 
-                        first_name : userId.first_name, 
-                        last_name : userId.last_name, 
-                        address : userId.address, 
-                        email : userId.email, 
-                        mobile : userId.mobile, 
-                        dob : userId.dob, 
-                        gender : userId.gender, 
-                        rating : userId.rating
+                        first_name : userId.first_name,
+                        last_name : userId.last_name,
+                        address : userId.address,
+                        email : userId.email,
+                        mobile : userId.mobile,
+                        dob : userId.dob,
+                        gender : userId.gender,
                         })
-                    .where ('id',userId.task_id)    
+                    .where ('id',userId.id)
                     .returning('id')
                     .then((output) => {
                         if (output.length > 0) {
@@ -214,9 +218,9 @@ module.exports = function makeDataHelpers(knex) {
                         }
                     })
             });
-        }        
+        }
 
-        
-        
+
+
     } //end of Datahelper return
-} // end of datahelper
+}
