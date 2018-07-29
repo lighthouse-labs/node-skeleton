@@ -1,10 +1,19 @@
-<div class="task">
+<div class="task taskId" data-taskId="<%= locals.task.id %>">
   <div class="task_header">
-    <input class="checkbox" type="checkbox" name="completed" value="completed">
     <h3><%= locals.task.task_name %></h3>
   </div>
   <div class="task_info">
-    <p>Created On: <%= locals.task.created_at %>
-    <input class="checkbox" type="checkbox" name="important" value="important">
+    <p>Created On: <%= locals.task.created_at %></p>
+  </div>
+  <div class="buttons">
+    <form method="POST" action="/personal/<%= locals.task.id %>/status">
+       <button class="button-important">Important</button>
+    </form>
+    <form method="POST" action="/personal/<%= locals.task.id %>/complete">
+       <button class="button-complete">Complete</button>
+    </form>
+    <form method="POST" action="/personal/<%= locals.task.id %>/delete">
+      <button class="button-delete">Delete</button>
+    </form>
   </div>
 </div>

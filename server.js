@@ -139,7 +139,7 @@ app.post("/login", (req,res) => {
 // Logout and clear the cookies.
 app.post("/logout", (req,res) => {
   res.clearCookie('user_id');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 
@@ -155,11 +155,10 @@ app.get("/personal", (req, res) => {
       res.status(403).send('Failed to Insert')
     } else {
       console.log("Success");
-      console.log(data);
-      res.render("personal",data);
+      let taskData = { data }
+      res.render("personal", taskData);
     }
   });
-  // res.render("personal");
 });
 
 // Show New Task screen the logged in User. No DB Interaction.
@@ -195,7 +194,7 @@ app.post("/tasks", (req, res) => {
 app.get("/tasks/:id", (req, res) => {
   let templateVar = {
     user_id: req.session.user_id,
-    taskid: "5"
+    taskid: '5'
   }
   console.log(req.body);
   console.log(templateVar);
@@ -209,7 +208,6 @@ app.get("/tasks/:id", (req, res) => {
       res.render("tasks");
     }
   });
-
 });
 
 // add a task of a specific id
@@ -237,9 +235,9 @@ app.put("/tasks/:id", (req, res) => {
 });
 
 // delete call for removing specific task
-app.delete("/tasks/:id", (req, res) => {
+app.post("/personal/:id/delete", (req, res) => {
   let templateVar = {
-    task_id : "10",
+    task_id : req.params.id,
     user_id: req.session.user_id
   }
   console.log(req.body);
@@ -250,7 +248,7 @@ app.delete("/tasks/:id", (req, res) => {
       res.status(403).send('Failed to Delete')
     } else {
       console.log("Success");
-      res.redirect("/tasks");
+      res.redirect("/personal");
     }
   });
 });
@@ -258,21 +256,20 @@ app.delete("/tasks/:id", (req, res) => {
 // displays profile editing page of specific user
 app.get("/profile/:id", (req, res) => {
 
-let templateVar = {
-  user_id: req.session.user_id
-}
-console.log(req.body);
-DataHelpers.dbGetUserDet(templateVar)
-.then(function(data) {
-  if (!data) {
-    res.status(403).send('Failed to get details for user')
-  } else {
-    console.log("Success");
-    console.log(data);
-    res.render("profile", data);
-    }
-});
-
+  let templateVar = {
+    user_id: req.session.user_id
+  }
+  console.log(req.body);
+  DataHelpers.dbGetUserDet(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to get details for user')
+    } else {
+      console.log("Success");
+      console.log(data);
+      res.render("profile", data);
+      }
+  });
 });
 
 // updates user profile
@@ -298,8 +295,6 @@ app.put("/profile", (req, res) => {
       res.render("personal");
     }
   });
-
-  // res.redirect("/tasks"); // TBD
 });
 
 

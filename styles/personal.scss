@@ -1,10 +1,5 @@
 body {
   background-color: #eee;
-  // background-image: url("../imgs/matt-bluejay-734298-unsplash.jpg");
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // margin-top: 100px;
 
   .header {
     align-items: center;
@@ -68,6 +63,7 @@ body {
       width: 22%;
 
       .films, .books, .restaurants, .products {
+        background-color: #fff;
         border: 1px solid #000;
         border-radius: 10px;
         display: flex;
@@ -91,33 +87,11 @@ body {
             display: flex;
             margin: 10px;
 
-            .checkbox {
-              -webkit-appearance: none;
-              background-color: #fff;
-              border: 1px solid #cacece;
-              border-radius: 3px;
-              display: inline-block;
-              padding: 9px;
-              position: absolute;
-
-              &:checked {
-                background-color: #0000ff;
-                border: 1px solid #adb8c0;
-              }
-            }
-
             h3 {
               margin: 0 auto;
               padding: 0;
               text-decoration: underline;
             }
-          }
-
-          .link {
-            color: blue;
-            display: block;
-            padding: 0 10px;
-            text-align: center;
           }
 
           .task_info {
@@ -130,19 +104,29 @@ body {
               margin: 0;
               padding: 0;
             }
+          }
 
-            .checkbox {
-              -webkit-appearance: none;
+          .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+
+            .button-important {
               background-color: #fff;
-              border: 1px solid #cacece;
-              border-radius: 3px;
-              display: inline-block;
-              padding: 9px;
+              border: 1px solid black;
+              border-radius: 5px;
+            }
 
-              &:checked {
-                background-color: #0000ff;
-                border: 1px solid #adb8c0;
-              }
+            .button-complete {
+              background-color: #fff;
+              border: 1px solid black;
+              border-radius: 5px;
+            }
+
+            .button-delete {
+              background-color: #fff;
+              border: 1px solid black;
+              border-radius: 5px;
             }
           }
         }

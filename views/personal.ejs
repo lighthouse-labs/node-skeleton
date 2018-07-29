@@ -46,20 +46,20 @@
       </section>
 
       <section class="tasks">
-        <div class="books">
-          <h2>Books</h2>
+        <div class="restaurants">
+          <h2>Restaurants</h2>
           <!-- <div id="newTask" class="task"></div> -->
-          <% data.filter(t => t.category_name === 'To Read').forEach((task) => { %>
+          <% data.filter(t => t.category_name === 'To Eat').forEach((task) => { %>
             <%- include('./_partials/_taskCard.ejs', { task: task }) %>
           <% }) %>
         </div>
       </section>
 
       <section class="tasks">
-        <div class="restaurants">
-          <h2>Restaurants</h2>
+        <div class="books">
+          <h2>Books</h2>
           <!-- <div id="newTask" class="task"></div> -->
-          <% data.filter(t => t.category_name === 'To Eat').forEach((task) => { %>
+          <% data.filter(t => t.category_name === 'To Read').forEach((task) => { %>
             <%- include('./_partials/_taskCard.ejs', { task: task }) %>
           <% }) %>
         </div>

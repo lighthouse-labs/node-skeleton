@@ -1,109 +1,130 @@
 body {
-  background-color: #fff;
+  background-color: #eee;
 
   .about {
-    // background-image: url("../public/imgs/teddy-kelley-70401-unsplash.jpg");
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+    display: block;
+    margin: 25px auto;
+    width: 50%;
+
+    .about-title {
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .about-subtitle {
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      text-align: center;
+    }
   }
 
-  .sampleTaskList {
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  main {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
-    margin: 0 auto;
-    width: 90%;
+    margin-top: 25px;
+    width: 100%;
 
-    .sample-films {
-      background-color: #8c1010;
-    }
-
-    .sample-books {
-      background-color: #0a5606;
-    }
-
-    .sample-restaurants {
-      background-color: #350656;
-    }
-
-    .sample-products {
-      background-color: #c4710b;
-    }
-
-    .sample-films, .sample-books, .sample-restaurants, .sample-products {
-      border: 1px solid #000;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
+    .tasks {
       width: 22%;
 
-      h2 {
-        text-align: center;
-        text-decoration: underline;
-      }
-
-      .sample-task {
+      .films, .books, .restaurants, .products {
         background-color: #fff;
-        border: 1px solid black;
-        border-radius: 5px;
-        margin: 10px auto;
-        max-width: 90%;
-        min-width: 90%;
+        border: 1px solid #000;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
 
-        .sample-task_header {
-          align-content: center;
-          display: flex;
-          margin: 10px;
-
-          .checkbox {
-            -webkit-appearance: none;
-            background-color: #fff;
-            border: 1px solid #cacece;
-            border-radius: 3px;
-            display: inline-block;
-            padding: 9px;
-            position: absolute;
-
-            &:checked {
-              background-color: #0000ff;
-              border: 1px solid #adb8c0;
-            }
-          }
-
-          h3 {
-            margin: 0 auto;
-            padding: 0;
-            text-decoration: underline;
-          }
-        }
-
-        .link {
-          color: blue;
-          display: block;
-          padding: 0 10px;
+        h2 {
           text-align: center;
+          text-decoration: underline;
         }
 
-        .sample-task_info {
-          display: flex;
-          justify-content: space-between;
-          max-width: 100%;
-          margin: 10px;
+        .task {
+          background-color: #fff;
+          border: 1px solid black;
+          border-radius: 5px;
+          margin: 10px auto;
+          max-width: 90%;
+          min-width: 90%;
 
-          p {
-            margin: 0;
-            padding: 0;
+          .task_header {
+            align-content: center;
+            display: flex;
+            margin: 10px;
+
+            // .checkbox {
+            //   -webkit-appearance: none;
+            //   background-color: #fff;
+            //   border: 1px solid #cacece;
+            //   border-radius: 3px;
+            //   display: inline-block;
+            //   padding: 9px;
+            //   position: absolute;
+
+              // &:checked {
+              //   background-color: #0000ff;
+              //   border: 1px solid #adb8c0;
+              // }
+            // }
+
+            h3 {
+              margin: 0 auto;
+              padding: 0;
+              text-decoration: underline;
+            }
           }
 
-          .checkbox {
-            -webkit-appearance: none;
-            background-color: #fff;
-            border: 1px solid #cacece;
-            border-radius: 3px;
-            display: inline-block;
-            padding: 9px;
+          .link {
+            color: blue;
+            display: block;
+            padding: 0 10px;
+            text-align: center;
+          }
 
-            &:checked {
-              background-color: #0000ff;
-              border: 1px solid #adb8c0;
+          .task_info {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%;
+            margin: 10px;
+
+            p {
+              margin: 0;
+              padding: 0;
             }
+
+            // .checkbox {
+            //   -webkit-appearance: none;
+            //   background-color: #fff;
+            //   border: 1px solid #cacece;
+            //   border-radius: 3px;
+            //   display: inline-block;
+            //   padding: 9px;
+
+              // &:checked {
+              //   background-color: #0000ff;
+            //   //   border: 1px solid #adb8c0;
+            //   }
+            // }
+          }
+
+          .buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
           }
         }
       }
