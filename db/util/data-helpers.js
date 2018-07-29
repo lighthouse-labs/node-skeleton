@@ -91,7 +91,8 @@ module.exports = function makeDataHelpers(knex) {
                 knex
                     .select('tasks.id', 'task_name', 'tasks.user_id', 'category.category_name', 'url', 'priority', 'status', 'tasks.created_at')
                     .join('category', 'tasks.category_id', '=', 'category.id')
-                    .orderBy('priority', 'asc')
+                    .orderBy('status', 'asc')
+                    .orderBy('priority', 'desc')
                     .orderBy('created_at', 'desc')
                     .from('tasks')
                     .where('tasks.user_id', validUser.user_id)
@@ -118,7 +119,7 @@ module.exports = function makeDataHelpers(knex) {
                             status : taskId.status,
                             updated_at : knex.fn.now()
                         })
-                    .where ('id',taskID.task_id)
+                    .where ('id',taskId.task_id)
                     .returning('id')
                     .then((output) => {
                         if (output.length > 0) {
@@ -129,7 +130,37 @@ module.exports = function makeDataHelpers(knex) {
                     })
             });
         },
+        // Leads from the edit Task Page to update specific task.
+        // Takes an Object as Input. Returns true if record is updated Else returns false.
+        dbUpdateTasksCatPri: (taskId) => {
+            return new Promise((resolve, reject) => {
+                var coalesce1 = knex.raw('coalesce(taskId.task_name, tasks.taskname)')
+                var coalesce2 = knex.raw('coalesce(taskId.category_id, tasks.category_id)')
+                var coalesce3 = knex.raw('coalesce(taskId.url, tasks.url)')
+                var coalesce4 = knex.raw('coalesce(taskId.priority, tasks.priority)')
+                var coalesce5 = knex.raw('coalesce(taskId.status, tasks.status)')
 
+                knex('tasks')
+                    .update({
+                        taskname: coalesce1,
+                        user_id: taskId.user_id,
+                        category_id: coalesce2,
+                        url: coalesce3,
+                        priority: coalesce4,
+                        status: coalesce5,
+                        updated_at: knex.fn.now()
+                    })
+                    .where('id', taskId.task_id)
+                    .returning('id')
+                    .then((output) => {
+                        if (output.length > 0) {
+                            resolve(true);
+                        } else {
+                            resolve(false);
+                        }
+                    })
+            });
+        },
         // Leads from the Task Page to display selected tasks under the user.
         // Takes an Object as Input. Returns object with specified tasks. Else returns false if no records found.
         dbGet1Tasks: (taskId) => {
@@ -163,7 +194,7 @@ module.exports = function makeDataHelpers(knex) {
                         'user_id': taskId.user_id,
                         'id': taskId.task_id
                     })
-                    // .returning('id')
+                    .returning('id')
                     .then((output) => {
                         if (output.length > 0) {
                             resolve(false);
@@ -223,3 +254,4 @@ module.exports = function makeDataHelpers(knex) {
 
     } //end of Datahelper return
 }
+

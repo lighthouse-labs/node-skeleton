@@ -130,6 +130,16 @@ body {
             }
           }
         }
+
+        .completed {
+          background-color: #000;
+          border: 1px solid #fff;
+          border-radius: 5px;
+          color: #fff;
+          margin: 10px auto;
+          max-width: 90%;
+          min-width: 90%;
+        }
       }
     }
   }

@@ -66,21 +66,6 @@ body {
             display: flex;
             margin: 10px;
 
-            // .checkbox {
-            //   -webkit-appearance: none;
-            //   background-color: #fff;
-            //   border: 1px solid #cacece;
-            //   border-radius: 3px;
-            //   display: inline-block;
-            //   padding: 9px;
-            //   position: absolute;
-
-              // &:checked {
-              //   background-color: #0000ff;
-              //   border: 1px solid #adb8c0;
-              // }
-            // }
-
             h3 {
               margin: 0 auto;
               padding: 0;
@@ -105,26 +90,30 @@ body {
               margin: 0;
               padding: 0;
             }
-
-            // .checkbox {
-            //   -webkit-appearance: none;
-            //   background-color: #fff;
-            //   border: 1px solid #cacece;
-            //   border-radius: 3px;
-            //   display: inline-block;
-            //   padding: 9px;
-
-              // &:checked {
-              //   background-color: #0000ff;
-            //   //   border: 1px solid #adb8c0;
-            //   }
-            // }
           }
 
           .buttons {
             display: flex;
-            flex-direction: column;
             justify-content: space-around;
+            margin: 10px 0;
+
+            .button-important {
+              background-color: #fff;
+              border: 1px solid black;
+              border-radius: 5px;
+            }
+
+            .button-complete {
+              background-color: #fff;
+              border: 1px solid black;
+              border-radius: 5px;
+            }
+
+            .button-delete {
+              background-color: #fff;
+              border: 1px solid black;
+              border-radius: 5px;
+            }
           }
         }
       }

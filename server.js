@@ -253,6 +253,44 @@ app.post("/personal/:id/delete", (req, res) => {
   });
 });
 
+// Update individual task to be IMPORTANT
+app.post("/personal/:id/status", (req, res) => {
+  let templateVar = {
+    task_id : req.params.id,
+    user_id : req.session.user_id,
+    priority : true
+  }
+
+  DataHelpers.dbUpdate1Tasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Evaluate')
+    } else {
+      console.log('Success')
+      res.redirect('/personal')
+    }
+  })
+})
+
+// Update individual task to be COMPLETED
+app.post("/personal/:id/complete", (req, res) => {
+  let templateVar = {
+    task_id : req.params.id,
+    user_id : req.session.user_id,
+    status : true
+  }
+
+  DataHelpers.dbUpdate1Tasks(templateVar)
+  .then(function(data) {
+    if (!data) {
+      res.status(403).send('Failed to Evaluate')
+    } else {
+      console.log('Success')
+      res.redirect('/personal')
+    }
+  })
+})
+
 // displays profile editing page of specific user
 app.get("/profile/:id", (req, res) => {
 
