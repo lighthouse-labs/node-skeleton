@@ -55,7 +55,7 @@ module.exports = function makeDataHelpers(knex) {
                                         })
                                 .returning('id')
                                 .then((newuser) => {
-                                    resolve(true);
+                                    resolve(newuser);
                                 })
                         }
                     }).catch(console.error)
@@ -77,7 +77,7 @@ module.exports = function makeDataHelpers(knex) {
                     .returning('id')
                     .then((output) => {
                         if (output.length > 0) {
-                            resolve(true);
+                            resolve(output);
                         } else {
                             resolve(false);
                         }

@@ -131,6 +131,11 @@ body {
           }
         }
 
+        .important {
+          border: 3px solid #000;
+          font-weight: bold;
+        }
+
         .completed {
           background-color: #000;
           border: 1px solid #fff;

@@ -24,7 +24,8 @@
         "knex-logger": "^0.1.0",
         "morgan": "^1.7.0",
         "node-sass-middleware": "^0.11.0",
-        "pg": "^6.0.2"
+        "pg": "^6.0.2",
+        "wolfram-alpha-api": "^0.2.1"
     },
     "devDependencies": {
         "nodemon": "^1.9.2"

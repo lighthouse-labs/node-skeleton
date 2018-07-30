@@ -18,6 +18,9 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const WolframAlphaAPI = require('wolfram-alpha-api');
+const waApi = WolframAlphaAPI('ULL5QV-HEQ3H8K997');
+
 const DataHelpers = require("./db/util/data-helpers.js")(knex);
 
 const usersRoutes = require("./routes/users")(DataHelpers);
@@ -28,6 +31,17 @@ const usersRoutes = require("./routes/users")(DataHelpers);
 // STANDARD CONSTANTS
 
 const saltRounds = 10;
+
+let search = process.argv[2]
+let searchStr =  'https://opentable.herokuapp.com/api/restaurants?city=Toronto&per_page=25&name=' + search;
+let userDetails;
+
+const keywordObj = {
+  book       : ["book"],
+  movie      : ["movie", "academyaward"]
+};
+
+let resultsObj = {};
 
 
 
@@ -72,8 +86,128 @@ app.use(
 // ******************************************************
 // FUNCTIONS
 
+function seedInitialRecord(userid) {
+  let templateVar = {
+    user_id: userid,
+    task_name: "Sign Up For ToDo List",
+    category_id: 4,
+    url: "www.todo.com",
+    priority: true,
+    status: true
+  }
+  console.log(templateVar);
+  DataHelpers.dbInsertTask(templateVar)
+    .then(function (data) {
+      if (!data) {
+        console.log('Insert Seed record failed')
+      } else {
+        console.log("Success - inserted 1 record into Tasks");
+      }
+    });
+}
+
+const compareWordCounter = (compareWord, queryresult) => {
+  let intMatches = JSON.stringify(queryresult).replace(/\s/g, '').toLowerCase().split(compareWord.toLowerCase()).length - 1;
+  return intMatches;
+};
+
+const wolframAPICall = (strInput) => {
+  return waApi
+  .getFull({
+    input: strInput,
+    format: 'plaintext',
+  })
+  .then((queryresult) => queryresult) //return queryresult
+  .catch((err) => {
+    console.error(err);
+    return {}
+  })
+};
+
+const getData = (url) => {
+  // Setting URL and headers for request
+  let options = {
+    url: url,
+    headers: {
+      'User-Agent': 'request'
+    }
+  };
+  // Return new promise
+  return new Promise(function(resolve, reject) {
+
+    request.get(options, function(err, resp, body) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(body);
+      }
+    })
+  })
+}
+
+const main = () => {
+  return getData(searchStr)
+  .then(body => {
+    const jsonBody = JSON.parse(body)
+    if (jsonBody.total_entries === 0){
+      return Promise.reject("no result found")
+    }
 
 
+    // if result is zero, return Promise.reject("no result found")
+    //return Promise.reject("no result found")
+    //have data for opentable
+    return Promise.resolve("2") // 2 is the category key for RESTAURANT
+  })
+  .then(function(result) { //openTable results
+    // console.log("userDeets: ", userDetails) // openTable results
+    return Promise.resolve(result);
+
+  })
+  .catch(err => { // potential WA call 1
+    return wolframAPICall(search).then((result)=>{
+      if (result.success === false) {
+        return Promise.reject("no WA data")
+      }
+      const apiResults = result;
+      for (keywordCategory in keywordObj){
+
+        if (!resultsObj[keywordCategory]) {
+          resultsObj[keywordCategory] = 0;
+        }
+
+        for (let j of keywordObj[keywordCategory]){
+
+          const compareWord = j;
+          const matchCount = compareWordCounter(compareWord, apiResults);
+          resultsObj[keywordCategory] += matchCount;
+
+        }
+      }
+      console.log("resultsObj.book: ", resultsObj.book)
+      console.log("resultsObj.movie: ", resultsObj.movie)
+      if (resultsObj){
+        if (resultsObj.book > resultsObj.movie){
+          return Promise.resolve("3")
+        } else if(resultsObj.movie > resultObj.book) {
+          return Promise.resolve("1")
+        } else{
+          return Promise.resolve("4")
+        }
+      }
+    })
+  })
+}
+
+
+function category(task) {
+  main(task).then((result) => {
+    return result
+  })
+  .catch(err => {
+    return '4'
+  })
+}
 
 // ******************************************************
 
@@ -108,7 +242,9 @@ let templateVar = {
       res.status(403).send('Username already exists - try a different one')
     } else {
       console.log("Success");
-      res.render("personal");
+      seedInitialRecord(data[0]);
+      console.log("Success - Username inserted", data[0]);
+      res.render("index");
     }
   });
 
@@ -126,7 +262,7 @@ app.post("/login", (req,res) => {
     if (!data) {
       res.status(403).send('Username or Password is incorrect - please check again')
     } else {
-      console.log("Success");
+      console.log("Successful");
       // console.log("Success", data[0].id);
       req.session.user_id = data[0].id;
       console.log("Success", req.session.user_id);
@@ -171,7 +307,7 @@ app.post("/tasks", (req, res) => {
   let templateVar = {
     task_name : "Hard Disk",
     user_id: req.session.user_id,
-    category_id : "4",
+    category_id : category("harry potter"),
     url : "www.seagate.com",
     priority : "false",
     status : "false"
@@ -184,7 +320,7 @@ app.post("/tasks", (req, res) => {
       res.status(403).send('Failed to Insert')
     } else {
       console.log("Success");
-      res.render("personal");
+      res.redirect("/personal");
     }
   });
   // res.redirect("/tasks"); // redirect to tasks of specific id
@@ -244,17 +380,13 @@ app.post("/personal/:id/delete", (req, res) => {
   console.log(templateVar);
   DataHelpers.dbDelete1Tasks(templateVar)
   .then(function(data) {
-    if (!data) {
-      res.status(403).send('Failed to Delete')
-    } else {
-      console.log("Success");
-      res.redirect("/personal");
-    }
+    console.log("Success");
+    res.redirect("/personal");
   });
 });
 
 // Update individual task to be IMPORTANT
-app.post("/personal/:id/status", (req, res) => {
+app.post("/personal/:id/priority", (req, res) => {
   let templateVar = {
     task_id : req.params.id,
     user_id : req.session.user_id,

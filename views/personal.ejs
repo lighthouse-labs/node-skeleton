@@ -14,7 +14,7 @@
 
   <body>
     <header class="header">
-      <h1><%=  %> ToDo List</h1>
+      <h1>To Do List</h1>
       <div></div>
       <form action="/logout" method="POST">
         <button class="header-logout">Logout</button>
@@ -27,7 +27,7 @@
             <h1 class="taskbar-title_task">Enter a Task</h1>
           </div>
           <div class="taskbar-form">
-            <form method="PUT" action="">
+            <form method="POST" action="/tasks">
               <input id="newTask" class="taskbar-form_input" type="text">
             </form>
           </div>
