@@ -5,9 +5,6 @@ LHL Node Skeleton
 
 1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project
 2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected.
-3. Add your teammates as collaborators (read & write) to your brand new repo
-
-![add teammates](https://i.imgur.com/taB7lRt.png)
 
 ## Getting Started
 
