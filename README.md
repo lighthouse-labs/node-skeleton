@@ -3,13 +3,14 @@ LHL Node Skeleton
 
 ## Project Setup
 
-1. Create your own empty repo on GitHub, ideally using the name of your project
-2. Clone this repository (<mark>do not fork!</mark>)
-  - When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
+The following steps are only for _one_ of the group members to perform.
+
+1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
+2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
+3. Clone your copy of the repo to your dev machine
+4. Add your team members as collaborators to the project so that they can push to this repo
+5. Let your team members know the repo URL so that they clone your copy (they should create a copy/fork of this repo since that will add additional workflow complexity to the project)
+
 
 ## Getting Started
 
