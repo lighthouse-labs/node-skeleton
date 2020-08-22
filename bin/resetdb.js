@@ -8,7 +8,14 @@ const Client = require('pg-native');
 
 // PG connection setup
 const connectionString = process.env.DATABASE_URL ||
-  `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+  `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
+
+
+
+
+
+
+Marísa Doig (Mareeeeesa)(risatronic)  5:35 PM`;
 const client = new Client();
 
 // Loads the schema files from db/schema
