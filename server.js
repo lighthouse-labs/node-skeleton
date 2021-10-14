@@ -7,7 +7,6 @@ const ENV = process.env.ENV || "development";
 const fs = require("fs");
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
 const morgan = require("morgan");
 
@@ -23,7 +22,7 @@ db.connect();
 app.use(morgan("dev"));
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/styles",
