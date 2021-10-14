@@ -2,13 +2,14 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const fs = require("fs")
+const sassMiddleware = require("./lib/sass-middleware");
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const app = express();
+const morgan = require('morgan');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -23,12 +24,25 @@ app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
-  debug: true,
-  outputStyle: 'expanded'
-}));
+
+// app.get("/styles/:css_file", (req, res, next) => {
+//   const cssFilename = req.params.css_file.replace(/\.[^/.]+$/, "")
+//   console.log(cssFilename)
+//   const rendered = sass.renderSync({
+//     file: `${__dirname}/styles/${cssFilename}.scss`,
+//     outFile: `${__dirname}/public/styles/${cssFilename}.css`,
+//     debug: true,
+//     outputStyle: 'expanded'
+//   })
+//   fs.writeFileSync(`${__dirname}/public/styles/${cssFilename}.css`, rendered.css.toString())
+//   next()
+// });
+
+app.use("/styles", sassMiddleware({
+  source: __dirname + "/styles",
+  destination: __dirname + "/public/styles",
+  isSass: true
+}))
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
@@ -42,10 +56,11 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
-
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+
 app.get("/", (req, res) => {
   res.render("index");
 });
