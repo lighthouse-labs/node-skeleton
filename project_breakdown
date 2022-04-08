@@ -37,6 +37,7 @@ Admin
 
   ## ERD
   - nouns:
+
   - User (users/admins)
     - user_id PK
     - name
@@ -66,9 +67,16 @@ Admin
 
  - Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
 
-Routes
+ ### Routes
 Once you know the resources that you'll have, write out the routes that you'll need to perform BREAD operations on those resources
 Remember RESTful conventions (they make it much easier)
+  - home "/"
+  - my listings '/listings'
+  - specific item listing '/listing/:id'
+  - inbox '/inbox' ? drop down of recent messages from '/'
+  - favorites '/favorites'
+  - new listing '/new'
+
 MVP vs MVD
 There is a concept in development of an MVP, the Minimum Viable Product
 An MVP has just enough features to be useful to a user
