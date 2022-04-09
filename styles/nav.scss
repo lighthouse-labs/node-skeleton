@@ -57,6 +57,7 @@ headers {
           color: black;
           transform: scale(1.1);
           opacity: 1;
+          cursor: pointer;
         }
       }
 
@@ -75,6 +76,17 @@ headers {
       span {
         margin-right: 15px;
       }
+    }
+  }
+
+  .filterOptions {
+    display: none;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1%;
+
+    div {
+      margin: 0 5px 0 5px;
     }
   }
 }
