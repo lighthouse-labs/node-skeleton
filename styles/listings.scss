@@ -1,0 +1,33 @@
+@import './partials/';
+
+.posts {
+  border: solid;
+  width: 80vw;
+  height: 35vh;
+  margin: 5% 0 5% 0;
+  @include flexRow;
+
+  .carPhoto {
+    border-right: solid;
+  }
+  .postBox {
+    @include flexColumn;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .postTitle {
+    //deleteable v
+    border-top: solid;
+    border-bottom: solid;
+    //deleteable ^
+    margin-top: 2px;
+  }
+  .description {
+    //deleteable v
+    border-top: solid;
+    border-bottom: solid;
+    //deleteable ^
+    height: 50%;
+    margin-bottom: 2px;
+  }
+}
