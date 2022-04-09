@@ -1,5 +1,4 @@
-@import './partials/mixins';
-
+@import "./partials/mixins";
 
 headers {
   display: flex;
@@ -15,26 +14,40 @@ headers {
     align-items: center;
     position: sticky;
     top: 0;
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(148,187,233,1) 51%);
+    background: rgb(255, 255, 255);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(148, 187, 233, 1) 51%
+    );
     box-shadow: 0 5px 2px -2px #45a6fc;
 
-    .navTop  {
+    .navTop {
       width: 100%;
       display: flex;
       flex-direction: row;
       margin-top: 15px;
     }
-    .navBottom  {
+
+    .navBottom {
       margin-top: 0;
       width: 80%;
       display: flex;
       flex-direction: row;
-      justify-content: end;
+      justify-content: space-around;
     }
 
-    .tabs{
-     margin: 5px 5px 10px 5px;
+    .tabs {
+      border: 1px solid rgb(0, 81, 255);
+      margin-top: 1px;
+      padding: 8px;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
     }
 
     .navTitle {
@@ -69,9 +82,11 @@ headers {
       justify-content: center;
 
       .filter {
-        position: absolute;
-        top: 60%;
+        display: flex;
+        flex-direction: row;
+        margin-left: 5px;
         opacity: 0.3;
+
         &:hover {
           color: black;
           transform: scale(1.1);
@@ -90,7 +105,7 @@ headers {
       justify-content: flex-end;
       align-items: center;
       width: 20%;
-      margin: 0 5px 0 5px;
+      margin: 0 15px 0 5px;
       span {
         margin-right: 15px;
       }
@@ -98,10 +113,10 @@ headers {
 
     .newPost {
       @include flexRow;
-      position: absolute;
-      top: 60%;
-      left: 55%;
-      opacity: 0.3;
+      // position: absolute;
+      // top: 60%;
+      // left: 55%;
+      // opacity: 0.3;
       &:hover {
         opacity: 1;
         transform: scale(1.1);
@@ -128,7 +143,7 @@ headers {
     background-color: red;
 
     label {
-      margin-right: 10px
+      margin-right: 10px;
     }
 
     div {
@@ -138,5 +153,30 @@ headers {
     section {
       @include flexRow;
     }
+  }
+
+  .messageBox {
+    position: fixed;
+    top: 75px;
+    width: 100%;
+    display: flex;
+    flex-direction: flex-row;
+    justify-content: end;
+  }
+
+  .inbox {
+    width: 25%;
+    min-height: 20vh;
+    display: none;
+    // display: flex; onClick EVENT
+    flex-direction: column;
+    border: solid;
+    background-color: #d8d5d5;
+  }
+
+  .message {
+    border: solid;
+    padding: 5px;
+    text-align: center;
   }
 }
