@@ -1,100 +1,100 @@
-### W05D05 - Mid-term Project Kickoff
+# W05D05 - Mid-term Project Kickoff
 
-  ## Pick a Project
-   - Buy/Sell Listing Website
+## Pick a Project
 
-  ## User Stories
-  Users
-  - As a user, I want to browse, to buy.
-  - As a user, I want to filter searches by price.
-  - As a user, I can send Admin a message.
-  - As a user, I can add items to favorite list.
-  - As a nonlogged in user, I cannot make purchases.
-  Admins
-  - As a admin, I want to post, to sell.
-  - As a admin, I want to preview, items to sell.
-  - As a admin, I want to preview, items I've sold.
-  - As a admin, I want to remove, items from list.
-  - As a admin, I want to mark, items as sold.
-  - As an Admin, I can reply to user messages(via app/email/text).
-  - As a nonlogged in Admin, I cannot post items.
+- Buy/Sell Listing Website
 
-  ## User Scenarios
+## User Stories
 
-" Given __, when _, then ____."
-User
- - Given that I am logged in, when I click to on main feed, then featured items are displayed.
- - Given that I am logged in, when I click on purchased items, then list of purchased items is displayed.
- - Given that I am logged in, when I click message seller, then message can be delivered to Admin.
- - Given that I am logged in, when I click on favorite button, item is displayed on favorite list.
- - Given that I am NOT logged in, when I click on listed item, redirect to login page.
-Admin
- - Given that I am logged in, when I click to post an item to sell, then it is added to my listings.
- - Given that I am logged in, when I click preview items to sell, then listings page is displayed.
- - Given that I am logged in, when I click sold on item, item will display 'SOLD'.
- - Given that I am logged in, when I click reply to message, then message can be delivered to user.
- - Given that I am NOT logged in, when I click on post an item, redirect to login page.
+### Users
 
-  ## ERD
-  - nouns:
+- As a User, I want to browse, to buy.
+- As a User, I want to filter searches by price.
+- As a User, I can send Admin a message.
+- As a User, I can add items to favorite list.
+- As a nonlogged in User, I cannot make purchases.
 
-  - User (users/admins)
-    - user_id PK
-    - name
-    - email
-    - password
-    - admin (boolean)
+### Admins
 
-  - Listings (items to sell)
-    - id PK
-    - user_id FK
-    - price
-    - photo
-    - message
-    - odometer
-    - make
-    - model
-    - transmission
-    - year
-    - color
-    - description
-    -cold (boolean)
+- As a Admin, I want to post, to sell.
+- As a Admin, I want to preview, items to sell.
+- As a Admin, I want to preview, items I've sold.
+- As a Admin, I want to remove, items from list.
+- As a Admin, I want to mark, items as sold.
+- As an Admin, I can reply to User messages(via app/email/text).
+- As a nonlogged in Admin, I cannot post items.
 
-  - Favorites (items to buy)
-    - id PK
-    - user_id FK
-    - listing_id FK
-    - active (boolean)
+## User Scenarios
 
-  - Messages (Send a message to seller)
-    - id PK
-    - listing_id FK
-    - DateTime
-    - active (boolean)
+"Given **, when \_, then \_\_**."
 
-  - MessageListing
-    - id PK
-    - sender_id FK
-    - receiver_id FK
-    - message_id FK
-    - messageText
+### User
 
+- Given that I am logged in, when I click to on main feed, then featured items are displayed.
+- Given that I am logged in, when I click on purchased items, then list of purchased items is displayed.
+- Given that I am logged in, when I click message seller, then message can be delivered to Admin.
+- Given that I am logged in, when I click on favorite button, item is displayed on favorite list.
+- Given that I am NOT logged in, when I click on listed item, redirect to login page.
 
- - Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
+### Admin
 
- ### Routes
+- Given that I am logged in, when I click to post an item to sell, then it is added to my listings.
+- Given that I am logged in, when I click preview items to sell, then listings page is displayed.
+- Given that I am logged in, when I click sold on item, item will display 'SOLD'.
+- Given that I am logged in, when I click reply to message, then message can be delivered to User.
+- Given that I am NOT logged in, when I click on post an item, redirect to login page.
+
+## ERD
+
+### Nouns:
+
+- User (Users/Admins)
+
+  - User_id PK
+  - name
+  - email
+  - password
+  - Admin (boolean)
+
+- Posts (items to sell)
+
+  - item_id PK
+  - seller_id FK
+  - price
+  - photo
+  - message
+  - odometer
+  - make
+  - model
+  - transmission
+  - year
+  - color
+  - description
+
+- Favorites (items to buy)
+
+  - favorite_id PK
+  - item_id FK
+  - User_id FK
+
+- Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
+
+## Routes
+
 Once you know the resources that you'll have, write out the routes that you'll need to perform BREAD operations on those resources
 Remember RESTful conventions (they make it much easier)
-  - home "/"
-  - my listings '/listings'
-  - specific item listing '/listing/:id'
-  - inbox '/inbox' ? drop down of recent messages from '/'
-  - favorites '/favorites'
-  - new listing '/new'
 
-MVP vs MVD
+- home "/"
+- my listings '/listings'
+- specific item listing '/listing/:id'
+- inbox '/inbox' ? drop down of recent messages from '/'
+- favorites '/favorites'
+- new listing '/new'
+
+## MVP vs MVD
+
 There is a concept in development of an MVP, the Minimum Viable Product
-An MVP has just enough features to be useful to a user
+An MVP has just enough features to be useful to a User
 This concept helps streamline the development process and help keep the team on target
 For mid-terms, we want to focus on the MVD, the Minimum Viable Demo
 If you aren't going to demo it, don't build it
@@ -104,40 +104,40 @@ This will make it much easier to build out these pages later
 This is also a great opportunity to get input from all of the team members
 Design matters... however you are a developer, not a designer
 Get inspiration from websites you visit
-User Login
+
+## User Login
+
 Don't do it
 Seriously, don't do it
-We know that you know how to register and login users
+We know that you know how to register and login Users
+
+```js
 // do this instead
-app.get('/login/:id', (req, res) => {
+app.get("/login/:id", (req, res) => {
   // using encrypted cookies
-  req.session.user_id = req.params.id;
+  req.session.User_id = req.params.id;
 
   // or using plain-text cookies
-  res.cookie('user_id', req.params.id);
+  res.cookie("User_id", req.params.id);
 
-  // send the user somewhere
-  res.redirect('/');
+  // send the User somewhere
+  res.redirect("/");
 });
-Tech Choices
+```
+
+## Tech Choices
+
 We have made all the tech choices for you
 Back End: Node and Express
 Front End: HTML, CSS, JS, jQuery, Bootstrap
 The Mid-term Skeleton
 Use the provided node-skeleton as a template for your project
 This will get you up and running quickly
-SPA vs Multi-page App
+
+## SPA vs Multi-page App
+
 These concepts are not mutually exclusive
 You can choose one or the other or both
 Git
 Use Git best practices (ask a mentor for clarification if you need it)
 Use branches
-DO NOT CODE ON MASTER
-I repeat, do not code on master
-Splitting up the Work
-Horizontally - whole team working on front-end or back-end at the same time
-Vertically - divide the work between front-end and back-end
-Pair Programming - working together on the same tasks
-Communication
-Make sure to communicate with your team members
-Use Slack, iMessage, Google Hangouts, whatever... just make sure that everyone is on the same page
