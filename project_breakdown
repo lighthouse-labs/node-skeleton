@@ -18,7 +18,7 @@
   - As a admin, I want to mark, items as sold.
   - As an Admin, I can reply to user messages(via app/email/text).
   - As a nonlogged in Admin, I cannot post items.
-  
+
   ## User Scenarios
 
 " Given __, when _, then ____."
@@ -45,9 +45,9 @@ Admin
     - password
     - admin (boolean)
 
-  - Posts (items to sell)
-    - item_id PK
-    - seller_id FK
+  - Listings (items to sell)
+    - id PK
+    - user_id FK
     - price
     - photo
     - message
@@ -58,11 +58,26 @@ Admin
     - year
     - color
     - description
+    -cold (boolean)
 
   - Favorites (items to buy)
-    - favorite_id PK
-    - item_id FK
+    - id PK
     - user_id FK
+    - listing_id FK
+    - active (boolean)
+
+  - Messages (Send a message to seller)
+    - id PK
+    - listing_id FK
+    - DateTime
+    - active (boolean)
+
+  - MessageListing
+    - id PK
+    - sender_id FK
+    - receiver_id FK
+    - message_id FK
+    - messageText
 
 
  - Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
