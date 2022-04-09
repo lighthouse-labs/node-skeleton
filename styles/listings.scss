@@ -7,6 +7,10 @@
   margin: 5% 0 5% 0;
   @include flexRow;
 
+  i {
+    position: absolute;
+    margin: 5px;
+  }
   .carPhoto {
     border-right: solid;
     width: 50%;
@@ -31,6 +35,8 @@
     //deleteable v
     border: solid;
     //deleteable ^
+    color: greenyellow;
+    opacity: 0.8;
   }
   .description {
     //deleteable v
