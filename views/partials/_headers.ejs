@@ -1,21 +1,27 @@
 <headers>
   <nav>
-    <div class="navTitle">
-      <i class="logo fa-solid fa-car-rear"></i>
-      <i class="logoBorder fa-solid fa-car-rear"></i>
-      <span>CAR-D-B</span>
-    </div>
-    <div class="navSearch">
-      <input placeholder="   Search..." />
-      <button>Search</button>
-      <div class="filter">
-        Filter
-        <i class="fa-solid fa-filter"></i>
+    <div class="navTop">
+      <div class="navTitle">
+        <i class="logo fa-solid fa-car-rear"></i>
+        <i class="logoBorder fa-solid fa-car-rear"></i>
+        <span>CAR-D-B</span>
+      </div>
+      <div class="navSearch">
+        <input placeholder="   Search..." />
+        <button>Search</button>
+        <div class="filter">
+          Filter
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+      <div class="navRight">
+        <span class="username">Username</span>
+        <button>Logout</button>
       </div>
     </div>
-    <div class="navRight">
-      <span class="username">Username</span>
-      <button>Logout</button>
+    <div class="navBottom">
+      <div class="tabs">messages</div>
+      <div class="tabs">favorites</div>
     </div>
   </nav>
   <div class="filterOptions">
@@ -55,13 +61,23 @@
     </div>
     <div>
       <label for="year">Year</label>
-      <input type="number" name="carYear" placeholder="Year" id="carYear">
+      <input type="number" name="carYear" placeholder="Year" id="carYear" />
     </div>
     <div>
       <label for="minPrice">Min Price</label>
-      <input type="number" name="minPrice" placeholder="Min Price" id="minPrice">
+      <input
+        type="number"
+        name="minPrice"
+        placeholder="Min Price"
+        id="minPrice"
+      />
       <label for="maxPrice">Max Price</label>
-      <input type="number" name="maxPrice" placeholder="Max Price" id="maxPrice">
+      <input
+        type="number"
+        name="maxPrice"
+        placeholder="Max Price"
+        id="maxPrice"
+      />
     </div>
   </div>
 </headers>
