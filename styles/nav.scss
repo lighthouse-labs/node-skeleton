@@ -1,5 +1,6 @@
 @import './partials/mixins';
 
+
 headers {
   display: flex;
   flex-flow: column wrap;
@@ -14,19 +15,31 @@ headers {
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: white;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(148,187,233,1) 51%);
     box-shadow: 0 5px 2px -2px #45a6fc;
 
     .navTitle {
       @include flexRow;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       width: 20%;
       margin: 0 5px 0 5px;
-      background-color: red;
+      // background-color: red;
 
       .logo {
-        margin-left: 5px;
+        position: absolute;
+        left: 5%;
+        transform: scale(4);
+        color: #923c2e;
+        z-index: 5;
+      }
+      .logoBorder {
+        position: absolute;
+        left: 5%;
+        transform: scale(4.1);
+        color: black;
+        z-index: 0;
       }
     }
 

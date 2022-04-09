@@ -1,0 +1,52 @@
+@import "./partials/mixins";
+
+.posts {
+  border: solid;
+  width: 80vw;
+  height: 35vh;
+  margin: 5% 0 5% 0;
+  @include flexRow;
+
+  i {
+    position: absolute;
+    margin: 5px;
+  }
+  .carPhoto {
+    border-right: solid;
+    width: 50%;
+  }
+  .postBox {
+    @include flexColumn;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2px;
+  }
+  .titlePrice {
+    @include flexRow;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .postTitle {
+    //deleteable v
+    border: solid;
+    //deleteable ^
+  }
+  .postPrice {
+    //deleteable v
+    border: solid;
+    //deleteable ^
+    color: greenyellow;
+    opacity: 0.8;
+  }
+  .description {
+    //deleteable v
+    border: solid;
+    //deleteable ^
+    height: 50%;
+  }
+
+  &:hover {
+    box-shadow: 0px 20px 16px 9px #45a6fc;
+    transform: scale(1.1);
+  }
+}
