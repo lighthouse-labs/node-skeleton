@@ -15,13 +15,13 @@ $(document).ready(function() {
   $('.filter').click(function() {
     $('.filterOptions').slideToggle('fast');
     $('.filterOptions').css('display', 'flex');
-    $('.newForm').hide();
+    $('.newForm').slideUp('fast');
   });
 
   $('.newPost').click(function() {
     $('.newForm').slideToggle('fast');
     $('.newForm').css('display', 'flex');
-    $('.filterOptions').hide();
+    $('.filterOptions').slideUp('fast');
   });
 
 });
