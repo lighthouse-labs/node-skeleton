@@ -1,5 +1,4 @@
 
-
 insert into listings (id, price, year, make, model, transmission, color, descritption, sold) values (1, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true);
 insert into listings (id, price, year, make, model, transmission, color, descritption, sold) values (2, '19', 1986, 'Buick', 'Riviera', true, 'Teal', 'Suicidal ideation', false);
 insert into listings (id, price, year, make, model, transmission, color, descritption, sold) values (3, '5084', 2005, 'Dodge', 'Ram 2500', true, 'Puce', 'Gu infection-deliv w p/p', true);
