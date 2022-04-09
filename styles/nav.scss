@@ -1,3 +1,5 @@
+@import './partials/mixins';
+
 headers {
   display: flex;
   flex-flow: column wrap;
@@ -7,8 +9,7 @@ headers {
   nav {
     width: 100vw;
     height: 100px;
-    display: flex;
-    flex-direction: row;
+    @include flexRow;
     justify-content: space-around;
     align-items: center;
     position: sticky;
@@ -17,16 +18,15 @@ headers {
     box-shadow: 0 5px 2px -2px #45a6fc;
 
     .navTitle {
-      display: flex;
-      flex-direction: row;
+      @include flexRow;
       justify-content: space-between;
       align-items: center;
       width: 20%;
       margin: 0 5px 0 5px;
       background-color: red;
 
-      .logo{
-        margin-left: 5px
+      .logo {
+        margin-left: 5px;
       }
     }
 
@@ -53,14 +53,15 @@ headers {
     }
 
     .navRight {
-      display: flex;
-      flex-direction: row;
+      @include flexRow;
       justify-content: flex-end;
       align-items: center;
       width: 20%;
       background-color: yellow;
       margin: 0 5px 0 5px;
-      span {margin-right: 15px;}
+      span {
+        margin-right: 15px;
+      }
     }
   }
 }
