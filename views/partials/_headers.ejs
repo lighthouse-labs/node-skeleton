@@ -23,6 +23,9 @@
       <div class="tabs">messages</div>
       <div class="tabs">favorites</div>
     </div>
+    <div class="newPost">
+      <i class="fa-solid fa-plus"></i>
+    </div>
   </nav>
   <div class="filterOptions">
     <div>
@@ -31,14 +34,6 @@
         <option value="">Select a Make</option>
         <option value="Honda">Honda</option>
         <option value="Toyota">Toyota</option>
-        <option value="Mazda">Mazda</option>
-        <option value="BMW">BMW</option>
-        <option value="Mercedes-Benz">Mercedes-Benz</option>
-        <option value="Nissan">Nissan</option>
-        <option value="Kia">Kia</option>
-        <option value="Volkswagen">Volkswagen</option>
-        <option value="Subaru">Subaru</option>
-        <option value="Volvo">Volvo</option>
       </select>
     </div>
     <div>
@@ -48,12 +43,11 @@
         <option value="civic" data-tag="Honda">Civic</option>
         <option value="crv" data-tag="Honda">CRV</option>
         <option value="rav4" data-tag="Toyota">Rav4</option>
-        <option value="320i" data-tag="BMW">320i</option>
       </select>
     </div>
     <div>
       <label for="transmission">Transmission</label>
-      <select id="transmission">
+      <select id="carTransmission">
         <option value="">Select an Option</option>
         <option value="Automatic">Automatic</option>
         <option value="Manual">Manual</option>
@@ -80,4 +74,60 @@
       />
     </div>
   </div>
+  <section class="newForm">
+    <header>
+      <h2>Create New Listing</h2>
+    </header>
+    <div>
+      <label for="thumbnail">Thumbnail Image</label>
+      <input placeholder="Thumbnail Image" type="text" name="thumbnail_url" id="carthumbnail">
+    </div>
+    <section class="makeModel">
+      <div>
+        <label for="carMake">Make</label>
+        <select id="make">
+          <option value="">Select a Make</option>
+        </select>
+      </div>
+      <div>
+        <label for="carMake">Model</label>
+        <select id="model">
+          <option value="" data-tag="">Select a Model</option>
+        </select>
+      </div>
+      <div>
+        <label for="transmission">Transmission</label>
+        <select id="transmission">
+          <option value="">Select an Option</option>
+          <option value="Automatic">Automatic</option>
+          <option value="Manual">Manual</option>
+        </select>
+      </div>
+    </section>
+    <section>
+      <div>
+        <label for="year">Year</label>
+        <input type="number" name="year" placeholder="Year" id="year" />
+      </div>
+      <div>
+        <label for="odometer">Mileage</label>
+        <input type="number" name="odometer" placeholder="Mileage" id="odometer" />
+      </div>
+    </section>
+    <div>
+      <label for="price">Price</label>
+      <input type="number" name="price" placeholder="Price" id="price" />
+    </div>
+    <div>
+      <label for="color">Color</label>
+      <input type="text" name="color" placeholder="Color" id="color" />
+    </div>
+    <div>
+      <textarea placeholder="Description" name="description" id="description" cols="60" rows="5"></textarea>
+    </div>
+    <div>
+      <button>Create</button>
+      <a id="property-form__cancel" href="#">Cancel</a>
+  </div>
+  </section>
 </headers>

@@ -36,7 +36,7 @@ headers {
     .tabs{
      margin: 5px 5px 10px 5px;
     }
-    
+
     .navTitle {
       @include flexRow;
       justify-content: flex-end;
@@ -95,6 +95,19 @@ headers {
         margin-right: 15px;
       }
     }
+
+    .newPost {
+      @include flexRow;
+      position: absolute;
+      top: 60%;
+      left: 55%;
+      opacity: 0.3;
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
   }
 
   .filterOptions {
@@ -105,6 +118,25 @@ headers {
 
     div {
       margin: 0 5px 0 5px;
+    }
+  }
+
+  .newForm {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: red;
+
+    label {
+      margin-right: 10px
+    }
+
+    div {
+      margin: 5px 5px 5px 5px;
+    }
+
+    section {
+      @include flexRow;
     }
   }
 }
