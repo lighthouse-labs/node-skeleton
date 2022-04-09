@@ -5,23 +5,29 @@ headers {
   width: 100%;
 
   nav {
-    display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100px;
+    display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    position: fixed;
+    position: sticky;
     top: 0;
     background-color: white;
+    box-shadow: 0 5px 2px -2px #45a6fc;
 
     .navTitle {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       align-items: center;
       width: 20%;
       margin: 0 5px 0 5px;
       background-color: red;
+
+      .logo{
+        margin-left: 5px
+      }
     }
 
     .navSearch {
@@ -29,6 +35,17 @@ headers {
       width: 60%;
       background-color: blue;
       justify-content: center;
+
+      .filter {
+        position: absolute;
+        top: 70%;
+        opacity: 0.3;
+        &:hover {
+          color: black;
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
 
       input {
         width: 80%;
