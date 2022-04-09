@@ -1,21 +1,83 @@
 <headers>
   <nav>
-    <div class="navTitle">
-      <i class="logo fa-solid fa-car-rear"></i>
-      <i class="logoBorder fa-solid fa-car-rear"></i>
-      <span>CAR-D-B</span>
-    </div>
-    <div class="navSearch">
-      <input placeholder="   Search..." />
-      <button>Search</button>
-      <div class="filter">
-        Filter
-        <i class="fa-solid fa-filter"></i>
+    <div class="navTop">
+      <div class="navTitle">
+        <i class="logo fa-solid fa-car-rear"></i>
+        <i class="logoBorder fa-solid fa-car-rear"></i>
+        <span>CAR-D-B</span>
+      </div>
+      <div class="navSearch">
+        <input placeholder="   Search..." />
+        <button>Search</button>
+        <div class="filter">
+          Filter
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+      <div class="navRight">
+        <span class="username">Username</span>
+        <button>Logout</button>
       </div>
     </div>
-    <div class="navRight">
-      <span class="username">Username</span>
-      <button>Logout</button>
+    <div class="navBottom">
+      <div class="tabs">messages</div>
+      <div class="tabs">favorites</div>
     </div>
   </nav>
+  <div class="filterOptions">
+    <div>
+      <label for="carMake">Make</label>
+      <select id="carMake">
+        <option value="">Select a Make</option>
+        <option value="Honda">Honda</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Mazda">Mazda</option>
+        <option value="BMW">BMW</option>
+        <option value="Mercedes-Benz">Mercedes-Benz</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Kia">Kia</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Subaru">Subaru</option>
+        <option value="Volvo">Volvo</option>
+      </select>
+    </div>
+    <div>
+      <label for="carMake">Model</label>
+      <select id="carModel">
+        <option value="" data-tag="">Select a Model</option>
+        <option value="civic" data-tag="Honda">Civic</option>
+        <option value="crv" data-tag="Honda">CRV</option>
+        <option value="rav4" data-tag="Toyota">Rav4</option>
+        <option value="320i" data-tag="BMW">320i</option>
+      </select>
+    </div>
+    <div>
+      <label for="transmission">Transmission</label>
+      <select id="transmission">
+        <option value="">Select an Option</option>
+        <option value="Automatic">Automatic</option>
+        <option value="Manual">Manual</option>
+      </select>
+    </div>
+    <div>
+      <label for="year">Year</label>
+      <input type="number" name="carYear" placeholder="Year" id="carYear" />
+    </div>
+    <div>
+      <label for="minPrice">Min Price</label>
+      <input
+        type="number"
+        name="minPrice"
+        placeholder="Min Price"
+        id="minPrice"
+      />
+      <label for="maxPrice">Max Price</label>
+      <input
+        type="number"
+        name="maxPrice"
+        placeholder="Max Price"
+        id="maxPrice"
+      />
+    </div>
+  </div>
 </headers>
