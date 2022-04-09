@@ -24,12 +24,21 @@ headers {
       align-items: center;
       width: 20%;
       margin: 0 5px 0 5px;
-      background-color: red;
+      // background-color: red;
 
       .logo {
         position: absolute;
         left: 5%;
         transform: scale(4);
+        color: #923c2e;
+        z-index: 5;
+      }
+      .logoBorder {
+        position: absolute;
+        left: 5%;
+        transform: scale(4.1);
+        color: black;
+        z-index: 0;
       }
     }
 
