@@ -1,10 +1,6 @@
 @import "./partials/mixins";
 
 headers {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  width: 100%;
 
   nav {
     width: 100vw;
@@ -76,51 +72,6 @@ headers {
       }
     }
 
-    .navSearch {
-      display: flex;
-      width: 60%;
-      justify-content: center;
-
-      .filter {
-        display: flex;
-        flex-direction: row;
-        margin-left: 5px;
-        opacity: 0.3;
-        &:hover {
-          color: black;
-          transform: scale(1.1);
-          opacity: 1;
-          cursor: pointer;
-        }
-      }
-
-      input {
-        width: 80%;
-      }
-
-      form {
-        @include flexColumn;
-        width: 100%;
-
-        .filterOptions {
-          display: none;
-          position: absolute;
-          top: 25%;
-          flex-direction: row;
-          justify-content: center;
-          margin-top: 5%;
-          background-color: red;
-
-          div {
-            @include flexColumn;
-            align-items: center;
-            justify-content: center;
-            margin: 0 5px 0 5px;
-          }
-        }
-      }
-    }
-
     .navRight {
       @include flexRow;
       justify-content: flex-end;
@@ -143,25 +94,6 @@ headers {
         transform: scale(1.1);
         cursor: pointer;
       }
-    }
-  }
-
-  .newForm {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: red;
-
-    label {
-      margin-right: 10px;
-    }
-
-    div {
-      margin: 5px 5px 5px 5px;
-
-    }
-    section {
-      @include flexRow;
     }
   }
 
