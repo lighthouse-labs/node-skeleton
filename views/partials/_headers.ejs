@@ -6,9 +6,59 @@
         <i class="logoBorder fa-solid fa-car-rear"></i>
         <span>CAR-D-B</span>
       </div>
+
       <div class="navSearch">
-        <input placeholder="   Search..." />
-        <button>Search</button>
+        <form action="/" method="GET" id="carSearch">
+          <section class="searchBar">
+            <input placeholder="   Search..." />
+            <button type="submit">Search</button>
+          </section>
+          <section class="filterOptions">
+            <div>
+              <label for="carMake">Make</label>
+              <select id="carMake">
+                <option value="">Select a Make</option>
+              </select>
+            </div>
+            <div>
+              <label for="carMake">Model</label>
+              <select id="carModel">
+                <option value="" data-tag="">Select a Model</option>
+              </select>
+            </div>
+            <div>
+              <label for="transmission">Transmission</label>
+              <select id="carTransmission">
+                <option value="">Select an Option</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>
+            </div>
+            <div>
+              <label for="year">Min Year</label>
+              <input type="number" name="minYear" placeholder="Year" id="minYear" />
+
+              <label for="year">Max Year</label>
+              <input type="number" name="maxYear" placeholder="Year" id="maxYear" />
+            </div>
+            <div>
+              <label for="minPrice">Min Price</label>
+              <input
+                type="number"
+                name="minPrice"
+                placeholder="Min Price"
+                id="minPrice"
+              />
+              <label for="maxPrice">Max Price</label>
+              <input
+                type="number"
+                name="maxPrice"
+                placeholder="Max Price"
+                id="maxPrice"
+              />
+            </div>
+          </section>
+        </form>
         <div class="filter">
           Filter
           <i class="fa-solid fa-filter"></i>
@@ -19,6 +69,9 @@
         <button>Logout</button>
       </div>
     </div>
+
+
+
     <div class="navBottom">
       <!-- <div class="tabs">messages</div>
       <div class="tabs">favorites</div>
@@ -31,54 +84,22 @@
     <div class="tabs">Messages</div>
     <div class="tabs">Favorites</div>
     <div class="tabs">Sold</div>
+    </div>
   </nav>
-  <div class="filterOptions">
-    <div>
-      <label for="carMake">Make</label>
-      <select id="carMake">
-        <option value="">Select a Make</option>
-        <option value="Honda">Honda</option>
-        <option value="Toyota">Toyota</option>
-      </select>
-    </div>
-    <div>
-      <label for="carMake">Model</label>
-      <select id="carModel">
-        <option value="" data-tag="">Select a Model</option>
-        <option value="civic" data-tag="Honda">Civic</option>
-        <option value="crv" data-tag="Honda">CRV</option>
-        <option value="rav4" data-tag="Toyota">Rav4</option>
-      </select>
-    </div>
-    <div>
-      <label for="transmission">Transmission</label>
-      <select id="carTransmission">
-        <option value="">Select an Option</option>
-        <option value="Automatic">Automatic</option>
-        <option value="Manual">Manual</option>
-      </select>
-    </div>
-    <div>
-      <label for="year">Year</label>
-      <input type="number" name="carYear" placeholder="Year" id="carYear" />
-    </div>
-    <div>
-      <label for="minPrice">Min Price</label>
-      <input
-        type="number"
-        name="minPrice"
-        placeholder="Min Price"
-        id="minPrice"
-      />
-      <label for="maxPrice">Max Price</label>
-      <input
-        type="number"
-        name="maxPrice"
-        placeholder="Max Price"
-        id="maxPrice"
-      />
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <section class="newForm">
     <header>
       <h2>Create New Listing</h2>
@@ -138,7 +159,7 @@
 
   <div class="messageBox">
     <div class="inbox">
-      
+
       <div class="message">user_id</div>
       <div class="message">user_id</div>
       <div class="message">user_id</div>
