@@ -1,17 +1,12 @@
 const properties = require('./json/properties.json');
 const users = require('./json/users.json');
 const dbParams = require('./lib/db.js');
+const {db} = require('../server.js');
 
-const pool = dbParams({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  database: 'midterm'
-});
 
 
 const getAllListings = function(listings) {
-  return pool.query(`SELECT (*)
+  return db.query(`SELECT (*)
     FROM listings
     ORDER BY listings DESC
     LIMIT 10;`)
