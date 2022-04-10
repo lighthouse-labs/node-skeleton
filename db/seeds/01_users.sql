@@ -2,7 +2,7 @@ INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jl
 ('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true);
 
 
-INSERT INTO listings (user_id, price, year, make, model, transmission, color, description, sold, image) VALUES (2, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true, 'https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?cs=srgb&amp;dl=asphalt-auto-automobile-244206.jpg&amp;fm=jpg'),
+INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, imageURL) VALUES (2, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true, 'https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?cs=srgb&amp;dl=asphalt-auto-automobile-244206.jpg&amp;fm=jpg'),
 (2, '19', 1986, 'Buick', 'Riviera', true, 'Teal', 'Suicidal ideation', false, 'https://media.istockphoto.com/photos/generic-compact-red-car-picture-id495605964?k=6&m=495605964&s=612x612&w=0&h=zn-cL1Q6DqltxqAiDy4fb0xbaupMTph4_K2zT9AB20g='),
 (2, '5084', 2005, 'Dodge', 'Ram 2500', true, 'Puce', 'Gu infection-deliv w p/p', true, 'https://4.bp.blogspot.com/-ZMNbv88F7C0/U1TD8fVz0UI/AAAAAAAAHtY/sqo-mkoKecs/s1600/Tesla-car.jpg'),
 (2, '640', 1998, 'Buick', 'Century', true, 'Khaki', 'Fx clavicle NOS-closed', false, 'https://media.istockphoto.com/photos/car-in-studio-side-view-isolated-on-white-picture-id186817186?k=6&m=186817186&s=612x612&w=0&h=7E1o17mkofB_NN_SNddDWhjDVtHF8kdxjjVroPvgcPU='),
