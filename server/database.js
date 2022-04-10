@@ -53,7 +53,21 @@ const createListing = function(listings) {
   .catch((err) => console.log(err.message));
 };
 
+const getAllMakes = function() {
+  return db.query(`SELECT make FROM listings;`)
+  .then((res) => res.rows)
+  .catch((err) => console.log(err.message));
+};
+
+const getAllModels = function() {
+  return db.query(`SELECT model FROM listings;`)
+  .then((res) => res.rows)
+  .catch((err) =>  console.log(err.message));
+};
+
 module.exports = {
   getAllListings,
-  createListing
+  createListing,
+  getAllMakes,
+  getAllModels
 }
