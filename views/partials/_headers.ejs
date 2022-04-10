@@ -104,57 +104,59 @@
     <header>
       <h2>Create New Listing</h2>
     </header>
-    <div>
-      <label for="thumbnail">Thumbnail Image</label>
-      <input placeholder="Thumbnail Image" type="text" name="thumbnail_url" id="carthumbnail">
+    <form action="/api" method="post">
+      <div>
+        <label for="thumbnail">Thumbnail Image</label>
+        <input placeholder="Thumbnail Image" type="text" name="thumbnail_url" id="carthumbnail">
+      </div>
+      <section class="makeModel">
+        <div>
+          <label for="carMake">Make</label>
+          <select id="make">
+            <option value="">Select a Make</option>
+          </select>
+        </div>
+        <div>
+          <label for="carMake">Model</label>
+          <select id="model">
+            <option value="" data-tag="">Select a Model</option>
+          </select>
+        </div>
+        <div>
+          <label for="transmission">Transmission</label>
+          <select id="transmission">
+            <option value="">Select an Option</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+      </section>
+      <section>
+        <div>
+          <label for="year">Year</label>
+          <input type="number" name="year" placeholder="Year" id="year" />
+        </div>
+        <div>
+          <label for="odometer">Mileage</label>
+          <input type="number" name="odometer" placeholder="Mileage" id="odometer" />
+        </div>
+      </section>
+      <div>
+        <label for="price">Price</label>
+        <input type="number" name="price" placeholder="Price" id="price" />
+      </div>
+      <div>
+        <label for="color">Color</label>
+        <input type="text" name="color" placeholder="Color" id="color" />
+      </div>
+      <div>
+        <textarea placeholder="Description" name="description" id="description" cols="60" rows="5"></textarea>
+      </div>
+      <div>
+        <button type="submit">Create</button>
+        <a id="property-form__cancel" href="#">Cancel</a>
     </div>
-    <section class="makeModel">
-      <div>
-        <label for="carMake">Make</label>
-        <select id="make">
-          <option value="">Select a Make</option>
-        </select>
-      </div>
-      <div>
-        <label for="carMake">Model</label>
-        <select id="model">
-          <option value="" data-tag="">Select a Model</option>
-        </select>
-      </div>
-      <div>
-        <label for="transmission">Transmission</label>
-        <select id="transmission">
-          <option value="">Select an Option</option>
-          <option value="Automatic">Automatic</option>
-          <option value="Manual">Manual</option>
-        </select>
-      </div>
-    </section>
-    <section>
-      <div>
-        <label for="year">Year</label>
-        <input type="number" name="year" placeholder="Year" id="year" />
-      </div>
-      <div>
-        <label for="odometer">Mileage</label>
-        <input type="number" name="odometer" placeholder="Mileage" id="odometer" />
-      </div>
-    </section>
-    <div>
-      <label for="price">Price</label>
-      <input type="number" name="price" placeholder="Price" id="price" />
-    </div>
-    <div>
-      <label for="color">Color</label>
-      <input type="text" name="color" placeholder="Color" id="color" />
-    </div>
-    <div>
-      <textarea placeholder="Description" name="description" id="description" cols="60" rows="5"></textarea>
-    </div>
-    <div>
-      <button>Create</button>
-      <a id="property-form__cancel" href="#">Cancel</a>
-  </div>
+    </form>
   </section>
 
   <div class="messageBox">
