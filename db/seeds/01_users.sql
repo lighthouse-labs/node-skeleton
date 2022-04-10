@@ -2,7 +2,7 @@ INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jl
 ('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true);
 
 
-INSERT INTO listings (user_id, price, year, make, model, transmission, color, descritption, sold, image) VALUES (2, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true, 'https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?cs=srgb&amp;dl=asphalt-auto-automobile-244206.jpg&amp;fm=jpg'),
+INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, image) VALUES (2, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true, 'https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?cs=srgb&amp;dl=asphalt-auto-automobile-244206.jpg&amp;fm=jpg'),
 (2, '19', 1986, 'Buick', 'Riviera', true, 'Teal', 'Suicidal ideation', false, 'https://media.istockphoto.com/photos/generic-compact-red-car-picture-id495605964?k=6&m=495605964&s=612x612&w=0&h=zn-cL1Q6DqltxqAiDy4fb0xbaupMTph4_K2zT9AB20g='),
 (2, '5084', 2005, 'Dodge', 'Ram 2500', true, 'Puce', 'Gu infection-deliv w p/p', true, 'https://4.bp.blogspot.com/-ZMNbv88F7C0/U1TD8fVz0UI/AAAAAAAAHtY/sqo-mkoKecs/s1600/Tesla-car.jpg'),
 (2, '640', 1998, 'Buick', 'Century', true, 'Khaki', 'Fx clavicle NOS-closed', false, 'https://media.istockphoto.com/photos/car-in-studio-side-view-isolated-on-white-picture-id186817186?k=6&m=186817186&s=612x612&w=0&h=7E1o17mkofB_NN_SNddDWhjDVtHF8kdxjjVroPvgcPU='),
@@ -66,7 +66,7 @@ INSERT INTO listings (user_id, price, year, make, model, transmission, color, de
 (2, '51409', 2000, 'Ford', 'Explorer', false, 'Indigo', 'Ch mgr wo ara w ntr w st', false, 'https://media.istockphoto.com/photos/generic-compact-red-car-picture-id495605964?k=6&m=495605964&s=612x612&w=0&h=zn-cL1Q6DqltxqAiDy4fb0xbaupMTph4_K2zT9AB20g='),
 (2, '42300', 2009, 'Aston Martin', 'Vantage', false, 'Maroon', 'Abo incompat reactn NEC', false, 'https://4.bp.blogspot.com/-ZMNbv88F7C0/U1TD8fVz0UI/AAAAAAAAHtY/sqo-mkoKecs/s1600/Tesla-car.jpg'),
 (2, '5', 2000, 'Toyota', 'Echo', true, 'Blue', 'Cooking & grilling NEC', true, 'https://media.istockphoto.com/photos/car-in-studio-side-view-isolated-on-white-picture-id186817186?k=6&m=186817186&s=612x612&w=0&h=7E1o17mkofB_NN_SNddDWhjDVtHF8kdxjjVroPvgcPU='),
-(2, '45', 1995, 'Subaru', 'SVX', true, 'Green', 'Mult myelm w remission', true), 'https://i.pinimg.com/736x/5c/7f/76/5c7f76e05aa97e7853b1fcc5af52b4bb.jpg',
+(2, '45', 1995, 'Subaru', 'SVX', true, 'Green', 'Mult myelm w remission', true, 'https://i.pinimg.com/736x/5c/7f/76/5c7f76e05aa97e7853b1fcc5af52b4bb.jpg'),
 (2, '9008', 1993, 'Chevrolet', 'Beretta', false, 'Indigo', 'Placental polyp-unspec', true, 'https://images.freeimages.com/images/large-previews/572/cars-1425577.jpg'),
 (2, '33575', 2011, 'Toyota', 'Camry', true, 'Turquoise', 'TB of ear-oth test', true, 'https://www.publicdomainpictures.net/pictures/30000/velka/vintage-car-135173380132n.jpg'),
 (2, '8', 2008, 'Kia', 'Sorento', false, 'Violet', 'Hard tiss dis teeth NOS', true, 'https://images.pexels.com/photos/631522/pexels-photo-631522.jpeg?cs=srgb&dl=arizona-asphalt-automobile-631522.jpg&fm=jpg'),
@@ -118,7 +118,7 @@ INSERT INTO messages (listing_id, dateTime, messageReceived) VALUES (46, '4/11/2
 (63, '4/9/2022', false);
 
 
-INSERT INTO messageListing (sender_id, receiver_id, message_id, message) VALUES (1, 2, 1, 'vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis'),
+INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText) VALUES (1, 2, 1, 'vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis'),
 (1, 2, 2, 'suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et'),
 (1, 2, 3, 'posuere felis sed lacus morbi sem mauris laoreet ut rhoncus'),
 (1, 2, 4, 'non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci');

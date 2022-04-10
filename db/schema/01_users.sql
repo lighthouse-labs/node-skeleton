@@ -25,7 +25,8 @@ CREATE TABLE listings (
   transmission BOOLEAN NOT NULL DEFAULT FALSE,
   color VARCHAR(255) NOT NULL,
   descriptions TEXT,
-  sold BOOLEAN NOT NULL DEFAULT FALSE
+  sold BOOLEAN NOT NULL DEFAULT FALSE,
+  image VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE favorites (
@@ -37,15 +38,15 @@ CREATE TABLE favorites (
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  listing_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   dateTime DATE NOT NULL,
-  hasMessage BOOLEAN NOT NULL DEFAULT FALSE
+  messageReceived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE messagelisting (
+CREATE TABLE messageListing (
   id SERIAL PRIMARY KEY NOT NULL,
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  message_id INTEGER REFERENCES messages(id) ON DELETE CASCADE
+  message_id INTEGER REFERENCES messages(id) ON DELETE CASCADE,
   messageText TEXT
 );
