@@ -1,8 +1,13 @@
-module.exports = function(router, database) {
+const express = require('express');
+const router = express.Router();
+const database = require('./database');
 
-  router.get('/', (req, res) => {
-    database.getAllListings(req.query, 10)
-      .then(listings => res.send({listings}))
+
+
+
+  router.get('', (req, res) => {
+    database.getAllListings(10)
+      .then(listings => res.json(listings))
       .catch(e => {
         console.error(e);
         res.send(e);
@@ -10,9 +15,8 @@ module.exports = function(router, database) {
   });
 
 
-  router.post('/', (req, res) => {
-    const userId = req.session.userId;
-    database.addListing({})
+  router.post('', (req, res) => {
+    createListing({...req.body})
       .then(listing => {
         res.send(listing);
       })
@@ -22,5 +26,5 @@ module.exports = function(router, database) {
       });
   });
 
-  return router;
-};
+
+  module.exports = router;
