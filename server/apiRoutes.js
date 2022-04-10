@@ -16,7 +16,8 @@ const database = require('./database');
 
 
   router.post('', (req, res) => {
-    createListing({...req.body})
+    console.log(req.body);
+    database.createListing(req.body)
       .then(listing => {
         res.send(listing);
       })

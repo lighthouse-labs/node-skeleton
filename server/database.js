@@ -27,30 +27,26 @@ const getAllListings = function(limit) {
 
 const createListing = function(listings) {
   const queryParams = [
-    listings.user.id,
     listings.price,
     listings.year,
     listings.make,
     listings.model,
     listings.transmission,
     listings.color,
-    listings.descriptiton,
-    listings.sold,
-    listings.image,
+    listings.descriptions,
+    listings.imageURL,
   ];
 
-  const queryString = `INSERT INTO properties (
-    user_id,
+  const queryString = `INSERT INTO listings (
     price,
     year,
     make,
     model,
     transmission,
     color,
-    descritption,
-    sold,
-    image
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
+    descriptions,
+    imageURL
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`;
 
   return db.query(queryString, queryParams)
   .then((res) => res.rows)
