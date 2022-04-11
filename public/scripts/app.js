@@ -27,7 +27,18 @@ $(document).ready(function () {
   });
 
   $('#carMake').select2({closeOnSelect: false});
-  $('#carTransmission').select2();
+
+
+  $('#make').change(function() {
+    const make = $(this).val();
+    $('#model option').each(function() {
+      if ($(this).data('tag') !== make) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  });
 
 
 });
