@@ -1,5 +1,5 @@
 INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jleadbeatter2@bandcamp.com', 'UCHuhLhrTYy', false),
-('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true);
+('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true),
 ('John Doe', 'blah@1688.com', '24PJaXBNTEZ', false);
 
 
