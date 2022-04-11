@@ -1,5 +1,6 @@
 <div class="browse">
   <form action="/" method="GET" id="carSearch">
+
     <section class="searchBar">
       <input placeholder="   Search..." />
       <button type="submit">Search</button>
@@ -9,48 +10,42 @@
     </section>
 
     <section class="filterOptions">
-      <div>
-        <label for="carMake">Make</label>
-        <select id="carMake">
-          <option value="">Select a Make</option>
-        </select>
+      <div class="multiSelect">
+        <div>
+          <label for="carMake">Make</label>
+          <select multiple class="carMake" name="carMake" id="carMake">
+            <option value="Honda">Honda</option>
+            <option value="Toyota">Toyota</option>
+          </select>
+        </div>
+        <div>
+          <label for="carModel">Model</label>
+          <select multiple class="carModel" name="carModel" id="carModel">
+            <option value="Civic" data-tag="Honda">Civic</option>
+            <option value="Accord" data-tag="Honda">Accord</option>
+            <option value="RAV4" data-tag="Toyota">RAV4</option>
+            <option value="Highlander" data-tag="Toyota">Highlander</option>
+          </select>
+        </div>
+        <div>
+          <label for="transmission">Transmission</label>
+          <select id="carTransmission">
+            <option value="False">Automatic</option>
+            <option value="True">Manual</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label for="carMake">Model</label>
-        <select id="carModel">
-          <option value="" data-tag="">Select a Model</option>
-        </select>
-      </div>
-      <div>
-        <label for="transmission">Transmission</label>
-        <select id="carTransmission">
-          <option value="">Select an Option</option>
-          <option value="Automatic">Automatic</option>
-          <option value="Manual">Manual</option>
-        </select>
-      </div>
-      <div>
-        <label for="year">Min Year</label>
-        <input type="number" name="minYear" placeholder="Year" id="minYear" />
-
-        <label for="year">Max Year</label>
-        <input type="number" name="maxYear" placeholder="Year" id="maxYear" />
-      </div>
-      <div>
-        <label for="minPrice">Min Price</label>
-        <input
-          type="number"
-          name="minPrice"
-          placeholder="Min Price"
-          id="minPrice"
-        />
-        <label for="maxPrice">Max Price</label>
-        <input
-          type="number"
-          name="maxPrice"
-          placeholder="Max Price"
-          id="maxPrice"
-        />
+      <div class="minMax">
+        <div>
+          <label for="year">Year</label>
+          <input type="number" name="minYear" placeholder="Min" id="minYear" />
+          <input type="number" name="maxYear" placeholder="Max" id="maxYear" />
+        </div>
+        <div>
+          <label for="Price">Price</label>
+          <input type="number" name="minPrice" placeholder="Min" id="minPrice"/>
+          <input type="number" name="maxPrice" placeholder="Max" id="maxPrice"/>
+        </div>
       </div>
     </section>
   </form>
