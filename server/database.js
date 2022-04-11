@@ -14,7 +14,12 @@ const getAllListings = function(limit) {
 
 
 const getMessages = function() {
-  console.log('TEST:', 'test');
+  return db.query(`SELECT *
+    FROM messagelisting
+    ORDER BY id;
+    `)
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 

@@ -3,7 +3,14 @@ const router = express.Router();
 const database = require('./database');
 
 
-
+router.get('/messages', (req, res) => {
+  database.getMessages()
+    .then(messages => res.json(messages))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
 router.get('', (req, res) => {
   database.getAllListings(10)
@@ -17,7 +24,7 @@ router.get('', (req, res) => {
 
 router.post('', (req, res) => {
   const form = req.body;
-  if (!form.model || !form.make || !form.year || !form.price || !form.color)  {
+  if (!form.model || !form.make || !form.year || !form.price || !form.color) {
     res.status(403).send('Missing Required Information!');
     return;
   }
