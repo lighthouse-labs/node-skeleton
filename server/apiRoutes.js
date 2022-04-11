@@ -44,7 +44,7 @@ router.get('/make', (req, res) => {
 
 router.get('/model', (req, res) => {
   database.getAllModels()
-  .then(models => res.json(models))
+  .then(models => res.send(models))
   .catch(e => {
     console.error(e);
     res.send(e);

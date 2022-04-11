@@ -36,16 +36,16 @@ $(document).ready(function() {
 
 
 
-  $('#make').change(function() {
-    const make = $(this).val();
-    $('#model option').each(function() {
-      if ($(this).data('tag') !== make) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
-  });
+  // $('#make').change(function() {
+  //   const make = $(this).val();
+  //   $('#model option').each(function() {
+  //     if ($(this).data('tag') !== make) {
+  //       $(this).hide();
+  //     } else {
+  //       $(this).show();
+  //     }
+  //   });
+  // });
 
 
 });
