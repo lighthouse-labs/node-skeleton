@@ -10,10 +10,13 @@
   i {
     position: absolute;
     margin: 5px;
+    bottom: 0;
+    left: 0;
   }
   .carPhoto {
     border-right: solid;
     width: 50%;
+    position: relative;
   }
   .postBox {
     @include flexColumn;
