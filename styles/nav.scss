@@ -99,30 +99,5 @@ headers {
     }
   }
 
-  .messageBox {
-    position: fixed;
-    top: 100px;
-    width: 100%;
-    display: flex;
-    flex-direction: flex-row;
-    justify-content: end;
-  }
-  
-  .inbox {
-    width: 25%;
-    min-height: 20vh;
-    display: none;
-    // display: flex; onClick EVENT
-    flex-direction: column;
-    border: solid;
-    background-color: #d8d5d5;
-    z-index: 5;
-  }
 
-  .message {
-    border: solid;
-    padding: 5px;
-    text-align: center;
-    z-index: 5;
-  }
 }
