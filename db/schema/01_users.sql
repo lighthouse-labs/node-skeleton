@@ -24,9 +24,9 @@ CREATE TABLE listings (
   model VARCHAR(255) NOT NULL,
   transmission BOOLEAN NOT NULL DEFAULT FALSE,
   color VARCHAR(255) NOT NULL,
-  description TEXT,
+  descriptions TEXT,
   sold BOOLEAN NOT NULL DEFAULT FALSE,
-  image VARCHAR(255) NOT NULL
+  imageURL VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE favorites (

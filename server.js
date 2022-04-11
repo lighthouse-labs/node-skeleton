@@ -8,9 +8,11 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
-// PG database client/connection setup
+// Set Body Parser
+const bodyParser    = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
+// ROUTERS
 const apiRouter = require('./server/apiRoutes');
 
 app.use('/api', apiRouter);

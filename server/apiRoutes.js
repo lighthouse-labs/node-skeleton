@@ -16,9 +16,16 @@ const database = require('./database');
 
 
   router.post('', (req, res) => {
-    createListing({...req.body})
+    const form = req.body;
+    if (!form.model || !form.make || !form.year || !form.price || !form.color)  {
+      res.status(403).send('Missing Required Information!');
+      return;
+    }
+
+    database.createListing(req.body)
       .then(listing => {
-        res.send(listing);
+        console.log(req.body, "\nListing Added to Databse")
+        res.status(201).send('New Listing Created!');
       })
       .catch(e => {
         console.error(e);

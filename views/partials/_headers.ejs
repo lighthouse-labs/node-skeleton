@@ -6,72 +6,11 @@
         <i class="logoBorder fa-solid fa-car-rear"></i>
         <span>CAR-D-B</span>
       </div>
-
-      <div class="navSearch">
-        <form action="/" method="GET" id="carSearch">
-          <section class="searchBar">
-            <input placeholder="   Search..." />
-            <button type="submit">Search</button>
-          </section>
-          <section class="filterOptions">
-            <div>
-              <label for="carMake">Make</label>
-              <select id="carMake">
-                <option value="">Select a Make</option>
-              </select>
-            </div>
-            <div>
-              <label for="carMake">Model</label>
-              <select id="carModel">
-                <option value="" data-tag="">Select a Model</option>
-              </select>
-            </div>
-            <div>
-              <label for="transmission">Transmission</label>
-              <select id="carTransmission">
-                <option value="">Select an Option</option>
-                <option value="Automatic">Automatic</option>
-                <option value="Manual">Manual</option>
-              </select>
-            </div>
-            <div>
-              <label for="year">Min Year</label>
-              <input type="number" name="minYear" placeholder="Year" id="minYear" />
-
-              <label for="year">Max Year</label>
-              <input type="number" name="maxYear" placeholder="Year" id="maxYear" />
-            </div>
-            <div>
-              <label for="minPrice">Min Price</label>
-              <input
-                type="number"
-                name="minPrice"
-                placeholder="Min Price"
-                id="minPrice"
-              />
-              <label for="maxPrice">Max Price</label>
-              <input
-                type="number"
-                name="maxPrice"
-                placeholder="Max Price"
-                id="maxPrice"
-              />
-            </div>
-          </section>
-        </form>
-        <div class="filter">
-          Filter
-          <i class="fa-solid fa-filter"></i>
-        </div>
-      </div>
       <div class="navRight">
         <span class="username">Username</span>
         <button>Logout</button>
       </div>
     </div>
-
-
-
     <div class="navBottom">
       <!-- <div class="tabs">messages</div>
       <div class="tabs">favorites</div>
@@ -86,6 +25,67 @@
     <div class="tabs">Sold</div>
     </div>
   </nav>
+
+  <div class="browse">
+    <form action="/" method="GET" id="carSearch">
+
+      <section class="searchBar">
+        <input placeholder="   Search..." />
+        <button type="submit">Search</button>
+        <div class="filter">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </section>
+
+      <section class="filterOptions">
+        <div>
+          <label for="carMake">Make</label>
+          <select id="carMake">
+            <option value="">Select a Make</option>
+          </select>
+        </div>
+        <div>
+          <label for="carMake">Model</label>
+          <select id="carModel">
+            <option value="" data-tag="">Select a Model</option>
+          </select>
+        </div>
+        <div>
+          <label for="transmission">Transmission</label>
+          <select id="carTransmission">
+            <option value="">Select an Option</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+        <div>
+          <label for="year">Min Year</label>
+          <input type="number" name="minYear" placeholder="Year" id="minYear" />
+
+          <label for="year">Max Year</label>
+          <input type="number" name="maxYear" placeholder="Year" id="maxYear" />
+        </div>
+        <div>
+          <label for="minPrice">Min Price</label>
+          <input
+            type="number"
+            name="minPrice"
+            placeholder="Min Price"
+            id="minPrice"
+          />
+          <label for="maxPrice">Max Price</label>
+          <input
+            type="number"
+            name="maxPrice"
+            placeholder="Max Price"
+            id="maxPrice"
+          />
+        </div>
+      </section>
+
+
+    </form>
+  </div>
 
 
 
@@ -103,31 +103,34 @@
   <section class="newForm">
     <header>
       <h2>Create New Listing</h2>
+      <p id="invalid"></p>
     </header>
     <form action="/api" method="post">
       <div>
         <label for="thumbnail">Thumbnail Image</label>
-        <input placeholder="Thumbnail Image" type="text" name="thumbnail_url" id="carthumbnail">
+        <input placeholder="Thumbnail Image" type="text" name="imageURL" id="imageURL">
       </div>
       <section class="makeModel">
         <div>
           <label for="carMake">Make</label>
-          <select id="make">
+          <select name="make" id="make">
             <option value="">Select a Make</option>
+            <option name="Honda" value="Honda">Honda</option>
           </select>
         </div>
         <div>
           <label for="carMake">Model</label>
-          <select id="model">
+          <select name="model" id="model">
             <option value="" data-tag="">Select a Model</option>
+            <option name="Civic" value="Civic" data-tag="Honda">Civic</option>
           </select>
         </div>
         <div>
           <label for="transmission">Transmission</label>
-          <select id="transmission">
+          <select name="transmission" id="transmission">
             <option value="">Select an Option</option>
-            <option value="Automatic">Automatic</option>
-            <option value="Manual">Manual</option>
+            <option value="False">Automatic</option>
+            <option value="True">Manual</option>
           </select>
         </div>
       </section>
@@ -135,10 +138,6 @@
         <div>
           <label for="year">Year</label>
           <input type="number" name="year" placeholder="Year" id="year" />
-        </div>
-        <div>
-          <label for="odometer">Mileage</label>
-          <input type="number" name="odometer" placeholder="Mileage" id="odometer" />
         </div>
       </section>
       <div>
@@ -150,7 +149,7 @@
         <input type="text" name="color" placeholder="Color" id="color" />
       </div>
       <div>
-        <textarea placeholder="Description" name="description" id="description" cols="60" rows="5"></textarea>
+        <textarea placeholder="Description" name="descriptions" id="descriptions" cols="60" rows="5"></textarea>
       </div>
       <div>
         <button type="submit">Create</button>
