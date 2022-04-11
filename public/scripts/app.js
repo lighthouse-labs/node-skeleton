@@ -26,22 +26,8 @@ $(document).ready(function () {
     $('.inbox').css('display', 'flex');
   });
 
-  $('#carMake').select2({});
-  $('#carModel').select2({});
+  $('#carMake').select2({closeOnSelect: false});
   $('#carTransmission').select2();
-
-  $('#carMake').change(function() {
-    const make =  $(this).val();
-    console.log('hello!');
-
-    $('#carModel option').each(function() {
-      if ($(this).data('tag') !== make) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
-  });
 
 
 });

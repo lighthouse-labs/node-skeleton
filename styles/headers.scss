@@ -66,36 +66,38 @@ headers {
       .filterOptions {
         display: none;
         width: 100%;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 10px;
         font-size: 0.7rem;
 
         .multiSelect {
-          @include flexRow;
-          width: 100%;
+          @include flexColumn;
           justify-content: center;
           align-items: center;
           font-size: 0.8rem;
+          width: 45%;
+          margin: 0.5% 0.5% 0.5% 0.5%;
 
           div {
             @include flexColumn;
-            width: 25%;
+            width: 100%;
             margin: 0.5% 0.5% 0.5% 0.5%;
           }
         }
 
         .minMax {
-          @include flexRow;
-          width: 100%;
+          @include flexColumn;
           justify-content: center;
           align-items: center;
           font-size: 0.8rem;
+          width: 15%;
+          margin: 0.5% 0.5% 0.5% 0.5%;
 
            div {
             @include flexColumn;
-            width: 20%;
+            width: 100%;
             margin: 0.5% 0.5% 0.5% 0.5%;
           }
         }
