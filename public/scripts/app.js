@@ -31,6 +31,11 @@ $(document).ready(function() {
     $('.inbox').css('display', 'flex');
   });
 
+  // Favorites button
+  $('#favorites').click(() => {
+
+  });
+
   $('#carMake').select2({closeOnSelect: false});
 
 
