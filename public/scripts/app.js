@@ -28,16 +28,9 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  $('#make').change(function() {
-    const make = $(this).val();
-    $('#model option').each(function() {
-      if ($(this).data('tag') !== make) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
+  // Messages inbox dropdown
+  $('#messages').click(() => {
+    $('.inbox').slideToggle('fast');
+    $('.inbox').css('display', 'flex');
   });
-
-
 });

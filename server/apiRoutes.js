@@ -41,5 +41,23 @@ router.post('', (req, res) => {
     });
 });
 
+router.get('/make', (req, res) => {
+  database.getAllMakes()
+  .then(makes => res.send(makes))
+  .catch(e => {
+    console.error(e);
+    res.send(e);
+  });
+});
+
+router.get('/model', (req, res) => {
+  database.getAllModels()
+  .then(models => res.send(models))
+  .catch(e => {
+    console.error(e);
+    res.send(e);
+  });
+});
+
 
 module.exports = router;
