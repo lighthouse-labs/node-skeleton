@@ -7,14 +7,16 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
+    <!-- Imported Icons -->
     <link
-    rel='stylesheet'
-    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
-    integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
-    crossorigin='anonymous'
-    referrerpolicy='no-referrer'
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
+    <!-- CSS -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/main.css" type="text/css" />
@@ -28,14 +30,18 @@
   </head>
 
   <body>
-    <header><%- include('partials/_headers') %></header>
+    <headers>
+      <%- include('partials/_headers') %> 
+      <%- include('partials/_newListing') %>
+      <%- include('partials/_browse') %>
+    </headers>
 
     <main class="listings">
       <div class="posts">
         <i class="star fa-regular fa-star"></i>
         <div class="carPhoto">car photo</div>
-        <div class='postBox'>
-          <div class='titlePrice'>
+        <div class="postBox">
+          <div class="titlePrice">
             <div class="postTitle">Title</div>
             <div class="postPrice">Price</div>
           </div>
@@ -45,8 +51,8 @@
       <div class="posts">
         <i class="star fa-regular fa-star"></i>
         <div class="carPhoto">car photo</div>
-        <div class='postBox'>
-          <div class='titlePrice'>
+        <div class="postBox">
+          <div class="titlePrice">
             <div class="postTitle">Title</div>
             <div class="postPrice">Price</div>
           </div>
@@ -56,15 +62,14 @@
       <div class="posts">
         <i class="star fa-regular fa-star"></i>
         <div class="carPhoto">car photo</div>
-        <div class='postBox'>
-          <div class='titlePrice'>
+        <div class="postBox">
+          <div class="titlePrice">
             <div class="postTitle">Title</div>
             <div class="postPrice">Price</div>
           </div>
           <div class="description">post filler</div>
         </div>
       </div>
-
     </main>
   </body>
 </html>
