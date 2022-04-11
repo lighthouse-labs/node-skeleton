@@ -5,7 +5,7 @@ const messages = 'http://localhost:8080/api/messages';
 
 
 router.get('/messages', (req, res) => {
-  database.getMessages(messages)
+  database.getInboxNames(messages)
     .then(messages => res.json(messages))
     .catch(e => {
       console.error(e);
