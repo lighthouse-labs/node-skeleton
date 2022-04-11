@@ -33,4 +33,25 @@ $(document).ready(function() {
     $('.inbox').slideToggle('fast');
     $('.inbox').css('display', 'flex');
   });
+
+  // Favorites button
+  $('#favorites').click(() => {
+
+  });
+
+  $('#carMake').select2({closeOnSelect: false});
+
+
+  $('#make').change(function() {
+    const make = $(this).val();
+    $('#model option').each(function() {
+      if ($(this).data('tag') !== make) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  });
+
+
 });
