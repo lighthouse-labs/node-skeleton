@@ -1,5 +1,6 @@
 INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jleadbeatter2@bandcamp.com', 'UCHuhLhrTYy', false),
 ('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true);
+('John Doe', 'blah@1688.com', '24PJaXBNTEZ', false);
 
 
 INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, imageURL) VALUES (2, '76814', 1985, 'Ford', 'Bronco', false, 'Goldenrod', 'Ac pyelonephritis NOS', true, 'https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?cs=srgb&amp;dl=asphalt-auto-automobile-244206.jpg&amp;fm=jpg'),
@@ -118,7 +119,7 @@ INSERT INTO messages (listing_id, dateTime, messageReceived) VALUES (46, '4/11/2
 (63, '4/9/2022', false);
 
 
-INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText) VALUES (1, 2, 1, 'vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis'),
-(1, 2, 2, 'suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et'),
-(1, 2, 3, 'posuere felis sed lacus morbi sem mauris laoreet ut rhoncus'),
-(1, 2, 4, 'non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci');
+INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText) VALUES (1, 2, 1, 'Hello, is this still available?'),
+(2, 1, 2, 'Yes it is! When would you like to have a look?'),
+(1, 2, 3, 'Does this afternoon work for you?'),
+(2, 1, 4, 'Yes it does! See you then!');
