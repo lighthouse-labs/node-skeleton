@@ -1,0 +1,61 @@
+@import "./partials/mixins";
+
+.newForm {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgreen;
+  margin-top: 3%;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 80%;
+
+
+
+  #invalid {
+    display: none;
+    justify-content: center;
+    border: 2px solid black;
+    color: black;
+    padding: 5px;
+  }
+
+    form {
+      width: 100%;
+      padding: 20px;
+
+      div {
+        @include flexColumn;
+        margin: 1% 1% 1% 1%;
+      }
+
+      section {
+        @include flexRow;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        div {
+          width: 100%;
+        }
+
+        button {
+          width: 50%;
+          margin: 1% 1% 1% 1%;
+          padding: 5px;
+          border-radius: 5px;
+        }
+
+        select {
+          padding: 5px;
+
+          option {
+            background-color: white;
+          }
+        }
+      }
+
+  }
+
+}

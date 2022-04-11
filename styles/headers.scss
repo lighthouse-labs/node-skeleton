@@ -2,7 +2,8 @@
 
 headers {
   @include flexColumn;
-  align-content: center;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 
 
@@ -104,34 +105,4 @@ headers {
       }
     }
   }
-
-// CREATE NEW LISTING
-
-  .newForm {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: red;
-
-    #invalid {
-      display: none;
-      justify-content: center;
-      border: 2px solid black;
-      color: black;
-      padding: 5px;
-    }
-
-    label {
-      margin-right: 10px;
-    }
-
-    div {
-      margin: 5px 5px 5px 5px;
-
-    }
-    section {
-      @include flexRow;
-    }
-  }
-
 }
