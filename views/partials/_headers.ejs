@@ -1,19 +1,13 @@
-<headers>
-  <nav>
-    <div class="navTop">
-      <div class="navTitle">
-        <i class="logo fa-solid fa-car-rear"></i>
-        <i class="logoBorder fa-solid fa-car-rear"></i>
-        <span>CAR-D-B</span>
-      </div>
-      <div class="navRight">
-        <span class="username">Username</span>
-        <button>Logout</button>
-      </div>
+<nav>
+  <div class="navTop">
+    <div class="navTitle">
+      <i class="logo fa-solid fa-car-rear"></i>
+      <i class="logoBorder fa-solid fa-car-rear"></i>
+      <span>CAR-D-B</span>
     </div>
-    <div class="navBottom">
-      <!-- <div class="tabs">messages</div>
-      <div class="tabs">favorites</div>
+    <div class="navRight">
+      <span class="username">Username</span>
+      <button>Logout</button>
     </div>
     <div class="newPost">
       <i class="fa-solid fa-plus"></i>
@@ -78,86 +72,11 @@
       </section>
     </form>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <section class="newForm">
-    <header>
-      <h2>Create New Listing</h2>
-      <p id="invalid"></p>
-    </header>
-    <form action="/api" method="post">
-      <div>
-        <label for="thumbnail">Thumbnail Image</label>
-        <input placeholder="Thumbnail Image" type="text" name="imageURL" id="imageURL">
-      </div>
-      <section class="makeModel">
-        <div>
-          <label for="carMake">Make</label>
-          <select name="make" id="make">
-            <option value="">Select a Make</option>
-            <option name="Honda" value="Honda">Honda</option>
-          </select>
-        </div>
-        <div>
-          <label for="carMake">Model</label>
-          <select name="model" id="model">
-            <option value="" data-tag="">Select a Model</option>
-            <option name="Civic" value="Civic" data-tag="Honda">Civic</option>
-          </select>
-        </div>
-        <div>
-          <label for="transmission">Transmission</label>
-          <select name="transmission" id="transmission">
-            <option value="">Select an Option</option>
-            <option value="False">Automatic</option>
-            <option value="True">Manual</option>
-          </select>
-        </div>
-      </section>
-      <section>
-        <div>
-          <label for="year">Year</label>
-          <input type="number" name="year" placeholder="Year" id="year" />
-        </div>
-      </section>
-      <div>
-        <label for="price">Price</label>
-        <input type="number" name="price" placeholder="Price" id="price" />
-      </div>
-      <div>
-        <label for="color">Color</label>
-        <input type="text" name="color" placeholder="Color" id="color" />
-      </div>
-      <div>
-        <textarea placeholder="Description" name="descriptions" id="descriptions" cols="60" rows="5"></textarea>
-      </div>
-      <div>
-        <button type="submit">Create</button>
-        <a id="property-form__cancel" href="#">Cancel</a>
-    </div>
-    </form>
-  </section>
-
-  <div class="messageBox">
-    <div class="inbox">
-
-      <div class="message">user_id</div>
-      <div class="message">user_id</div>
-      <div class="message">user_id</div>
-      <div class="message">user_id</div>
-      <div class="message">user_id</div>
-    </div>
+  <div class="navBottom">
+    <div class="newPost tabs">New Listing</div>
+    <div id='listings' class="tabs">Listings</div>
+    <div id='messages' class="tabs">Messages</div>
+    <div id='favorites' class="tabs">Favorites</div>
+    <div id='sold' class="tabs">Sold</div>
   </div>
-</headers>
+</nav>
