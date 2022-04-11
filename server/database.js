@@ -54,13 +54,13 @@ const createListing = function(listings) {
 };
 
 const getAllMakes = function() {
-  return db.query(`SELECT make FROM listings;`)
+  return db.query(`SELECT DISTINCT make FROM listings;`)
   .then((res) => res.rows)
   .catch((err) => console.log(err.message));
 };
 
 const getAllModels = function() {
-  return db.query(`SELECT model FROM listings;`)
+  return db.query(`SELECT DISTINCT model, make FROM listings;`)
   .then((res) => res.rows)
   .catch((err) =>  console.log(err.message));
 };
