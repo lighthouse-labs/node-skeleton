@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function () {
+$(document).ready(function() {
 
   // Search filter dropdown
   $('.filter').click(() => {
@@ -18,7 +18,12 @@ $(document).ready(function () {
   });
 
   // New listing cancel button
-  $('#property-form__cancel').click(() => $('.newForm').slideUp('fast'));
+  $('#cancel').click(() => {
+    $('.newForm').slideToggle('fast');
+    $('.newForm').css('display', 'flex');
+    $('.filterOptions').slideUp('fast');
+    $('.inbox').slideUp('fast');
+  });
 
   // Messages inbox dropdown
   $('#messages').click(() => {
