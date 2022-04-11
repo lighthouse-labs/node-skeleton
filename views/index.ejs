@@ -34,16 +34,34 @@
 
   <body>
     <headers>
-      <%- include('partials/_headers') %> 
-      <%- include('partials/_messages') %> 
-      <%- include('partials/_newListing') %>
-      <%- include('partials/_browse') %>
+      <%- include('partials/_headers') %> <%- include('partials/_messages') %>
+      <%- include('partials/_newListing') %> <%- include('partials/_browse') %>
     </headers>
 
     <main class="listings">
       <div class="posts">
-        <i class="star fa-regular fa-star"></i>
-        <div class="carPhoto">car photo</div>
+        <div class="carPhoto">
+          car photo
+          <i class="star fa-regular fa-star"></i>
+        </div>
+        <div class="postBox">
+          <div class="titlePrice">
+            <div class="postTitle">Title</div>
+            <div class="postPrice">Price</div>
+          </div>
+          <div class='messageButtonContainer'>
+            <div class='messageButton'>
+              message_seller
+            </div>
+          </div>
+          <div class="description">post filler</div>
+        </div>
+      </div>
+      <div class="posts">
+        <div class="carPhoto">
+          car photo
+          <i class="star fa-regular fa-star"></i>
+        </div>
         <div class="postBox">
           <div class="titlePrice">
             <div class="postTitle">Title</div>
@@ -53,19 +71,10 @@
         </div>
       </div>
       <div class="posts">
-        <i class="star fa-regular fa-star"></i>
-        <div class="carPhoto">car photo</div>
-        <div class="postBox">
-          <div class="titlePrice">
-            <div class="postTitle">Title</div>
-            <div class="postPrice">Price</div>
-          </div>
-          <div class="description">post filler</div>
+        <div class="carPhoto">
+          car photo
+          <i class="star fa-regular fa-star"></i>
         </div>
-      </div>
-      <div class="posts">
-        <i class="star fa-regular fa-star"></i>
-        <div class="carPhoto">car photo</div>
         <div class="postBox">
           <div class="titlePrice">
             <div class="postTitle">Title</div>

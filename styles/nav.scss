@@ -3,6 +3,7 @@
 headers {
 
   nav {
+    
     width: 100vw;
     height: auto;
     @include flexColumn;
@@ -23,6 +24,7 @@ headers {
       display: flex;
       flex-direction: row;
       margin-top: 15px;
+      justify-content: space-between;
     }
 
     .navBottom {

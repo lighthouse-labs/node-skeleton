@@ -5,39 +5,59 @@
   width: 80vw;
   height: 35vh;
   margin: 5% 0 5% 0;
+  background-color: #e4e4e4;
   @include flexRow;
 
   i {
     position: absolute;
     margin: 5px;
+    bottom: 0;
+    left: 0;
   }
+
   .carPhoto {
     border-right: solid;
     width: 50%;
+    position: relative;
   }
+
   .postBox {
     @include flexColumn;
     justify-content: space-between;
     width: 100%;
     padding: 2px;
   }
+
   .titlePrice {
     @include flexRow;
     width: 100%;
     justify-content: space-between;
   }
+
   .postTitle {
     //deleteable v
     border: solid;
     //deleteable ^
   }
+
   .postPrice {
     //deleteable v
-    border: solid;
+    border: solid thick;
     //deleteable ^
-    color: greenyellow;
+    color: rgb(87, 184, 43);
     opacity: 0.8;
+    font-weight: bold;
   }
+
+  .messageButtonContainer {
+    @include flexRow;
+    justify-content: end;
+  }
+
+  .messageButton {
+    border: solid;
+  }
+
   .description {
     //deleteable v
     border: solid;
@@ -49,4 +69,5 @@
     box-shadow: 0px 20px 16px 9px #45a6fc;
     transform: scale(1.1);
   }
+
 }
