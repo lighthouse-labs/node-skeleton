@@ -2,9 +2,9 @@ $(() => {
 
   // Generates messages in inbox
   const createMessages = (message) => {
-
+console.log(message)
     let $message = $(`
-    <div class="message">${message.sender_id}</div>
+    <div class="message">${message.name}</div>
     `);
     return $message;
   };
@@ -13,9 +13,7 @@ $(() => {
   const renderMessages = () => {
     $.get('/api/messages').then(data => {
       $('.inbox').empty();
-      console.log('DATA:', data);
       data.forEach(message => {
-        console.log('MESSAGE:', message.sender_id);
         $('.inbox').prepend(createMessages(message));
       });
     });
