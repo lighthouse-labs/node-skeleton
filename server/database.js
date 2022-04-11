@@ -13,14 +13,22 @@ const getAllListings = function(limit) {
 };
 
 
-// const getMessages = function(messages) {
+const getMessages = function() {
+  return db.query(`SELECT users.name AS name, sender_id, COUNT(*) AS num_of_messages
+  FROM messagelisting 
+  JOIN users 
+  ON users.id=sender_id
+  GROUP BY users.name, sender_id
+  ORDER BY users.name;
+    `)
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
 
-// };
 
+const getFavorites = function(favorites) {
 
-// const getFavorites = function(favorites) {
-
-// };
+};
 
 
 
@@ -69,5 +77,6 @@ module.exports = {
   getAllListings,
   createListing,
   getAllMakes,
-  getAllModels
+  getAllModels,
+  getMessages
 }
