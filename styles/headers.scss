@@ -17,7 +17,7 @@ headers {
       align-items: center;
       justify-content: center;
       padding: 10px;
-      width: 60%;
+      width: 100%;
 
       .searchBar {
         @include flexRow;
@@ -29,7 +29,7 @@ headers {
 
         input {
           display: flex;
-          width: 70%;
+          width: 50%;
           outline: none;
           border: none;
           border-bottom: 2px solid black;
@@ -65,11 +65,42 @@ headers {
 
       .filterOptions {
         display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        font-size: 0.7rem;
+
+        .multiSelect {
+          @include flexRow;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.8rem;
+
+          div {
+            @include flexColumn;
+            width: 25%;
+            margin: 0.5% 0.5% 0.5% 0.5%;
+          }
+        }
+
+        .minMax {
+          @include flexRow;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.8rem;
+
+           div {
+            @include flexColumn;
+            width: 20%;
+            margin: 0.5% 0.5% 0.5% 0.5%;
+          }
+        }
+
       }
-
-
-
-
     }
   }
 
