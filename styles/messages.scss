@@ -27,13 +27,14 @@
 }
 
 .chatBox {
+  display: none;
   position: fixed;
   top: 50vh;
   left: 50vw;
   height: 50vh;
   width: 50vw;
   border: solid;
-  border-radius: 2px;
+  border-radius: 5px;
   background-color: #89b8cb;
 
   .senderMessage {
