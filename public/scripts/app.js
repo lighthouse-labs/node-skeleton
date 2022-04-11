@@ -1,6 +1,7 @@
 // Client facing scripts here
 $(document).ready(function() {
 
+
   // Search filter dropdown
   $('.filter').click(() => {
     $('.filterOptions').slideToggle('fast');
@@ -8,6 +9,8 @@ $(document).ready(function() {
     $('.newForm').slideUp('fast');
     $('.inbox').slideUp('fast');
   });
+
+  $('#carMake').select2({closeOnSelect: false});
 
   // New listing drop down
   $('.newPost').click(() => {
@@ -31,7 +34,6 @@ $(document).ready(function() {
     $('.inbox').css('display', 'flex');
   });
 
-  $('#carMake').select2({closeOnSelect: false});
 
 
   $('#make').change(function() {
