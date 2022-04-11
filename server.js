@@ -10,6 +10,7 @@ const morgan = require("morgan");
 
 // Set Body Parser
 const bodyParser    = require("body-parser");
+const db = require("./server/database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ROUTERS
@@ -37,6 +38,7 @@ app.use(
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
+
   res.render("index");
 });
 

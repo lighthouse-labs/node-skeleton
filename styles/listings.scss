@@ -22,7 +22,9 @@
 
   .carPhoto {
     border-right: solid;
-    width: 50%;
+    // width: 50%;
+    max-width: 50%;
+    max-height: 35vh;
     position: relative;
   }
 
