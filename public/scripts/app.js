@@ -28,14 +28,6 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  // Messages inbox dropdown
-  $('#messages').click(() => {
-    $('.inbox').slideToggle('fast');
-    $('.inbox').css('display', 'flex');
-  });
-
-
-
   $('#make').change(function() {
     const make = $(this).val();
     $('#model option').each(function() {

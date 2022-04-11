@@ -13,9 +13,9 @@ const getAllListings = function(limit) {
 };
 
 
-// const getMessages = function(messages) {
-
-// };
+const getMessages = function() {
+  console.log('TEST:', 'test');
+};
 
 
 // const getFavorites = function(favorites) {
