@@ -1,0 +1,64 @@
+@import "./partials/mixins";
+
+.messageBox {
+  position: fixed;
+  top: 100px;
+  width: 100%;
+  @include flexRow;
+  justify-content: end;
+
+  .inbox {
+    width: 25%;
+    min-height: 20vh;
+    display: none;
+    // display: flex; onClick EVENT
+    flex-direction: column;
+    border: solid;
+    background-color: #d8d5d5;
+    z-index: 5;
+  }
+
+  .message {
+    border: solid;
+    padding: 5px;
+    text-align: center;
+    z-index: 5;
+  }
+}
+
+.chatBox {
+  display: none;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  height: 50vh;
+  width: 50vw;
+  border: solid;
+  border-radius: 5px;
+  background-color: #89b8cb;
+
+  .senderMessage {
+    @include flexRow;
+    border: solid rgba(238, 114, 20, 0.851);
+    border-radius: 10px;
+    margin: 2%;
+    padding: 1%;
+
+    .messageID {
+      margin-left: 1%;
+    }
+  }
+  .recieverMessage {
+    @include flexRow;
+    justify-content: end;
+    width: auto;
+
+    .messageID {
+      border: solid rgb(21, 9, 156);
+      border-radius: 10px;
+      justify-content: end;
+      margin: 2%;
+      padding: 1%;
+    }
+  }
+}
