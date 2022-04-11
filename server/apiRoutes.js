@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const database = require('./database');
+const messages = 'http://localhost:8080/api/messages';
 
 
 router.get('/messages', (req, res) => {
-  database.getMessages()
+  database.getMessages(messages)
     .then(messages => res.json(messages))
     .catch(e => {
       console.error(e);

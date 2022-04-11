@@ -23,9 +23,9 @@ const getMessages = function() {
 };
 
 
-// const getFavorites = function(favorites) {
+const getFavorites = function(favorites) {
 
-// };
+};
 
 
 
