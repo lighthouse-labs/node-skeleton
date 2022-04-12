@@ -12,8 +12,9 @@ $(() => {
   const renderMessages = () => {
     $.get('/api/inbox').then(data => {
       $('.inbox').empty();
+      console.log('DATA:', data);
       data.forEach(message => {
-        console.log('message:', message);
+        console.log('message.js:', message);
         console.log('message.receiver:', message.receiver);
         console.log('USERNAME:', $('.username')[0].innerText);
 
