@@ -54,7 +54,6 @@ $(() => {
 
   const loadListings = function() {
     $.ajax({ method: 'GET', url: '/api' }).then(function(data) {
-
       renderListing(data);
     });
   };

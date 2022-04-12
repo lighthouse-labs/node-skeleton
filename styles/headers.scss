@@ -30,7 +30,7 @@ headers {
 
         input {
           display: flex;
-          width: 50%;
+          width: 55%;
           outline: none;
           border: none;
           border-bottom: 2px solid black;
@@ -78,7 +78,7 @@ headers {
           justify-content: center;
           align-items: center;
           font-size: 0.8rem;
-          width: 45%;
+          width: 65%;
           margin: 0.5% 0.5% 0.5% 0.5%;
 
           div {
@@ -86,20 +86,31 @@ headers {
             width: 100%;
             margin: 0.5% 0.5% 0.5% 0.5%;
           }
-        }
 
-        .minMax {
-          @include flexColumn;
-          justify-content: center;
-          align-items: center;
-          font-size: 0.8rem;
-          width: 15%;
-          margin: 0.5% 0.5% 0.5% 0.5%;
+          .rangeSlider {
+            margin-top: 3%;
+            label {
+              text-align: center;
+              margin-bottom: 0.5%;
+            }
+          }
 
-           div {
-            @include flexColumn;
+          .sliderInput {
+            @include flexRow;
+            justify-content: center;
+            justify-items: center;
             width: 100%;
             margin: 0.5% 0.5% 0.5% 0.5%;
+
+            input {
+              width: 20%;
+              justify-self: center;
+              text-align: center;
+              margin: 1% 1% 1% 1%;
+              background-color: white;
+              opacity: 0.8;
+              border: none;
+            }
           }
         }
       }

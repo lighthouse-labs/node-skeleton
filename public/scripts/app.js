@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function() {
+$(() => {
 
 
   // Search filter dropdown
@@ -10,7 +10,8 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  $('#carMake').select2({closeOnSelect: false});
+  $('#carMake').select2({ closeOnSelect: false });
+  $('#carTransmission').select2();
 
   // New listing drop down
   $('.newPost').click(() => {
@@ -23,7 +24,6 @@ $(document).ready(function() {
   // New listing cancel button
   $('#cancel').click(() => {
     $('.newForm').slideToggle('fast');
-    $('.newForm').css('display', 'flex');
     $('.filterOptions').slideUp('fast');
     $('.inbox').slideUp('fast');
   });
@@ -35,19 +35,27 @@ $(document).ready(function() {
 
   });
 
-  $('#carMake').select2({closeOnSelect: false});
+  $('#priceSlider').slider({
+    range: true,
+    min: 0,
+    max: 150000,
+    values: [3000, 50000],
+    slide: function (event, ui) {
+      $('#minPrice').val('$' + ui.values[0]);
+      $('#maxPrice').val('$' + ui.values[1]);
+    }
+  })
 
-
-  $('#make').change(function() {
-    const make = $(this).val();
-    $('#model option').each(function() {
-      if ($(this).data('tag') !== make) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
-  });
+  $('#yearSlider').slider({
+    range: true,
+    min: 1886,
+    max: 2022,
+    values: [2000, 2022],
+    slide: function (event, ui) {
+      $('#minYear').val(ui.values[0]);
+      $('#maxYear').val(ui.values[1]);
+    }
+  })
 
 
 });
