@@ -10,8 +10,8 @@ $(() => {
     $('.inbox').slideUp('fast');
   });
 
-  // $('#carMake').select2({ closeOnSelect: false });
-  // $('#carTransmission').select2();
+  $('#carMake').select2({ closeOnSelect: false });
+  $('#carTransmission').select2();
 
   // New listing drop down
   $('.newPost').click(() => {
