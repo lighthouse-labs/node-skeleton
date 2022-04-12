@@ -11,15 +11,20 @@
   .star {
     // position: absolute;
     margin: 5px;
-    bottom: 0;
-    left: 0;
+    // bottom: 0;
+    // left: 0;
     color: grey;
+    background-color: #e4e4e4;
     display: flex;
+    align-items: center;
   }
 
   .favoriteButton {
     display: contents;
- }
+    // color: red;
+    // display: flex;
+    // align-items: center;
+  }
 
   .carPhoto {
     border-right: solid;
