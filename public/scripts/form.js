@@ -1,9 +1,9 @@
 $(() => {
 
-  $('#make').select2();
-  $('#model').select2();
-  $('#transmission').select2();
-  $('#year').select2();
+  // $('#make').select2();
+  // $('#model').select2();
+  // $('#transmission').select2();
+  // $('#year').select2();
 
   const createMakeOptions = (makes) => {
     const make = makes.make;
@@ -36,7 +36,7 @@ $(() => {
     const make = models.make;
     const model = models.model;
 
-    const $option = $(`<option name=${model} value=${model} data-tag=${make}>`)
+    const $option = $(`<option name=${model} value=${model} data-tag=${make}>`);
 
     $option.text(model);
     return $option;
