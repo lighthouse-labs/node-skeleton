@@ -25,7 +25,10 @@ router.get('/messages', (req, res) => {
 
 router.get('/:id', (req, res) => {
   database.getUsers(req.params.id)
-    .then(user => res.json(user))
+    .then(user => {
+      console.log(user[0]);
+      res.render("index", user[0]);
+    })
     .catch(e => {
       console.error(e);
       res.send(e);
