@@ -13,19 +13,80 @@ const getAllListings = function(limit) {
 };
 
 
+const browseListings = function(filter, limit) {
+  const queryParams = [];
+  let queryString = `SELECT *
+  FROM listings
+  WHERE TRUE
+  `;
+
+  if (filter.search) {
+    queryParams.push(`%${filter.search}%`);
+    queryString += `AND LOWER(make) LIKE $${queryParams.length} OR LOWER(model) LIKE $${queryParams.length}`;
+  }
+
+  if (filter.carMake) {
+    if (Array.isArray(filter.carMake)) {
+      console.log(filter.carMake);
+      for (const make of filter.carMake) {
+        queryParams.push(make);
+        queryString += `AND make = $${queryParams.length}`;
+      }
+    } else {
+      queryParams.push(filter.carMake);
+      queryString += `AND make = $${queryParams.length}`;
+    }
+  }
+
+  if (filter.transmission) {
+    queryParams.push(filter.transmission);
+    queryString += `AND transmission = $${queryParams.length}`;
+  }
+
+  if (filter.minPrice) {
+    queryParams.push(filter.minPrice);
+    queryString += `AND price >= $${queryParams.length}`;
+  }
+
+  if (filter.maxPrice) {
+    queryParams.push(filter.maxPrice);
+    queryString += `AND price <= $${queryParams.length}`;
+  }
+
+  if (filter.minYear) {
+    queryParams.push(filter.minYear);
+    queryString += `AND year >= $${queryParams.length}`;
+  }
+
+  if (filter.maxYear) {
+    queryParams.push(filter.maxYear);
+    queryString += `AND year <= $${queryParams.length}`;
+  }
+
+  queryParams.push(limit);
+  queryString += `
+  ORDER BY listings DESC
+  LIMIT $${queryParams.length};
+  `;
+  return db.query(queryString, queryParams)
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
+
 const getInboxNames = () => {
   return db.query(`SELECT CASE
   WHEN sender_id = 1 THEN $1
   WHEN sender_id = 2 THEN $2
   WHEN sender_id = 3 THEN $3
-  END  
+  END
   AS sender,
   COUNT(*) AS num_of_messages,
   CASE
   WHEN receiver_id = 1 THEN $1
   WHEN receiver_id = 2 THEN $2
   WHEN receiver_id = 3 THEN $3
-  END 
+  END
   AS receiver
   FROM messagelisting
   JOIN users
@@ -38,19 +99,19 @@ const getInboxNames = () => {
 };
 
 const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id, 
+  return db.query(`SELECT messagelisting.id AS message_id,
   CASE
   WHEN users.id = 1 THEN $1
   WHEN users.id = 2 THEN $2
   WHEN users.id = 3 THEN $3
-  END  
-  AS sender, 
+  END
+  AS sender,
   CASE
-  WHEN messagelisting.receiver_id = $1 THEN 
-  WHEN messagelisting.receiver_id = $2 THEN 
-  WHEN messagelisting.receiver_id = $3 THEN 
+  WHEN messagelisting.receiver_id = $1 THEN
+  WHEN messagelisting.receiver_id = $2 THEN
+  WHEN messagelisting.receiver_id = $3 THEN
   END AS reciever, messagetext, admin FROM messagelisting
-  JOIN users ON users.id=sender_id 
+  JOIN users ON users.id=sender_id
   ORDER BY messagelisting.id
   ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
     .then((result) => result.rows)
@@ -110,6 +171,7 @@ const getAllModels = function() {
 };
 
 module.exports = {
+  browseListings,
   getAllListings,
   createListing,
   getAllMakes,

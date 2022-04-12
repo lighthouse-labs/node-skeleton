@@ -39,12 +39,12 @@ app.use(
 );
 
 app.use(express.static("public"));
-
 app.get("/", (req, res) => {
-  res.cookie('user_id', req.params.id);
   const params = {
     name: 'username'
   };
+  console.log(req.query);
+  res.cookie('user_id', req.params.id);
   res.render('index', params);
 });
 
