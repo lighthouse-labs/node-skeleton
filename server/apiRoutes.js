@@ -27,7 +27,6 @@ router.get('/messages', (req, res) => {
 
 router.get('/:id', (req, res) => {
   res.cookie('user_id', req.params.id);
-  console.log(req.session);
   database.getUsers(req.params.id)
     .then(user => {
       console.log(user[0]);

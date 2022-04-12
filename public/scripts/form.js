@@ -27,7 +27,7 @@ $(() => {
       $('#make').empty();
       $('#make').append($default);
       renderMakeOptions(makes);
-    })
+    });
   };
 
   loadMakeOptions();
@@ -49,14 +49,14 @@ $(() => {
         $('#model').append(createModelOptions(model));
       }
     } else {
-      for(const model of models) {
+      for (const model of models) {
         if (model.make === selectedMake) {
           console.log(model);
           $('#model').append(createModelOptions(model));
         }
       }
     }
-  }
+  };
 
   const loadModelOptions = () => {
     $.ajax({
@@ -67,19 +67,19 @@ $(() => {
       $('#model').empty();
       $('#model').append($default);
       renderModelOptions(models);
-    })
-  }
+    });
+  };
 
   loadModelOptions();
 
   $('#make').change(() => {
     loadModelOptions();
-  })
+  });
 
   const createRenderYears = () => {
     const currentYear = new Date().getFullYear();
 
-    for(let year = currentYear; year >= 1886; year--) {
+    for (let year = currentYear; year >= 1886; year--) {
       const $option = $(`<option name=${year} value=${year}>`);
       $option.text(year);
       $('#year').append($option);
@@ -91,27 +91,27 @@ $(() => {
     $('#year').empty();
     $('#year').append($default);
     createRenderYears();
- }
+  };
 
- loadYears();
+  loadYears();
 
- $('#createList').on('submit', (event) => {
+  $('#createList').on('submit', (event) => {
 
-  if (!$('#imageURL').val().trim() || !$('#price').val().trim() || !$('#color').val().trim()) {
-    console.log($('#make').val());
-    $('#invalid').text('Please fill in empty field!').slideDown('fast');
-    setTimeout(() => {
-      $('#invalid').text('');
-      $('#invalid').slideUp('fast');
-    }, 2000);
-    return;
-  }
+    if (!$('#imageURL').val().trim() || !$('#price').val().trim() || !$('#color').val().trim()) {
+      console.log($('#make').val());
+      $('#invalid').text('Please fill in empty field!').slideDown('fast');
+      setTimeout(() => {
+        $('#invalid').text('');
+        $('#invalid').slideUp('fast');
+      }, 2000);
+      return;
+    }
 
-  $.ajax({
-    url: '/api',
-    method: 'POST'
-  }).done((post) => {
-    $('#createList').reset();
-  })
- })
+    $.ajax({
+      url: '/api',
+      method: 'POST'
+    }).done((post) => {
+      $('#createList').reset();
+    });
+  });
 });
