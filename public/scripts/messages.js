@@ -13,7 +13,8 @@ $(() => {
     $.get('/api/inbox').then(data => {
       $('.inbox').empty();
       data.forEach(message => {
-        if ($('.username')[0].innerText !== message.name) {
+        console.log('message:', message);
+        if ($('.username')[0].innerText === message.name) {
           $('.inbox').prepend(createMessages(message));
         }
       });
