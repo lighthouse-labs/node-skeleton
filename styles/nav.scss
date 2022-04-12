@@ -3,9 +3,10 @@
 headers {
 
   nav {
-    
+
     width: 100vw;
     height: 100px;
+    z-index: 500;
     @include flexColumn;
     justify-content: space-evenly;
     align-items: center;
@@ -89,10 +90,6 @@ headers {
 
     .newPost {
       @include flexRow;
-      // position: absolute;
-      // top: 60%;
-      // left: 55%;
-      // opacity: 0.3;
       &:hover {
         opacity: 1;
         transform: scale(1.1);
