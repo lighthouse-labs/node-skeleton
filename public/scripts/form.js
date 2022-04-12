@@ -23,7 +23,7 @@ $(() => {
       url: '/api/make',
       method: 'GET'
     }).done((makes) => {
-      const $default = $('<option name="null" value-"null">').text('Select Make');
+      const $default = $('<option name="" value="">').text('Select Make');
       $('#make').empty();
       $('#make').append($default);
       renderMakeOptions(makes);
@@ -44,7 +44,7 @@ $(() => {
 
   const renderModelOptions = (models) => {
     const selectedMake = $('#make').val();
-    if (selectedMake === 'Select Make') {
+    if (selectedMake === '') {
       for (const model of models) {
         $('#model').append(createModelOptions(model));
       }
@@ -76,17 +76,42 @@ $(() => {
     loadModelOptions();
   })
 
+  const createRenderYears = () => {
+    const currentYear = new Date().getFullYear();
 
+    for(let year = currentYear; year >= 1886; year--) {
+      const $option = $(`<option name=${year} value=${year}>`);
+      $option.text(year);
+      $('#year').append($option);
+    }
+  };
 
+  const loadYears = () => {
+    const $default = $('<option name="" value="">').text('Select Year');
+    $('#year').empty();
+    $('#year').append($default);
+    createRenderYears();
+ }
 
+ loadYears();
 
+ $('#createList').on('submit', (event) => {
 
+  if (!$('#imageURL').val().trim() || !$('#price').val().trim() || !$('#color').val().trim()) {
+    console.log($('#make').val());
+    $('#invalid').text('Please fill in empty field!').slideDown('fast');
+    setTimeout(() => {
+      $('#invalid').text('');
+      $('#invalid').slideUp('fast');
+    }, 2000);
+    return;
+  }
 
-
-
-
-
-
-
-
+  $.ajax({
+    url: '/api',
+    method: 'POST'
+  }).done((post) => {
+    $('#createList').reset();
+  })
+ })
 });

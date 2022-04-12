@@ -23,7 +23,6 @@ $(() => {
   // New listing cancel button
   $('#cancel').click(() => {
     $('.newForm').slideToggle('fast');
-    $('.newForm').css('display', 'flex');
     $('.filterOptions').slideUp('fast');
     $('.inbox').slideUp('fast');
   });

@@ -9,17 +9,29 @@
   margin-top: 3%;
   border: 2px solid black;
   border-radius: 10px;
-  width: 80%;
+  width: 70%;
 
-
-
-  #invalid {
-    display: none;
+  header {
+    @include flexColumn;
     justify-content: center;
-    border: 2px solid black;
-    color: black;
-    padding: 5px;
+    align-items: center;
+    width: 100%;
+
+    h2 {
+      display: none;
+    }
+
+    #invalid {
+      display: none;
+      justify-content: center;
+      border: 2px solid red;
+      color: red;
+      padding: 5px;
+      width: 70%;
+      text-align: center;
+    }
   }
+
 
     form {
       width: 100%;
@@ -27,7 +39,7 @@
 
       div {
         @include flexColumn;
-        margin: 1% 1% 1% 1%;
+        margin: 0.5% 0.5% 0.5% 0.5%;
       }
 
       section {
@@ -38,6 +50,8 @@
 
         div {
           width: 100%;
+          display: flex;
+          justify-content: center;
         }
 
         button {
@@ -45,13 +59,11 @@
           margin: 1% 1% 1% 1%;
           padding: 5px;
           border-radius: 5px;
-        }
-
-        select {
-          padding: 5px;
-
-          option {
-            background-color: white;
+          background-color: lightblue;
+          opacity: 0.7;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
           }
         }
       }
