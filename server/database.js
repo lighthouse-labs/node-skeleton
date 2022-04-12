@@ -26,10 +26,10 @@ const getInboxNames = () => {
 };
 
 const getChat = () => {
-  return db.query(`SELECT *                                     
-  FROM messagelisting
-  ORDER BY id;
-    `)
+  return db.query(`SELECT messagelisting.id AS message_id, users.name AS sender, users.name AS reciever, messagetext FROM messagelisting
+  JOIN users ON users.id=sender_id 
+  ORDER BY messagelisting.id
+  ;`)
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 }

@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function() {
+$(() => {
 
 
   // Search filter dropdown
@@ -10,7 +10,7 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  $('#carMake').select2({closeOnSelect: false});
+  $('#carMake').select2({ closeOnSelect: false });
 
   // New listing drop down
   $('.newPost').click(() => {
@@ -28,9 +28,4 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  // Messages inbox dropdown
-  $('#messages').click(() => {
-    $('.inbox').slideToggle('fast');
-    $('.inbox').css('display', 'flex');
-  });
 });
