@@ -49,8 +49,11 @@ router.get('/:id', (req, res) => {
   res.cookie('user_id', req.params.id);
   database.getUsers(req.params.id)
     .then(user => {
+      const params = {
+        name: user[0].name
+      };
       console.log(user[0]);
-      res.redirect("/");
+      res.render("index", params);
     })
     .catch(e => {
       console.error(e);

@@ -14,7 +14,8 @@ const getAllListings = function(limit) {
 
 
 const getInboxNames = () => {
-  return db.query(`SELECT CASE
+  return db.query(`SELECT 
+  CASE 
   WHEN sender_id = 1 THEN $1
   WHEN sender_id = 2 THEN $2
   WHEN sender_id = 3 THEN $3
@@ -46,9 +47,9 @@ const getChat = () => {
   END  
   AS sender, 
   CASE
-  WHEN messagelisting.receiver_id = $1 THEN 
-  WHEN messagelisting.receiver_id = $2 THEN 
-  WHEN messagelisting.receiver_id = $3 THEN 
+  WHEN receiver_id = 1 THEN $1 
+  WHEN receiver_id = 2 THEN $2
+  WHEN receiver_id = 3 THEN $3
   END AS reciever, messagetext, admin FROM messagelisting
   JOIN users ON users.id=sender_id 
   ORDER BY messagelisting.id
