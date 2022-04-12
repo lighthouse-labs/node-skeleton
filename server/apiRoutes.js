@@ -25,15 +25,15 @@ router.get('', (req, res) => {
 
 router.post('', (req, res) => {
   const form = req.body;
-  if (!form.model || !form.make || !form.year || !form.price || !form.color) {
-    res.status(403).send('Missing Required Information!');
+  if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-
   database.createListing(req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
-      res.status(201).send('New Listing Created!');
+      res.status(201)
+      console.log('New Listing Created!');
+      res.redirect('/');
     })
     .catch(e => {
       console.error(e);
