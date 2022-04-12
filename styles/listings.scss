@@ -2,6 +2,7 @@
 
 .posts {
   border: solid;
+  // border-right: none;
   width: 80vw;
   height: 35vh;
   margin: 5% 0 5% 0;
@@ -9,23 +10,34 @@
   @include flexRow;
 
   .star {
-    margin: 5px;
+    width: 4vw;
     color: grey;
-    background-color: #e4e4e4;
+    background: rgb(163, 208, 219);
+  background: linear-gradient(
+    227deg,
+    rgba(163, 176, 219, 1) 20%,
+    rgba(163, 173, 219, 1) 34%,
+    rgba(163, 219, 208, 1) 59%,
+    rgba(163, 208, 219, 1) 74%,
+  );
+    border: solid;
+    border-color: black;
+    border-left-width: 0.2vw;
+    border-right-width: 0.2vw;
+    border-top-style: none;
+    border-bottom-style: none;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
-  .favoriteButton {
+  .starButton {
     display: contents;
-    // color: red;
-    // display: flex;
-    // align-items: center;
+    align-items: center;
+    background: local;
   }
 
   .carPhoto {
-    border-right: solid;
-    // width: 50%;
     max-width: 75%;
     max-height: 40vh;
     position: relative;
@@ -42,6 +54,8 @@
     @include flexRow;
     width: 100%;
     justify-content: space-between;
+    padding: 1vh;
+    padding-right: 1%;
   }
 
   .postTitle {
@@ -57,17 +71,21 @@
   .messageButtonContainer {
     @include flexRow;
     justify-content: end;
+    padding-right: 5px;
   }
 
   .messageButton {
     border: solid;
     border-radius: 5px;
-    padding: 1%;
+    padding: 0.5%;
     background-color: rgba(88, 184, 43, 0.714);
   }
 
   .description {
     height: 50%;
+    width: 75%;
+    padding-left: 1%;
+    padding-top: 1%;
   }
 
   &:hover {
