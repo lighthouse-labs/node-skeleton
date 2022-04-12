@@ -13,7 +13,9 @@ $(() => {
     $.get('/api/inbox').then(data => {
       $('.inbox').empty();
       data.forEach(message => {
-        $('.inbox').prepend(createMessages(message));
+        if ($('.username')[0].innerText !== message.name) {
+          $('.inbox').prepend(createMessages(message));
+        }
       });
     });
   };
