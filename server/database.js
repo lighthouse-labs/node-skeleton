@@ -14,13 +14,23 @@ const getAllListings = function(limit) {
 
 
 const getInboxNames = () => {
-  return db.query(`SELECT users.name AS name,
+  return db.query(`SELECT CASE
+  WHEN sender_id = 1 THEN 'Jojo Leadbeatter'
+  WHEN sender_id = 2 THEN 'De Roo'
+  WHEN sender_id = 3 THEN 'John Doe'
+  END  
+  AS sender,
   COUNT(*) AS num_of_messages,
-  receiver_id 
+  CASE
+  WHEN receiver_id = 1 THEN 'Jojo Leadbeatter'
+  WHEN receiver_id = 2 THEN 'De Roo'
+  WHEN receiver_id = 3 THEN 'John Doe'
+  END 
+  AS receiver
   FROM messagelisting
   JOIN users
   ON users.id=receiver_id
-  GROUP BY users.name, receiver_id
+  GROUP BY users.name, receiver_id, sender_id
   ORDER BY users.name;
     `)
     .then((result) => result.rows)

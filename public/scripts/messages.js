@@ -3,7 +3,7 @@ $(() => {
   // Generates messages in inbox
   const createMessages = (message) => {
     let $message = $(`
-    <div id='${message.sender_id}' class="message">${message.name}</div>
+    <div id='${message.sender_id}' class="message">${message.sender}</div>
     `);
     return $message;
   };
@@ -14,7 +14,10 @@ $(() => {
       $('.inbox').empty();
       data.forEach(message => {
         console.log('message:', message);
-        if ($('.username')[0].innerText === message.name) {
+        console.log('message.receiver:', message.receiver);
+        console.log('USERNAME:', $('.username')[0].innerText);
+
+        if ($('.username')[0].innerText === message.receiver) {
           $('.inbox').prepend(createMessages(message));
         }
       });
