@@ -37,7 +37,7 @@ $(() => {
         </div>
       </div>
       <div class="description">
-      <div>${listing.transmission}, ${listing.color}</div>
+      <div>${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}</div>
       <div>${listing.descriptions}</div>
     </div>
     </div>

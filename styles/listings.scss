@@ -9,10 +9,7 @@
   @include flexRow;
 
   .star {
-    // position: absolute;
     margin: 5px;
-    // bottom: 0;
-    // left: 0;
     color: grey;
     background-color: #e4e4e4;
     display: flex;
@@ -48,16 +45,10 @@
   }
 
   .postTitle {
-    //deleteable v
-    // padding: 5px;
-    border: solid;
-    //deleteable ^
+    font-weight: bold;
   }
 
   .postPrice {
-    //deleteable v
-    border: solid thick;
-    //deleteable ^
     color: rgb(87, 184, 43);
     opacity: 0.8;
     font-weight: bold;
@@ -70,12 +61,12 @@
 
   .messageButton {
     border: solid;
+    border-radius: 5px;
+    padding: 1%;
+    background-color: rgba(88, 184, 43, 0.714);
   }
 
   .description {
-    //deleteable v
-    border: solid;
-    //deleteable ^
     height: 50%;
   }
 

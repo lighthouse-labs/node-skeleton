@@ -36,7 +36,7 @@ headers {
     }
 
     .tabs {
-      border: 1px solid rgb(0, 81, 255);
+      // border: 1px solid rgb(0, 81, 255);
       margin-top: 1px;
       padding: 8px;
       opacity: 0.5;
@@ -44,6 +44,8 @@ headers {
       &:hover {
         opacity: 1;
         transform: scale(1.1);
+        font-weight: bold;
+        color: rgb(73, 84, 126);
         cursor: pointer;
       }
     }
