@@ -14,10 +14,6 @@ $(() => {
       $('.inbox').empty();
       console.log('DATA:', data);
       data.forEach(message => {
-        console.log('message.js:', message);
-        console.log('message.receiver:', message.receiver);
-        console.log('USERNAME:', $('.username')[0].innerText);
-
         if ($('.username')[0].innerText === message.receiver) {
           $('.inbox').prepend(createMessages(message));
         }
@@ -56,7 +52,7 @@ $(() => {
     $.get('/api/messages').then(data => {
       $('.chatFeed').empty();
       data.forEach(chat => {
-        $('.chatFeed').append(createChat(chat));
+        $('.chatFeed').prepend(createChat(chat));
       });
     });
   };
@@ -76,5 +72,18 @@ $(() => {
 
   });
 
+  $('.chatText').submit(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: '/api/messages',
+      data: $('.chatText').serialize()
+    }).then((data) => {
+      renderChat(data);
+      $('form').trigger('reset');
+    })
+      .catch((err) => console.log(err.message));
+  });
 
 });
