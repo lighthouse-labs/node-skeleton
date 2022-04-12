@@ -15,16 +15,16 @@ const getAllListings = function(limit) {
 
 const getInboxNames = () => {
   return db.query(`SELECT CASE
-  WHEN sender_id = 1 THEN 'Jojo Leadbeatter'
-  WHEN sender_id = 2 THEN 'De Roo'
-  WHEN sender_id = 3 THEN 'John Doe'
+  WHEN sender_id = 1 THEN $1
+  WHEN sender_id = 2 THEN $2
+  WHEN sender_id = 3 THEN $3
   END  
   AS sender,
   COUNT(*) AS num_of_messages,
   CASE
-  WHEN receiver_id = 1 THEN 'Jojo Leadbeatter'
-  WHEN receiver_id = 2 THEN 'De Roo'
-  WHEN receiver_id = 3 THEN 'John Doe'
+  WHEN receiver_id = 1 THEN $1
+  WHEN receiver_id = 2 THEN $2
+  WHEN receiver_id = 3 THEN $3
   END 
   AS receiver
   FROM messagelisting
@@ -32,7 +32,7 @@ const getInboxNames = () => {
   ON users.id=receiver_id
   GROUP BY users.name, receiver_id, sender_id
   ORDER BY users.name;
-    `)
+    `, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
@@ -40,19 +40,19 @@ const getInboxNames = () => {
 const getChat = () => {
   return db.query(`SELECT messagelisting.id AS message_id, 
   CASE
-  WHEN users.id = 1 THEN 'Jojo Leadbeatter'
-  WHEN users.id = 2 THEN 'De Roo'
-  WHEN users.id = 3 THEN 'John Doe'
+  WHEN users.id = 1 THEN $1
+  WHEN users.id = 2 THEN $2
+  WHEN users.id = 3 THEN $3
   END  
   AS sender, 
   CASE
-  WHEN messagelisting.receiver_id = 1 THEN 'Jojo Leadbeatter'
-  WHEN messagelisting.receiver_id = 2 THEN 'De Roo'
-  WHEN messagelisting.receiver_id = 3 THEN 'John Doe'
+  WHEN messagelisting.receiver_id = $1 THEN 
+  WHEN messagelisting.receiver_id = $2 THEN 
+  WHEN messagelisting.receiver_id = $3 THEN 
   END AS reciever, messagetext, admin FROM messagelisting
   JOIN users ON users.id=sender_id 
   ORDER BY messagelisting.id
-  ;`)
+  ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
