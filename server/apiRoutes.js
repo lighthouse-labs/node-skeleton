@@ -26,6 +26,17 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.post('/messages', (req, res) => {
+  res.cookie('user_id', req.params.id);
+ 
+  database.sendMessage(req.body)
+    .then(messages => res.json(messages))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
 router.get('/make', (req, res) => {
   database.getAllMakes()
     .then(makes => res.send(makes))

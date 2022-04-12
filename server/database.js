@@ -3,7 +3,7 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function(limit) {
+const getAllListings = function (limit) {
   return db.query(`SELECT *
     FROM listings
     ORDER BY listings DESC
@@ -52,13 +52,14 @@ const getChat = () => {
   WHEN receiver_id = 3 THEN $3
   END AS reciever, messagetext, admin FROM messagelisting
   JOIN users ON users.id=sender_id 
-  ORDER BY messagelisting.id
+  ORDER BY messagelisting.id DESC
+  LIMIT 4
   ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
 
-const getFavorites = function(favorites) {
+const getFavorites = function (favorites) {
 
 };
 
@@ -70,7 +71,7 @@ const getUsers = (userID) => {
 };
 
 
-const createListing = function(listings) {
+const createListing = function (listings) {
   const queryParams = [
     listings.price,
     listings.year,
@@ -98,16 +99,26 @@ const createListing = function(listings) {
     .catch((err) => console.log(err.message));
 };
 
-const getAllMakes = function() {
+const getAllMakes = function () {
   return db.query(`SELECT DISTINCT make FROM listings;`)
     .then((res) => res.rows)
     .catch((err) => console.log(err.message));
 };
 
-const getAllModels = function() {
+const getAllModels = function () {
   return db.query(`SELECT DISTINCT model, make FROM listings;`)
     .then((res) => res.rows)
-    .catch((err) =>  console.log(err.message));
+    .catch((err) => console.log(err.message));
+};
+
+const sendMessage = (message) => {
+  console.log('MESSAGEQUERY:', message);
+  return db.query(`
+  INSERT INTO messagelisting (sender_id, receiver_id, message_id, messageText) VALUES
+(1, 2, 1, '${message.text}')
+  `)
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 module.exports = {
@@ -117,5 +128,6 @@ module.exports = {
   getAllModels,
   getInboxNames,
   getChat,
-  getUsers
+  getUsers,
+  sendMessage
 };

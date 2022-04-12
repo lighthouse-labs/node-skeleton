@@ -29,7 +29,8 @@
   position: fixed;
   top: 50vh;
   left: 50vw;
-  height: 50vh;
+  min-height: 50vh;
+  max-height: 80vh; 
   width: 50vw;
   border: solid;
   border-radius: 5px;
