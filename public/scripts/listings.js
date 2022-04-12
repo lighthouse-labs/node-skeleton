@@ -28,7 +28,7 @@ $(() => {
       </button>
     <div class="postBox">
       <div class="titlePrice">
-        <div class="postTitle">${listing.make}</div>
+        <div class="postTitle">${listing.make}, ${listing.model}</div>
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
@@ -48,7 +48,7 @@ $(() => {
 
   const renderListing = function(listings) {
     listings.forEach((listing) => {
-      $('.listings').append(createListingElement(listing));
+      $('.listings').prepend(createListingElement(listing));
     });
   };
 

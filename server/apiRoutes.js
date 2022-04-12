@@ -42,6 +42,21 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.post('/messages/:id', (req, res) => {
+  res.cookie('user_id', req.params.id);
+  console.log('REQ.PARAMS:', req);
+  const params = {
+    text: req.body.text,
+    sender: req.params.id
+  };
+  database.sendMessage(params)
+    .then(messages => res.json(messages))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
 router.get('/make', (req, res) => {
   database.getAllMakes()
     .then(makes => res.send(makes))
@@ -54,6 +69,22 @@ router.get('/make', (req, res) => {
 router.get('/model', (req, res) => {
   database.getAllModels()
     .then(models => res.send(models))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+router.get('/:id', (req, res) => {
+  res.cookie('user_id', req.params.id);
+  database.getUsers(req.params.id)
+    .then(user => {
+      const params = {
+        name: user[0].name
+      };
+      console.log('USER LOGGED:', user[0]);
+      res.render("index", params);
+    })
     .catch(e => {
       console.error(e);
       res.send(e);
