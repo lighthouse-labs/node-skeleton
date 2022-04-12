@@ -10,7 +10,7 @@ $(() => {
 
   // Renders messsages into the inbox
   const renderMessages = () => {
-    $.get('/api/messages').then(data => {
+    $.get('/api/inbox').then(data => {
       $('.inbox').empty();
       data.forEach(message => {
         $('.inbox').prepend(createMessages(message));
@@ -33,19 +33,14 @@ $(() => {
       .catch((err) => console.log(err.message));
   });
 
-  const createChat = () => {
+  const createChat = (chat) => {
     let $chat = $(`
-    <div class="{senderMessage}">
-    <div class="senderID">{sender_id:}</div>
+    <div class="${chat.admin}Admin">
+    <div class="senderID">${chat.sender}:</div>
     <div class="messageID">
-      {messagetext}
+      ${chat.messagetext}
     </div>
-  </div >
-    <div class="{recieverMessage}">
-      <div class="messageID">
-        {responsemessage}
-      </div>
-    </div>
+  </div>
   `);
     return $chat;
   };
@@ -54,15 +49,14 @@ $(() => {
     $.get('/api/messages').then(data => {
       $('.chatBox').empty();
       data.forEach(chat => {
-        $('.inbox').append(createChat(chat));
+        $('.chatBox').append(createChat(chat));
       });
     });
   };
 
 
-  $('.message').click(function (event) {
-    console.log('event:', event);
-    $('.chatBox').slideToggle('fast');
+  $('.inbox').click(function (event) {
+    $('.chatBox').slideUp('fast');
     $('.chatBox').css('display', 'block');
     event.preventDefault();
 
@@ -70,7 +64,7 @@ $(() => {
       type: 'GET',
       url: '/api/messages',
       data: $('.messages').serialize()
-    }).then((data) => createChat(data))
+    }).then((data) => renderChat(data))
       .catch((err) => console.log(err.message));
 
   });

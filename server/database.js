@@ -26,7 +26,14 @@ const getInboxNames = () => {
 };
 
 const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id, users.name AS sender, users.name AS reciever, messagetext FROM messagelisting
+  return db.query(`SELECT messagelisting.id AS message_id, 
+  CASE
+  WHEN users.id = 1 THEN 'Jojo Leadbeatter'
+  WHEN users.id = 2 THEN 'De Roo'
+  WHEN users.id = 3 THEN 'John Doe'
+  END  
+  AS sender, 
+ messagelisting.receiver_id, messagetext, admin FROM messagelisting
   JOIN users ON users.id=sender_id 
   ORDER BY messagelisting.id
   ;`)
@@ -86,5 +93,6 @@ module.exports = {
   createListing,
   getAllMakes,
   getAllModels,
-  getInboxNames
+  getInboxNames,
+  getChat
 };
