@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
 
 // Set Body Parser
 const bodyParser = require("body-parser");
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiRouter = require('./server/apiRoutes');
 
 app.use('/api', apiRouter);
+app.use(cookieParser());
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -39,13 +41,11 @@ app.use(
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  console.log('REQ.QUERY:', req.query);
-  db.createListing(req.query, 20)
-    .then(listings => res.send({ listings }))
-    .catch(e => {
-      console.error(e);
-      res.send(e);
-    });
+  res.cookie('user_id', req.params.id);
+  const params = {
+    name: 'username'
+  };
+  res.render('index', params);
 });
 
 app.listen(PORT, () => {
