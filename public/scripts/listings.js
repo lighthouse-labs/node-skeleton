@@ -59,4 +59,18 @@ $(() => {
   };
   loadListings();
 
+  $('#carSearch').on('submit', function(event) {
+    const data = $(this).serialize();
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/api/browse',
+      data: data
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+    })
+  });
+
 });
