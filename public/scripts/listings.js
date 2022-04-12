@@ -1,15 +1,34 @@
 $(() => {
 
   const createListingElement = function(listing) {
+
+    // Favorites Button
+    let isLiked = false;
+    $('.starButton').click(function() {
+      if (!isLiked) {
+        $(this).children().css({ "color": "red" });
+        isLiked = true;
+      } else {
+        $(this).children().css({ "color": "grey" });
+        isLiked = false;
+      }
+    });
+
+    // Message Seller Button
+    $('.messageButton').click(() => {
+      console.log('message seller button clicked');
+    });
+
+
     let $listing = `
     <div class="posts">
-    <img src='${listing.imageurl}' class="carPhoto" />
-        <button id="favoriteButton" class="favoriteButton">
-          <i class="star fa-solid fa-star"></i>
-        </button>
+      <img src='${listing.imageurl}' class="carPhoto" />
+      <button class="starButton" type="button">
+        <i class="star fa-solid fa-star"></i>
+      </button>
     <div class="postBox">
       <div class="titlePrice">
-        <div class="postTitle">${listing.make, listing.model}</div>
+        <div class="postTitle">${listing.make}</div>
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
@@ -29,34 +48,15 @@ $(() => {
 
   const renderListing = function(listings) {
     listings.forEach((listing) => {
-      $('.listings').prepend(createListingElement(listing));
+      $('.listings').append(createListingElement(listing));
     });
   };
 
   const loadListings = function() {
     $.ajax({ method: 'GET', url: '/api' }).then(function(data) {
-      
       renderListing(data);
     });
   };
-
   loadListings();
-
-  // Favorites Button
-  let i = 0;
-  $('.star').click(function() {
-    if (i === 0) {
-      $(this).css({ "color": "red" });
-      return i = 1;
-    } else {
-      $(this).css({ "color": "grey" });
-      return i = 0;
-    }
-  });
-
-  // Message Seller Button
-  $('.messageButton').click(() => {
-    console.log('message seller button clicked');
-  });
 
 });
