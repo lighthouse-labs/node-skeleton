@@ -6,7 +6,6 @@ const users = 'http://localhost:8080/api/users';
 
 
 router.get('/inbox', (req, res) => {
-  res.cookie('user_id', req.params.id);
   database.getInboxNames(messages)
     .then(messages => res.json(messages))
     .catch(e => {
@@ -26,10 +25,14 @@ router.get('/messages', (req, res) => {
     });
 });
 
-router.post('/messages', (req, res) => {
+router.post('/messages/:id', (req, res) => {
   res.cookie('user_id', req.params.id);
- 
-  database.sendMessage(req.body)
+  console.log('REQ.PARAMS:', req);
+  const params = {
+    text: req.body.text,
+    sender: req.params.id
+  };
+  database.sendMessage(params)
     .then(messages => res.json(messages))
     .catch(e => {
       console.error(e);
@@ -63,7 +66,7 @@ router.get('/:id', (req, res) => {
       const params = {
         name: user[0].name
       };
-      console.log(user[0]);
+      console.log('USER LOGGED:', user[0]);
       res.render("index", params);
     })
     .catch(e => {

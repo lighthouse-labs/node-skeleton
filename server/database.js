@@ -13,52 +13,6 @@ const getAllListings = function (limit) {
 };
 
 
-const getInboxNames = () => {
-  return db.query(`SELECT 
-  CASE 
-  WHEN sender_id = 1 THEN $1
-  WHEN sender_id = 2 THEN $2
-  WHEN sender_id = 3 THEN $3
-  END  
-  AS sender,
-  COUNT(*) AS num_of_messages,
-  CASE
-  WHEN receiver_id = 1 THEN $1
-  WHEN receiver_id = 2 THEN $2
-  WHEN receiver_id = 3 THEN $3
-  END 
-  AS receiver
-  FROM messagelisting
-  JOIN users
-  ON users.id=receiver_id
-  GROUP BY users.name, receiver_id, sender_id
-  ORDER BY users.name;
-    `, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
-const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id, 
-  CASE
-  WHEN users.id = 1 THEN $1
-  WHEN users.id = 2 THEN $2
-  WHEN users.id = 3 THEN $3
-  END  
-  AS sender, 
-  CASE
-  WHEN receiver_id = 1 THEN $1 
-  WHEN receiver_id = 2 THEN $2
-  WHEN receiver_id = 3 THEN $3
-  END AS reciever, messagetext, admin FROM messagelisting
-  JOIN users ON users.id=sender_id 
-  ORDER BY messagelisting.id DESC
-  LIMIT 4
-  ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
 const getFavorites = function (favorites) {
 
 };
@@ -111,12 +65,67 @@ const getAllModels = function () {
     .catch((err) => console.log(err.message));
 };
 
+const getInboxNames = () => {
+  return db.query(`SELECT 
+  CASE 
+  WHEN sender_id = 1 THEN $1
+  WHEN sender_id = 2 THEN $2
+  WHEN sender_id = 3 THEN $3
+  END  
+  AS sender,
+  COUNT(*) AS num_of_messages,
+  CASE
+  WHEN receiver_id = 1 THEN $1
+  WHEN receiver_id = 2 THEN $2
+  WHEN receiver_id = 3 THEN $3
+  END 
+  AS receiver
+  FROM messagelisting
+  JOIN users
+  ON users.id=receiver_id
+  GROUP BY users.name, receiver_id, sender_id
+  ORDER BY users.name;
+    `, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
+const getChat = () => {
+  return db.query(`SELECT messagelisting.id AS message_id, 
+  CASE
+  WHEN users.id = 1 THEN $1
+  WHEN users.id = 2 THEN $2
+  WHEN users.id = 3 THEN $3
+  END  
+  AS sender, 
+  CASE
+  WHEN receiver_id = 1 THEN $1 
+  WHEN receiver_id = 2 THEN $2
+  WHEN receiver_id = 3 THEN $3
+  END AS reciever, messagetext, admin FROM messagelisting
+  JOIN users ON users.id=sender_id 
+  ORDER BY messagelisting.id DESC
+  LIMIT 4
+  ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
+  switch (message.sender) {
+  case 'Jojo Leadbeatter': message.sender = 1;
+    break;
+  case 'De Roo': message.sender = 2;
+    break;
+  case 'Tom Doretto': message.sender = 3;
+    break;
+  }
+  
   return db.query(`
-  INSERT INTO messagelisting (sender_id, receiver_id, message_id, messageText) VALUES
-(1, 2, 1, '${message.text}')
-  `)
+  INSERT INTO messagelisting (sender_id,receiver_id, message_id, messageText) VALUES
+($1, 2, 1, $2)
+  `, [message.sender, message.text])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };

@@ -77,7 +77,7 @@ $(() => {
 
     $.ajax({
       type: 'POST',
-      url: '/api/messages',
+      url: `/api/messages/${$('.username')[0].innerText}`,
       data: $('.chatText').serialize()
     }).then((data) => {
       renderChat(data);
