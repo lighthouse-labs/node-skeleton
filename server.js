@@ -1,5 +1,5 @@
 // load .env data into process.env
-require("dotenv").config({silent: true});
+require("dotenv").config({ silent: true });
 
 // Web server config
 const PORT = process.env.PORT || 8080;
@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 
 // Set Body Parser
-const bodyParser    = require("body-parser");
+const bodyParser = require("body-parser");
 const db = require("./server/database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -39,8 +39,13 @@ app.use(
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.cookie('user_id', req.params.id);
-  res.render("index");
+  console.log('REQ.QUERY:', req.query);
+  db.createListing(req.query, 20)
+    .then(listings => res.send({ listings }))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
 app.listen(PORT, () => {

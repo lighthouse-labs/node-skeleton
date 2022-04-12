@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const database = require('./database');
 const messages = 'http://localhost:8080/api/messages';
-const users = 'http://localhost:8080/api/users';
 
 
 router.get('/inbox', (req, res) => {
