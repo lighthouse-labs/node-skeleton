@@ -46,18 +46,17 @@ $(() => {
     return $listing;
   };
 
-  const renderListings = function(listings) {
+  const renderListing = function(listings) {
     listings.forEach((listing) => {
       $('.listings').append(createListingElement(listing));
     });
   };
 
   const loadListings = function() {
-    $.ajax({ method: 'GET', url: '/api' })
-      .then(function(data) {
-        // console.log(data);
-        renderListings(data);
-      });
+    $.ajax({ method: 'GET', url: '/api' }).then(function(data) {
+
+      renderListing(data);
+    });
   };
   loadListings();
 
