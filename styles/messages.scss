@@ -35,7 +35,7 @@
   border-radius: 5px;
   background-color: #89b8cb;
 
-  .senderMessage {
+  .falseAdmin {
     @include flexRow;
     border: solid rgba(238, 114, 20, 0.851);
     border-radius: 10px;
@@ -46,17 +46,27 @@
       margin-left: 1%;
     }
   }
-  .recieverMessage {
+  .trueAdmin {
     @include flexRow;
     justify-content: end;
-    width: auto;
+    
+    .senderID {
+      display: none;
+    }
 
     .messageID {
+      text-align: end;
+      width: auto;
       border: solid rgb(21, 9, 156);
       border-radius: 10px;
       justify-content: end;
       margin: 2%;
       padding: 1%;
-    }
+      }
+  }
+  .chatText {
+    position: fixed;
+    bottom: 0;
+    right: 5px;
   }
 }
