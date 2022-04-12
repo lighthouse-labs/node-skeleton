@@ -3,12 +3,10 @@ $(() => {
   const createListingElement = function(listing) {
     let $listing = `
     <div class="posts">
-    <div>
-    <img src='${listing.imageURL}' class="carPhoto" />
+    <img src='${listing.imageurl}' class="carPhoto" />
         <button id="favoriteButton" class="favoriteButton">
           <i class="star fa-solid fa-star"></i>
         </button>
-    </div>
     <div class="postBox">
       <div class="titlePrice">
         <div class="postTitle">${listing.make, listing.model}</div>
