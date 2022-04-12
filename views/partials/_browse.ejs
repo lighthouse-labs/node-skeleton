@@ -25,17 +25,21 @@
             <option value="True">Manual</option>
           </select>
         </div>
-      </div>
-      <div class="minMax">
-        <div>
-          <label for="year">Year</label>
-          <input type="number" name="minYear" placeholder="Min" id="minYear" />
-          <input type="number" name="maxYear" placeholder="Max" id="maxYear" />
+        <div class="rangeSlider">
+          <label>Price range</label>
+          <div class="sliderInput">
+            <input placeholder="$3000" type="text" id="minPrice" readonly>
+            <input placeholder="$50000" type="text" id="maxPrice" readonly>
+          </div>
+          <div id="priceSlider"></div>
         </div>
-        <div>
-          <label for="Price">Price</label>
-          <input type="number" name="minPrice" placeholder="Min" id="minPrice"/>
-          <input type="number" name="maxPrice" placeholder="Max" id="maxPrice"/>
+        <div class="rangeSlider">
+          <label>Year range</label>
+          <div class="sliderInput">
+            <input placeholder="2000" type="text" id="minYear" readonly>
+            <input placeholder="2020" type="text" id="maxYear" readonly>
+          </div>
+          <div id="yearSlider"></div>
         </div>
       </div>
     </section>
