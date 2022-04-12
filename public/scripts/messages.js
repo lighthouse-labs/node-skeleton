@@ -47,9 +47,9 @@ $(() => {
 
   const renderChat = () => {
     $.get('/api/messages').then(data => {
-      $('.chatBox').empty();
+      $('.chatFeed').empty();
       data.forEach(chat => {
-        $('.chatBox').append(createChat(chat));
+        $('.chatFeed').append(createChat(chat));
       });
     });
   };

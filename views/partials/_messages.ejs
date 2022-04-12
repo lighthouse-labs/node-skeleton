@@ -4,8 +4,11 @@
 </div>
 
 <div class="chatBox">
-  <form class='chatText' action='post' method='POST'>
-    <textarea placeholder='Send a reply'></textarea>
+  <div class='chatFeed'>
+
+  </div>
+  <form class='chatText' action='/api/messages' method='POST'>
+    <textarea placeholder='Send a reply' required></textarea>
     <button type='submit'>Send
     </button>
   </form>
