@@ -9,11 +9,14 @@
   @include flexRow;
 
   .star {
-    position: absolute;
+    // position: absolute;
     margin: 5px;
     bottom: 0;
     left: 0;
     color: grey;
+    display: flex;
+
+
   }
 
   .favoriteButton {
@@ -43,6 +46,7 @@
 
   .postTitle {
     //deleteable v
+    // padding: 5px;
     border: solid;
     //deleteable ^
   }
