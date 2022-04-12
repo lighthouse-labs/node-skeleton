@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function() {
+$(() => {
 
 
   // Search filter dropdown
@@ -10,7 +10,7 @@ $(document).ready(function() {
     $('.inbox').slideUp('fast');
   });
 
-  $('#carMake').select2({closeOnSelect: false});
+  $('#carMake').select2({ closeOnSelect: false });
 
   // New listing drop down
   $('.newPost').click(() => {
@@ -35,12 +35,12 @@ $(document).ready(function() {
 
   });
 
-  $('#carMake').select2({closeOnSelect: false});
+  $('#carMake').select2({ closeOnSelect: false });
 
 
-  $('#make').change(function() {
+  $('#make').change(function () {
     const make = $(this).val();
-    $('#model option').each(function() {
+    $('#model option').each(function () {
       if ($(this).data('tag') !== make) {
         $(this).hide();
       } else {

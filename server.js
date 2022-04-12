@@ -13,6 +13,7 @@ const bodyParser    = require("body-parser");
 const db = require("./server/database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // ROUTERS
 const apiRouter = require('./server/apiRoutes');
 
@@ -38,7 +39,6 @@ app.use(
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-
   res.render("index");
 });
 

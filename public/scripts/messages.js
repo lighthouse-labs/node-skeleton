@@ -2,9 +2,8 @@ $(() => {
 
   // Generates messages in inbox
   const createMessages = (message) => {
-console.log(message)
     let $message = $(`
-    <div class="message">${message.name}</div>
+    <div id='${message.sender_id}' class="message">${message.name}</div>
     `);
     return $message;
   };
@@ -19,22 +18,62 @@ console.log(message)
     });
   };
 
+
   // Messages inbox dropdown
-  $('#messages').click(() => {
+  $('#messages').click((event) => {
     $('.inbox').slideToggle('fast');
     $('.inbox').css('display', 'flex');
-  });
-
-  $('#messages').click((event) => {
     event.preventDefault();
 
     $.ajax({
       type: 'GET',
       url: '/api/messages',
       data: $('#messages').serialize()
-    }).then((data) => {
-      renderMessages(data);
-    });
+    }).then((data) => renderMessages(data))
+      .catch((err) => console.log(err.message));
   });
+
+  const createChat = () => {
+    let $chat = $(`
+    <div class="{senderMessage}">
+    <div class="senderID">{sender_id:}</div>
+    <div class="messageID">
+      {messagetext}
+    </div>
+  </div >
+    <div class="{recieverMessage}">
+      <div class="messageID">
+        {responsemessage}
+      </div>
+    </div>
+  `);
+    return $chat;
+  };
+
+  const renderChat = () => {
+    $.get('/api/messages').then(data => {
+      $('.chatBox').empty();
+      data.forEach(chat => {
+        $('.inbox').append(createChat(chat));
+      });
+    });
+  };
+
+
+  $('.message').click(function (event) {
+    console.log('event:', event);
+    $('.chatBox').slideToggle('fast');
+    $('.chatBox').css('display', 'block');
+    event.preventDefault();
+
+    $.ajax({
+      type: 'GET',
+      url: '/api/messages',
+      data: $('.messages').serialize()
+    }).then((data) => createChat(data))
+      .catch((err) => console.log(err.message));
+
+  });
+
 
 });
