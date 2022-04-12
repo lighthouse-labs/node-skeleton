@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const database = require('./database');
 const messages = 'http://localhost:8080/api/messages';
+const users = 'http://localhost:8080/api/users';
 
 
 router.get('/inbox', (req, res) => {
@@ -21,6 +22,16 @@ router.get('/messages', (req, res) => {
       res.send(e);
     });
 });
+
+router.get('/:id', (req, res) => {
+  database.getUsers(req.params.id)
+    .then(user => res.json(user))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
 
 router.get('', (req, res) => {
   database.getAllListings(10)

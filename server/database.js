@@ -45,7 +45,12 @@ const getFavorites = function(favorites) {
 
 };
 
-
+const getUsers = (userID) => {
+  return db.query(`SELECT * FROM users
+  WHERE id = $1;`, [userID])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
 
 
 const createListing = function(listings) {
@@ -94,5 +99,6 @@ module.exports = {
   getAllMakes,
   getAllModels,
   getInboxNames,
-  getChat
+  getChat,
+  getUsers
 };
