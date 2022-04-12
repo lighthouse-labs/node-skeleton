@@ -8,16 +8,23 @@
   background-color: #e4e4e4;
   @include flexRow;
 
-  i {
+  .star {
     position: absolute;
     margin: 5px;
     bottom: 0;
     left: 0;
+    color: grey;
   }
+
+  .favoriteButton {
+    display: contents;
+ }
 
   .carPhoto {
     border-right: solid;
-    width: 50%;
+    // width: 50%;
+    max-width: 50%;
+    max-height: 35vh;
     position: relative;
   }
 

@@ -15,7 +15,7 @@ router.get('/messages', (req, res) => {
 
 router.get('', (req, res) => {
   database.getAllListings(10)
-    .then(listings => res.json(listings))
+    .then(listings => res.send(listings))
     .catch(e => {
       console.error(e);
       res.send(e);
@@ -43,21 +43,23 @@ router.post('', (req, res) => {
 
 router.get('/make', (req, res) => {
   database.getAllMakes()
-  .then(makes => res.send(makes))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
+    .then(makes => res.send(makes))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
 router.get('/model', (req, res) => {
   database.getAllModels()
-  .then(models => res.send(models))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
+    .then(models => res.send(models))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
+
+
 
 
 module.exports = router;

@@ -3,7 +3,7 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function (limit) {
+const getAllListings = function(limit) {
   return db.query(`SELECT *
     FROM listings
     ORDER BY listings DESC
@@ -15,8 +15,8 @@ const getAllListings = function (limit) {
 
 const getInboxNames = () => {
   return db.query(`SELECT users.name AS name, sender_id, COUNT(*) AS num_of_messages
-  FROM messagelisting 
-  JOIN users 
+  FROM messagelisting
+  JOIN users
   ON users.id=sender_id
   GROUP BY users.name, sender_id
   ORDER BY users.name;
@@ -32,16 +32,16 @@ const getChat = () => {
   ;`)
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
-}
+};
 
-const getFavorites = function (favorites) {
+const getFavorites = function(favorites) {
 
 };
 
 
 
 
-const createListing = function (listings) {
+const createListing = function(listings) {
   const queryParams = [
     listings.price,
     listings.year,
@@ -71,14 +71,14 @@ const createListing = function (listings) {
 
 const getAllMakes = function() {
   return db.query(`SELECT DISTINCT make FROM listings;`)
-  .then((res) => res.rows)
-  .catch((err) => console.log(err.message));
+    .then((res) => res.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getAllModels = function() {
   return db.query(`SELECT DISTINCT model, make FROM listings;`)
-  .then((res) => res.rows)
-  .catch((err) =>  console.log(err.message));
+    .then((res) => res.rows)
+    .catch((err) =>  console.log(err.message));
 };
 
 module.exports = {
