@@ -14,11 +14,13 @@ const getAllListings = function(limit) {
 
 
 const getInboxNames = () => {
-  return db.query(`SELECT users.name AS name, sender_id, COUNT(*) AS num_of_messages
+  return db.query(`SELECT users.name AS name,
+  COUNT(*) AS num_of_messages,
+  receiver_id 
   FROM messagelisting
   JOIN users
-  ON users.id=sender_id
-  GROUP BY users.name, sender_id
+  ON users.id=receiver_id
+  GROUP BY users.name, receiver_id
   ORDER BY users.name;
     `)
     .then((result) => result.rows)
@@ -33,7 +35,11 @@ const getChat = () => {
   WHEN users.id = 3 THEN 'John Doe'
   END  
   AS sender, 
- messagelisting.receiver_id, messagetext, admin FROM messagelisting
+  CASE
+  WHEN messagelisting.receiver_id = 1 THEN 'Jojo Leadbeatter'
+  WHEN messagelisting.receiver_id = 2 THEN 'De Roo'
+  WHEN messagelisting.receiver_id = 3 THEN 'John Doe'
+  END AS reciever, messagetext, admin FROM messagelisting
   JOIN users ON users.id=sender_id 
   ORDER BY messagelisting.id
   ;`)
@@ -45,7 +51,12 @@ const getFavorites = function(favorites) {
 
 };
 
-
+const getUsers = (userID) => {
+  return db.query(`SELECT * FROM users
+  WHERE id = $1;`, [userID])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
 
 
 const createListing = function(listings) {
@@ -94,5 +105,6 @@ module.exports = {
   getAllMakes,
   getAllModels,
   getInboxNames,
-  getChat
+  getChat,
+  getUsers
 };
