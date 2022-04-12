@@ -6,6 +6,7 @@ const users = 'http://localhost:8080/api/users';
 
 
 router.get('/inbox', (req, res) => {
+  res.cookie('user_id', req.params.id);
   database.getInboxNames(messages)
     .then(messages => res.json(messages))
     .catch(e => {
@@ -16,6 +17,7 @@ router.get('/inbox', (req, res) => {
 
 
 router.get('/messages', (req, res) => {
+  res.cookie('user_id', req.params.id);
   database.getChat(messages)
     .then(messages => res.json(messages))
     .catch(e => {
@@ -24,19 +26,38 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.get('/make', (req, res) => {
+  database.getAllMakes()
+    .then(makes => res.send(makes))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+
+router.get('/model', (req, res) => {
+  database.getAllModels()
+    .then(models => res.send(models))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
 router.get('/:id', (req, res) => {
   res.cookie('user_id', req.params.id);
   database.getUsers(req.params.id)
     .then(user => {
       console.log(user[0]);
-      res.render("index", user[0]);
+      res.redirect("/");
     })
     .catch(e => {
       console.error(e);
       res.send(e);
     });
 });
+
 
 
 router.get('', (req, res) => {
@@ -68,26 +89,5 @@ router.post('', (req, res) => {
       res.send(e);
     });
 });
-
-
-router.get('/make', (req, res) => {
-  database.getAllMakes()
-    .then(makes => res.send(makes))
-    .catch(e => {
-      console.error(e);
-      res.send(e);
-    });
-});
-
-
-router.get('/model', (req, res) => {
-  database.getAllModels()
-    .then(models => res.send(models))
-    .catch(e => {
-      console.error(e);
-      res.send(e);
-    });
-});
-
 
 module.exports = router;

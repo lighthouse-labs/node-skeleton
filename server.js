@@ -1,5 +1,5 @@
 // load .env data into process.env
-require("dotenv").config({silent: true});
+require("dotenv").config({ silent: true });
 
 // Web server config
 const PORT = process.env.PORT || 8080;
@@ -7,9 +7,10 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
 
 // Set Body Parser
-const bodyParser    = require("body-parser");
+const bodyParser = require("body-parser");
 const db = require("./server/database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiRouter = require('./server/apiRoutes');
 
 app.use('/api', apiRouter);
+app.use(cookieParser());
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -40,7 +42,10 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.cookie('user_id', req.params.id);
-  res.render("index");
+  const params = {
+    name: 'username'
+  };
+  res.render('index', params);
 });
 
 app.listen(PORT, () => {

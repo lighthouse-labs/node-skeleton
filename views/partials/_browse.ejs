@@ -20,7 +20,7 @@
         </div>
         <div>
           <label for="transmission">Transmission</label>
-          <select id="carTransmission">
+          <select name='transmission' id="carTransmission">
             <option value="False">Automatic</option>
             <option value="True">Manual</option>
           </select>
@@ -28,16 +28,21 @@
         <div class="rangeSlider">
           <label>Price range</label>
           <div class="sliderInput">
-            <input placeholder="$3000" type="text" id="minPrice" readonly>
-            <input placeholder="$50000" type="text" id="maxPrice" readonly>
+            <input name='minPrice' value="$3000" type="text" id="minPrice" readonly>
+            <input 
+            name='maxPrice' value="$50000" type="text" id="maxPrice" readonly>
           </div>
           <div id="priceSlider"></div>
         </div>
         <div class="rangeSlider">
           <label>Year range</label>
           <div class="sliderInput">
-            <input placeholder="2000" type="text" id="minYear" readonly>
-            <input placeholder="2020" type="text" id="maxYear" readonly>
+            <input 
+            name='minYear'
+            value="2000" type="text" id="minYear" readonly>
+            <input 
+            name='maxYear'
+            value="2020" type="text" id="maxYear" readonly>
           </div>
           <div id="yearSlider"></div>
         </div>

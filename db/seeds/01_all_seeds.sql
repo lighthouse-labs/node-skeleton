@@ -1,6 +1,6 @@
 INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jleadbeatter2@bandcamp.com', 'UCHuhLhrTYy', false),
 ('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true),
-('John Doe', 'blah@1688.com', '24PJaXBNTEZ', false);
+('Tom Doretto', 'family@tooFast.com', 'family', false);
 
 
 INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, imageURL) VALUES
