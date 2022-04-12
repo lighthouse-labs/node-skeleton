@@ -49,10 +49,6 @@
   .trueAdmin {
     @include flexRow;
     justify-content: end;
-    
-    .senderID {
-      display: none;
-    }
 
     .messageID {
       text-align: end;
@@ -62,11 +58,23 @@
       justify-content: end;
       margin: 2%;
       padding: 1%;
-      }
+    }
   }
   .chatText {
     position: fixed;
     bottom: 0;
-    right: 5px;
+    right: 0;
+    width: 45vw;
+    display: flex;
+    justify-content: center;
+
+    textarea {
+      width: 100%;
+      margin-bottom: 1%;
+    }
+    button {
+      margin: 1%
+    }
+    
   }
 }
