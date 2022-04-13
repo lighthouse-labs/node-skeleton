@@ -200,6 +200,16 @@ const sendMessage = (message) => {
     .catch((err) => console.log(err.message));
 };
 
+const getSoldListings = () => {
+  return db.query(`
+  SELECT * FROM listings
+  WHERE sold IS true;
+  `)
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+
+};
+
 module.exports = {
   browseListings,
   getAllListings,
@@ -211,5 +221,6 @@ module.exports = {
   getUsers,
   sendMessage,
   getMinMaxPrice,
-  getMinMaxYear
+  getMinMaxYear,
+  getSoldListings
 };
