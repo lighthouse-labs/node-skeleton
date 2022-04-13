@@ -8,6 +8,7 @@
   margin: 5% 0 5% 0;
   background-color: #e4e4e4;
   @include flexRow;
+  position: relative;
 
   .star {
     width: 4vw;
@@ -83,14 +84,40 @@
 
   .description {
     height: 50%;
-    width: 75%;
+    width: 100%;
     padding-left: 1%;
     padding-top: 1%;
+    margin-right: 5%;
+    @include flexRow;
+    justify-content: space-between;
   }
 
   &:hover {
     box-shadow: 0px 20px 16px 9px #45a6fc;
     transform: scale(1.1);
+  }
+
+  .sold {
+    position: absolute;
+    align-self: center;
+    top: 50%;
+    left: 0;
+    border: double thick red;
+    width: 100%;
+    padding: 5px;
+    color: red;
+    background-color: #f7b0b069;
+    text-align: center;
+    font-weight: bolder;
+    font-size: xx-large;
+  }
+
+  .listingDelete {
+    display: none;
+    height: auto;
+    border: none;
+    color: red;
+    background-color: inherit;
   }
 
 }
