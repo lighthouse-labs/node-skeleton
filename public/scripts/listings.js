@@ -103,6 +103,18 @@ $(() => {
     })
   })
 
+  $('#sold').click((event) => {
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/listing/soldlisting'
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+    })
+  })
+
 
 
 });

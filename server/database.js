@@ -17,7 +17,7 @@ const browseListings = function (filter, limit) {
   const queryParams = [];
   let queryString = `SELECT *
   FROM listings
-  WHERE TRUE
+  WHERE sold IS FALSE
   `;
 
   if (filter.search) {
@@ -207,8 +207,19 @@ const getMyListings = (id) => {
   return db.query(`
   SELECT * FROM listings
   WHERE user_id = $1
+  AND sold IS FALSE
   ORDER BY listings DESC;`,[id])
-  .then((listings) => res.send(listings))
+  .then((result) => (result.rows))
+  .catch((err) => console.error(err));
+};
+
+const getSoldListings = (id) => {
+  return db.query(`
+  SELECT * FROM listings
+  WHERE user_id = $1
+  AND sold IS TRUE
+  ORDER BY listings DESC;`,[id])
+  .then((result) => (result.rows))
   .catch((err) => console.error(err));
 };
 
@@ -224,5 +235,6 @@ module.exports = {
   sendMessage,
   getMinMaxPrice,
   getMinMaxYear,
-  getMyListings
+  getMyListings,
+  getSoldListings
 };

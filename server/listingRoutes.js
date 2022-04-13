@@ -23,7 +23,6 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   }
-  console.log(filter);
 
   database.browseListings(filter , 20)
   .then((listings) => res.send(listings))
@@ -34,10 +33,18 @@ router.get('/browse', (req, res) => {
 });
 
 router.get('/mylisting', (req, res) => {
-  // const id = req.cookies["username"];
-  const id = 3;
-  console.log(id);
+  const id = req.cookies.username;
   database.getMyListings(id)
+  .then((listings) => res.send(listings))
+  .catch(e => {
+    console.error(e);
+    res.send(e);
+  });
+});
+
+router.get('/soldlisting', (req, res) => {
+  const id = req.cookies.username;
+  database.getSoldListings(id)
   .then((listings) => res.send(listings))
   .catch(e => {
     console.error(e);
