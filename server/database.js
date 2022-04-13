@@ -3,7 +3,7 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function (limit) {
+const getAllListings = function(limit) {
   return db.query(`SELECT *
     FROM listings
     WHERE sold IS FALSE
@@ -13,7 +13,7 @@ const getAllListings = function (limit) {
     .catch((err) => console.log(err.message));
 };
 
-const browseListings = function (filter, limit) {
+const browseListings = function(filter, limit) {
   const queryParams = [];
   let queryString = `SELECT *
   FROM listings
@@ -36,7 +36,7 @@ const browseListings = function (filter, limit) {
         queryString += `OR make = $${queryParams.length}`;
       }
     }
-    queryString += `)`
+    queryString += `)`;
   }
 
   if (filter.transmission) {
@@ -116,10 +116,6 @@ const getChat = () => {
     .catch((err) => console.log(err.message));
 };
 
-const getFavorites = function (favorites) {
-
-};
-
 const getUsers = (userID) => {
   return db.query(`SELECT * FROM users
   WHERE id = $1;`, [userID])
@@ -194,10 +190,10 @@ const getMinMaxYear = () => {
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
   switch (message.sender) {
-    case 'Jojo Leadbeatter': message.sender = 1;
-      break;
-    case 'Tom Doretto': message.sender = 2;
-      break;
+  case 'Jojo Leadbeatter': message.sender = 1;
+    break;
+  case 'Tom Doretto': message.sender = 2;
+    break;
   }
 
   return db.query(`
@@ -231,6 +227,22 @@ const getSoldListings = (id) => {
     .catch((err) => console.error(err));
 };
 
+const getFavorites = (id) => {
+  return db.query(`
+  SELECT * FROM favorites
+  WHERE user_id = $1
+  ORDER BY favorites;`, [id])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
+const postFavorites = (user_id, listing_id) => {
+  const isFavorite = true;
+  return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   browseListings,
   getAllListings,
@@ -245,5 +257,7 @@ module.exports = {
   getMinMaxYear,
   getMyListings,
   getSoldListings,
-  getUserByEmail
+  getUserByEmail,
+  getFavorites,
+  postFavorites
 };

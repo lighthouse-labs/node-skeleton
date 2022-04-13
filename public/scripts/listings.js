@@ -1,12 +1,26 @@
 $(() => {
 
-  const createListingElement = function (listing) {
+  const createListingElement = function(listing) {
 
     // Favorites Button
     let isLiked = false;
-    $('.starButton').click(function () {
+    const userString = document.cookie;
+    const userID = userString.split('=')[1];
+    $('.starButton').click(function() {
       if (!isLiked) {
         $(this).children().css({ "color": "red" });
+        const listingID = $(this).parent()[0].id;
+        console.log(listingID);
+        // console.log($(this).parent()[0].id);
+        $.ajax({
+          type: 'POST',
+          url: `/listing/users/${userID}/listings/${listingID}/favorite`,
+          // data: 'api/listings/5',
+          success: console.log('success')
+        }).then((data) => {
+          console.log(data);
+        })
+          .catch((err) => console.log(err.message));
         isLiked = true;
       } else {
         $(this).children().css({ "color": "grey" });
@@ -44,7 +58,7 @@ $(() => {
         </div>
         </div>
 
-        <button class='listingDelete' type='button'>Remove X</button>
+        <button class='listingDelete' type='button'>x</button>
 
     </div>
     </div>
@@ -53,8 +67,8 @@ $(() => {
     return $listing;
   };
 
-  const renderListing = function (listings) {
-    listings.forEach(function (listing) {
+  const renderListing = function(listings) {
+    listings.forEach(function(listing) {
       $('.listings').prepend(createListingElement(listing));
       if (listing.sold) {
         $('.messageButtonContainer').prepend(`
@@ -66,8 +80,8 @@ $(() => {
     });
   };
 
-  const loadListings = function () {
-    $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+  const loadListings = function() {
+    $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
       $('.listingDelete').css('display', 'none');
       renderListing(data);
     });
@@ -76,7 +90,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function (event) {
+  $('#carSearch').on('submit', function(event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
@@ -88,7 +102,7 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
-    })
+    });
   });
 
   // My Listings
@@ -104,8 +118,8 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
-    })
-  })
+    });
+  });
 
   $('#sold').click((event) => {
     event.preventDefault();
@@ -118,13 +132,12 @@ $(() => {
       $('.listings').empty();
       renderListing(listings);
       $('.listingDelete').css('display', 'flex');
-    })
-  })
+    });
+  });
 
   $('.listingDelete').click(function(event) {
     event.preventDefault();
     console.log(`Remove Button ${this.id}`);
-
   });
 
 
