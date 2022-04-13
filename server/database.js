@@ -6,6 +6,7 @@ db.connect();
 const getAllListings = function (limit) {
   return db.query(`SELECT *
     FROM listings
+    WHERE sold IS FALSE
     ORDER BY listings DESC
     LIMIT $1;`, [limit])
     .then((result) => result.rows)
@@ -16,7 +17,7 @@ const browseListings = function (filter, limit) {
   const queryParams = [];
   let queryString = `SELECT *
   FROM listings
-  WHERE TRUE
+  WHERE sold IS FALSE
   `;
 
   if (filter.search) {
@@ -74,17 +75,17 @@ const browseListings = function (filter, limit) {
 };
 
 const getInboxNames = () => {
-  return db.query(`SELECT 
-  CASE 
+  return db.query(`SELECT
+  CASE
   WHEN sender_id = 1 THEN $1
   WHEN sender_id = 2 THEN $2
-  END  
+  END
   AS sender,
   COUNT(*) AS num_of_messages,
   CASE
   WHEN receiver_id = 1 THEN $1
   WHEN receiver_id = 2 THEN $2
-  END 
+  END
   AS receiver
   FROM messagelisting
   JOIN users
@@ -97,18 +98,18 @@ const getInboxNames = () => {
 };
 
 const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id, 
+  return db.query(`SELECT messagelisting.id AS message_id,
   CASE
   WHEN users.id = 1 THEN $1
   WHEN users.id = 2 THEN $2
-  END  
-  AS sender, 
+  END
+  AS sender,
   CASE
-  WHEN receiver_id = 1 THEN $1 
+  WHEN receiver_id = 1 THEN $1
   WHEN receiver_id = 2 THEN $2
   END AS receiver, messagetext, admin, listings.user_id AS seller, messages.listing_id AS listing_id FROM messagelisting
   JOIN users ON users.id=sender_id
-  JOIN listings ON users.id=listings.id JOIN messages ON messages.id=messagelisting.message_id 
+  JOIN listings ON users.id=listings.id JOIN messages ON messages.id=messagelisting.message_id
   ORDER BY messagelisting.id DESC
   ;`, ['Jojo Leadbeatter', 'Tom Doretto'])
     .then((result) => result.rows)
@@ -122,6 +123,14 @@ const getFavorites = function (favorites) {
 const getUsers = (userID) => {
   return db.query(`SELECT * FROM users
   WHERE id = $1;`, [userID])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
+const getUserByEmail = (email) => {
+  return db.query(`
+  SELECT * FROM users
+  WHERE LOWER(email) = $1`, [email])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
@@ -192,9 +201,9 @@ const sendMessage = (message) => {
   }
 
   return db.query(`
-  INSERT INTO messagelisting (sender_id, 
-    receiver_id, 
-    message_id, 
+  INSERT INTO messagelisting (sender_id,
+    receiver_id,
+    message_id,
     messageText) VALUES
 ($1, $2, 1, $3)
   `, [message.sender, message.receiver, message.text])
@@ -202,14 +211,24 @@ const sendMessage = (message) => {
     .catch((err) => console.log(err.message));
 };
 
-const getSoldListings = () => {
+const getMyListings = (id) => {
   return db.query(`
   SELECT * FROM listings
-  WHERE sold = true;
-  `)
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
+  WHERE user_id = $1
+  AND sold IS FALSE
+  ORDER BY listings DESC;`,[id])
+  .then((result) => (result.rows))
+  .catch((err) => console.error(err));
+};
 
+const getSoldListings = (id) => {
+  return db.query(`
+  SELECT * FROM listings
+  WHERE user_id = $1
+  AND sold IS TRUE
+  ORDER BY listings DESC;`,[id])
+  .then((result) => (result.rows))
+  .catch((err) => console.error(err));
 };
 
 module.exports = {
@@ -224,5 +243,7 @@ module.exports = {
   sendMessage,
   getMinMaxPrice,
   getMinMaxYear,
-  getSoldListings
+  getMyListings,
+  getSoldListings,
+  getUserByEmail
 };

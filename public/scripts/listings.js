@@ -73,7 +73,9 @@ $(() => {
   };
   loadListings();
 
-  $('#carSearch').on('submit', function (event) {
+  // BROWSE/SEARCH and Filter
+
+  $('#carSearch').on('submit', function(event) {
     const data = $(this).serialize();
     event.preventDefault();
 
@@ -87,19 +89,33 @@ $(() => {
     })
   });
 
-  // Sold Button
-  $('#sold').click((event) => {
-    const data = $(this).serialize();
+  // My Listings
+
+  $('#listings').click((event) => {
     event.preventDefault();
 
     $.ajax({
       method: 'GET',
-      url: '/api/sold',
-      data: data
+      url: '/listing/mylisting'
     }).then((listings) => {
       $('.listings').empty();
-    });
-  });
+      renderListing(listings);
+    })
+  })
+
+  $('#sold').click((event) => {
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/listing/soldlisting'
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+    })
+  })
+
+
 
 });
 
