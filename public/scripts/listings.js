@@ -84,19 +84,19 @@ const renderListing = function (listings) {
     }
   });
 
+ 
+ 
+  const items = document.querySelectorAll('.submitListingDelete');
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   listingDelete.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-    //   console.log('clicked listing:', listingID);
-    //   event.preventDefault();
-    // console.log("1:", listItem.val());
-    // console.log("2:", listItem);
-    // console.log("3:", listItem.);
-      
+      console.log('clicked listing:', listingID);
+      event.preventDefault();
+
       $.ajax({
         method: 'POST',
-        url: `/listing/delete/${listItem}`,
+        url: `/listing/delete/${listingID}`,
         data: $('.listings').serialize()
       }).then((listings) => {
         console.log('AFTER AJAX');
