@@ -20,7 +20,7 @@ $(() => {
 
   const loadMakeOptions = () => {
     $.ajax({
-      url: '/api/make',
+      url: '/form/make',
       method: 'GET'
     }).done((makes) => {
       const $default = $('<option name="" value="">').text('Select Make');
@@ -60,7 +60,7 @@ $(() => {
 
   const loadModelOptions = () => {
     $.ajax({
-      url: '/api/model',
+      url: '/form/model',
       method: 'GET'
     }).done((models) => {
       const $default = $('<option name="" value="">').text('Select Model');
@@ -108,7 +108,7 @@ $(() => {
     }
 
     $.ajax({
-      url: '/api',
+      url: '/listing',
       method: 'POST'
     }).done((post) => {
       $('#createList').reset();

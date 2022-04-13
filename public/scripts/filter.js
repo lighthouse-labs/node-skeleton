@@ -5,7 +5,7 @@ $(() => {
 
   const minMaxPrice = () => {
     $.ajax({
-      url: '/api/price',
+      url: '/form/price',
       method: 'GET'
     }).then((priceRange) => {
       $('#priceSlider').slider({
@@ -23,7 +23,7 @@ $(() => {
 
 const minMaxYear = () => {
   $.ajax({
-    url: '/api/year',
+    url: '/form/year',
     method: 'GET'
   }).then((yearRange) => {
     $('#yearSlider').slider({
@@ -54,7 +54,7 @@ const minMaxYear = () => {
 
   const loadSearchMakeOptions = () => {
     $.ajax({
-      url: '/api/make',
+      url: '/form/make',
       method: 'GET'
     }).done((makes) => {
       const $default = $('<option name="" value="">').text('Select Make');
