@@ -94,10 +94,6 @@ const renderListing = function (listings) {
       console.log('clicked listing:', listingID);
       event.preventDefault();
 
-      console.log('listingID:', listingID);
-      console.log('ITEMS:', items);
-      console.log('LISTINGDELETE:', listingDelete);
-
       $.ajax({
         method: 'POST',
         url: `/listing/delete/${listingID}`,
