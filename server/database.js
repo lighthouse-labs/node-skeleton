@@ -231,6 +231,16 @@ const getSoldListings = (id) => {
     .catch((err) => console.error(err));
 };
 
+const deleteFromList = (listing) => {
+  return db.query(`
+  DELETE FROM listings WHERE id = $1
+  ;`, [listing])
+    .then((result) => {
+      console.log(`deleted list item ${listing} from table`);
+    })
+    .catch((err) => console.error(err));
+}; 
+
 module.exports = {
   browseListings,
   getAllListings,
@@ -245,5 +255,6 @@ module.exports = {
   getMinMaxYear,
   getMyListings,
   getSoldListings,
-  getUserByEmail
+  getUserByEmail,
+  deleteFromList
 };

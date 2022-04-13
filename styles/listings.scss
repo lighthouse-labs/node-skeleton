@@ -2,7 +2,6 @@
 
 .posts {
   border: solid;
-  // border-right: none;
   width: 80vw;
   height: 35vh;
   margin: 5% 0 5% 0;
@@ -119,8 +118,15 @@
     height: auto;
     border: none;
     color: red;
-    background-color: inherit;
-    z-index: 2;
+    background-color: orange;
+    z-index: 5;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
+  .submitListingDelete {
+    z-index: 9;
+  }
 }
