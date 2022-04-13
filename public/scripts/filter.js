@@ -57,9 +57,7 @@ const minMaxYear = () => {
       url: '/form/make',
       method: 'GET'
     }).done((makes) => {
-      const $default = $('<option name="" value="">').text('Select Make');
       $('#carMake').empty();
-      $('#carMake').append($default);
       renderSearchMakeOptions(makes);
     });
   };
