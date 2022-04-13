@@ -104,6 +104,7 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
+      $('.messageButton').css('display', 'none');
     })
   })
 
