@@ -14,7 +14,7 @@ $(() => {
     const $header = $('<header>').append("<h2>Sign Up</h2>");
     const $name = $('<div>').append('<input type="text" name="name" placeholder="name" id="registername" required>');
     const $emailId = $('<div>').append('<input type="email" name="email" placeholder="email" id="registeremail" required>');
-    const $password= $('<div>').append('<input type="text" name="password" placeholder="password" id="registerpassword" required>');
+    const $password= $('<div>').append('<input type="password" name="password" placeholder="password" id="registerpassword" required>');
     const $submit = $('<div class="submit">').append('<button type="submit">Sign Up</button>', '<button type="button" id="registerCancel">Cancel</button>');
     return $loginForm.append($header, $name, $emailId, $password, $submit);
   }

@@ -11,7 +11,7 @@ router.get('/inbox', (req, res) => {
       console.error(e);
       res.send(e);
     });
-});
+});             
 
 router.get('/messages', (req, res) => {
   database.getChat(messages)
@@ -23,7 +23,7 @@ router.get('/messages', (req, res) => {
 });
 
 router.post('/messages/:id', (req, res) => {
-  res.cookie('user_id', req.params.id);
+
   const params = {
     text: req.body.text,
     receiver: req.body.receiver,
@@ -38,6 +38,7 @@ router.post('/messages/:id', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  res.clearCookie('user_id');
   res.cookie('user_id', req.params.id);
   database.getUsers(req.params.id)
     .then(user => {

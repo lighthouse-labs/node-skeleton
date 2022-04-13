@@ -227,6 +227,7 @@ const getSoldListings = (id) => {
     .catch((err) => console.error(err));
 };
 
+
 const getFavorites = (id) => {
   return db.query(`
   SELECT * FROM favorites
@@ -242,6 +243,17 @@ const postFavorites = (user_id, listing_id) => {
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
+
+const deleteFromList = (listing) => {
+  return db.query(`
+  DELETE FROM listings WHERE id = $1
+  ;`, [listing])
+    .then((result) => {
+      console.log(`deleted list item ${listing} from table`);
+    })
+    .catch((err) => console.error(err));
+}; 
+
 
 module.exports = {
   browseListings,
@@ -259,5 +271,6 @@ module.exports = {
   getSoldListings,
   getUserByEmail,
   getFavorites,
-  postFavorites
+  postFavorites,
+  deleteFromList
 };

@@ -3,7 +3,7 @@ const router = express.Router();
 const database = require('./database');
 const cookieParser = require('../server');
 
-
+const id = 
 
 router.get('/browse', (req, res) => {
   const data = req.query;
@@ -26,7 +26,7 @@ router.get('/browse', (req, res) => {
 });
 
 router.get('/mylisting', (req, res) => {
-  const id = req.cookies.user_id;
+  const id = req.cookies.username || req.cookies.user_id;
   database.getMyListings(id)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -36,7 +36,7 @@ router.get('/mylisting', (req, res) => {
 });
 
 router.get('/soldlisting', (req, res) => {
-  const id = req.cookies.user_id;
+  const id = req.cookies.username || req.cookies.user_id;
   database.getSoldListings(id)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -65,6 +65,17 @@ router.post('/users/:idUser/listings/:idListing/favorite', (req, res) => {
   console.log(params);
   database.postFavorites(idUser, idListing)
     .then((favorites) => res.send(favorites))
+
+router.post('/delete/:listID', (req, res) => {
+  const listID = req.params.listID;
+  const id = req.cookies.user_id;
+  console.log('/delete/:listID test');
+  database.deleteFromList(listID, id)
+    .then(() => {
+      console.log('test after THEN')
+      res.redirect('/listing/soldlisting');
+      console.log('TEST AFTER REDIRECT')
+    })
     .catch(e => {
       console.error(e);
       res.send(e);
@@ -81,7 +92,7 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
-  res.cookie('user_id', req.params.id);
+
   const form = req.body;
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;

@@ -3,24 +3,23 @@ const router = express.Router();
 const database = require('./database');
 const cookieParser = require('../server');
 
-
-router.get('/login/:id', (req, res) => {
-  res.clearCookie('username');
-  res.cookie('username', req.params.id);
-  res.redirect('/');
-});
-
 router.post('/logout', (req, res) => {
-  res.clearCookie('username');
+  res.clearCookie('user_id');
   res.redirect('/');
 });
 
 router.post('/login', (req, res) => {
   const form = req.body;
   database.getUserByEmail(form.email.toLowerCase())
-    .then((user) => {
-      console.log(user);
-      if (!user[0]) {
+
+  .then((user) => {
+    console.log(user);
+    if(!user[0]) {
+      res.redirect('/');
+    } else {
+      if (user[0].password === form.password) {
+        res.clearCookie('user_id');
+        res.cookie('user_id', user[0].id)
         res.redirect('/');
       } else {
         if (user[0].password === form.password) {
