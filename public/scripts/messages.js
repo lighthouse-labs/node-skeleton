@@ -25,7 +25,7 @@ $(() => {
 
   // Messages inbox dropdown
   $('#messages').click((event) => {
-    $('.inbox').slideToggle('fast');
+    $('.inbox').slideToggle('slow');
     $('.inbox').css('display', 'flex');
     event.preventDefault();
 
@@ -62,7 +62,8 @@ $(() => {
 
 
   $('.inbox').click(function (event) {
-    $('.chatBox').slideUp('fast');
+    $('.inbox').slideUp('fast');
+    $('.chatBox').slideUp('slow');
     $('.chatBox').css('display', 'block');
     event.preventDefault();
 
@@ -90,6 +91,10 @@ $(() => {
       $('form').trigger('reset');
     })
       .catch((err) => console.log(err.message));
+  });
+
+  $('#chatClose').click(()=> {
+    $('.chatBox').slideToggle('slow');
   });
 
 });
