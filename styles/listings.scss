@@ -118,7 +118,8 @@
     height: auto;
     border: none;
     color: red;
-    background-color: inherit;
+    background-color: orange;
+    z-index: 5;
     
     &:hover {
       transform: scale(1.1);

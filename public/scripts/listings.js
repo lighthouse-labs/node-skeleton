@@ -21,7 +21,7 @@ $(() => {
 
 
     let $listing = `
-    <div id='${listing.id}' class="posts">
+    <div id='listing${listing.id}' class="posts">
       <img src='${listing.imageurl}' class="carPhoto" />
       <button class="starButton" type="button">
         <i class="star fa-solid fa-star"></i>
@@ -44,10 +44,12 @@ $(() => {
         </div>
         </div>
 
-        <button action='/listing/delete' method='POST' class='listingDelete' type='submit'>Remove X</button>
-
-    </div>
-    </div>
+        <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST' name='${listing.id}' >
+        <button class='${listing.id}' type='submit'>
+        Remove X</button>
+        </form>
+        </div>
+        </div>
   </div>`;
 
     return $listing;
@@ -103,8 +105,8 @@ $(() => {
       data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
-      renderListing(listings);
       $('.messageButton').css('display', 'none');
+      renderListing(listings);
     })
   })
 
@@ -122,6 +124,9 @@ $(() => {
       $('.listingDelete').css('display', 'flex');
     })
   })
+
+  
+  
 
 });
 
