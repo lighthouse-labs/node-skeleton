@@ -21,7 +21,7 @@ $(() => {
 
 
     let $listing = `
-    <div class="posts">
+    <div id='${listing.id}' class="posts">
       <img src='${listing.imageurl}' class="carPhoto" />
       <button class="starButton" type="button">
         <i class="star fa-solid fa-star"></i>
@@ -55,6 +55,7 @@ $(() => {
 
   const renderListing = function (listings) {
     listings.forEach(function (listing) {
+      console.log('LISTING:', listing);
       $('.listings').prepend(createListingElement(listing));
       if (listing.sold) {
         $('.messageButtonContainer').prepend(`
@@ -120,6 +121,8 @@ $(() => {
       $('.listingDelete').css('display', 'flex');
     })
   })
+
+
 
 
 
