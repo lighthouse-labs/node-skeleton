@@ -44,7 +44,7 @@ $(() => {
         </div>
         </div>
 
-        <button class='listingDelete' type='button'>x</button>
+        <button class='listingDelete' type='button'>Remove X</button>
 
     </div>
     </div>
@@ -68,6 +68,7 @@ $(() => {
 
   const loadListings = function () {
     $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+      $('.listingDelete').css('display', 'none');
       renderListing(data);
     });
   };
@@ -75,7 +76,8 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
+    $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
 
@@ -92,6 +94,7 @@ $(() => {
   // My Listings
 
   $('#listings').click((event) => {
+    $('.listingDelete').css('display', 'none');
     event.preventDefault();
 
     $.ajax({
@@ -105,7 +108,7 @@ $(() => {
   })
 
   $('#sold').click((event) => {
-     event.preventDefault();
+    event.preventDefault();
 
     $.ajax({
       method: 'GET',
@@ -114,6 +117,7 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
+      $('.listingDelete').css('display', 'flex');
     })
   })
 
