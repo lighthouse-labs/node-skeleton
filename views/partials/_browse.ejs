@@ -1,5 +1,5 @@
 <div class="browse">
-  <form action="/api/browse" method="GET" id="carSearch">
+  <form action="/listing/browse" method="GET" id="carSearch">
 
     <section class="searchBar">
       <input name="search" placeholder="Search..." />
@@ -15,14 +15,12 @@
           <label for="carMake">Make</label>
 
           <select multiple class="carMake" name="carMake[]" id="carMake">
-
-            <option value="Honda">Honda</option>
-            <option value="Toyota">Toyota</option>
           </select>
         </div>
         <div>
           <label for="transmission">Transmission</label>
           <select name='transmission' id="carTransmission">
+            <option value="">Select Transmission</option>
             <option value="False">Automatic</option>
             <option value="True">Manual</option>
           </select>

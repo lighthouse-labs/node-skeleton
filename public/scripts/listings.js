@@ -67,7 +67,7 @@ $(() => {
   };
 
   const loadListings = function() {
-    $.ajax({ method: 'GET', url: '/api' }).then(function(data) {
+    $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
       renderListing(data);
     });
   };
@@ -79,7 +79,7 @@ $(() => {
 
     $.ajax({
       method: 'GET',
-      url: '/api/browse',
+      url: '/listing/browse',
       data: data
     }).then((listings) => {
       $('.listings').empty();

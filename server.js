@@ -17,8 +17,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // ROUTERS
 const apiRouter = require('./server/apiRoutes');
+const userRouter = require('./server/userRoutes');
+const formRouter = require('./server/formRoutes');
+const listingRouter = require('./server/listingRoutes');
 
 app.use('/api', apiRouter);
+app.use('/user', userRouter);
+app.use('/form', formRouter);
+app.use('/listing', listingRouter);
 app.use(cookieParser());
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT

@@ -21,19 +21,21 @@ const browseListings = function (filter, limit) {
 
   if (filter.search) {
     queryParams.push(`%${filter.search}%`);
-    queryString += `AND LOWER(make) LIKE $${queryParams.length} OR LOWER(model) LIKE $${queryParams.length}`;
+    queryString += `AND (LOWER(make) LIKE $${queryParams.length}`;
+    queryString += `OR LOWER(model) LIKE $${queryParams.length})`;
   }
 
   if (filter.carMake) {
-    if (Array.isArray(filter.carMake)) {
-      for (const make of filter.carMake) {
+    queryParams.push(filter.carMake[0]);
+    queryString += `AND (make = $${queryParams.length}`;
+
+    if (filter.carMake.length > 1) {
+      for (const make of filter.carMake.slice(1)) {
         queryParams.push(make);
-        queryString += `AND make = $${queryParams.length}`;
+        queryString += `OR make = $${queryParams.length}`;
       }
-    } else {
-      queryParams.push(filter.carMake);
-      queryString += `AND make = $${queryParams.length}`;
     }
+    queryString += `)`
   }
 
   if (filter.transmission) {
