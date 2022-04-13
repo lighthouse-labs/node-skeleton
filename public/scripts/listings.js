@@ -44,7 +44,7 @@ $(() => {
         </div>
         </div>
 
-        <button class='listingDelete' type='button'>Remove X</button>
+        <button action='/listing/delete' method='POST' class='listingDelete' type='submit'>Remove X</button>
 
     </div>
     </div>
@@ -117,17 +117,10 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
+      $('.messageButton').css('display', 'none');
       $('.listingDelete').css('display', 'flex');
     })
   })
-
-  $('.listingDelete').click(function(event) {
-    event.preventDefault();
-    console.log(`Remove Button ${this.id}`);
-
-  });
-
-
 
 });
 
