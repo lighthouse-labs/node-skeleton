@@ -237,7 +237,6 @@ const deleteFromList = (listing) => {
   ;`, [listing])
     .then((result) => {
       console.log(`deleted list item ${listing} from table`);
-      result.rows;
     })
     .catch((err) => console.error(err));
 }; 

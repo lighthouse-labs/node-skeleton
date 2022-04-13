@@ -42,7 +42,7 @@ const createListingElement = function (listing) {
       </div>
       </div>
 
-      <form class='listingDelete' name='${listing.id}' action='/listing/delete/${listing.id}' method='POST'> 
+      <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'> 
       <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
       Remove X</button>
     </form>
@@ -70,12 +70,15 @@ const renderListing = function (listings) {
   listingDelete.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-      console.log('clicked listing:', listingID);
-      event.preventDefault();
+    //   console.log('clicked listing:', listingID);
+    //   event.preventDefault();
+    // console.log("1:", listItem.val());
+    // console.log("2:", listItem);
+    // console.log("3:", listItem.);
       
       $.ajax({
         method: 'POST',
-        url: '/listing/delete/listingItem',
+        url: `/listing/delete/${listItem}`,
         data: $('.listings').serialize()
       }).then((listings) => {
         console.log('AFTER AJAX');

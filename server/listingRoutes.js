@@ -3,27 +3,27 @@ const router = express.Router();
 const database = require('./database');
 const cookieParser = require('../server');
 
-const id =
+const id = 
 
-  router.get('/browse', (req, res) => {
-    const data = req.query;
-    const filter = {
-      search: data.search.toLowerCase(),
-      carMake: data.carMake,
-      transmission: data.transmission,
-      minPrice: data.minPrice.slice(1),
-      maxPrice: data.maxPrice.slice(1),
-      minYear: data.minYear,
-      maxYear: data.maxYear
-    };
+router.get('/browse', (req, res) => {
+  const data = req.query;
+  const filter = {
+    search: data.search.toLowerCase(),
+    carMake: data.carMake,
+    transmission: data.transmission,
+    minPrice: data.minPrice.slice(1),
+    maxPrice: data.maxPrice.slice(1),
+    minYear: data.minYear,
+    maxYear: data.maxYear
+  };
 
-    database.browseListings(filter, 20)
-      .then((listings) => res.send(listings))
-      .catch(e => {
-        console.error(e);
-        res.send(e);
-      });
-  });
+  database.browseListings(filter, 20)
+    .then((listings) => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
 router.get('/mylisting', (req, res) => {
   const id = req.cookies.username || req.cookies.user_id;
@@ -48,11 +48,13 @@ router.get('/soldlisting', (req, res) => {
 router.post('/delete/:listID', (req, res) => {
   const listID = req.params.listID;
   const id = req.cookies.user_id;
-
-  database.deleteFromList(listID)
-    .then((listings) => res.send(listings))
-    .then(database.getSoldListings(id)
-      .then((listings) => res.send(listings)))
+  console.log('/delete/:listID test');
+  database.deleteFromList(listID, id)
+    .then(() => {
+      console.log('test after THEN')
+      res.redirect('/listing/soldlisting');
+      console.log('TEST AFTER REDIRECT')
+    })
     .catch(e => {
       console.error(e);
       res.send(e);
