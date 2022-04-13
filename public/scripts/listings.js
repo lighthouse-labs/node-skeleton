@@ -32,6 +32,9 @@ $(() => {
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
+      <div class='sold'>
+      SOLD
+      </div>
         <div class='messageButton'>
           message_seller
         </div>

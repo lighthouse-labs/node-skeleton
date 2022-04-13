@@ -12,7 +12,7 @@ const getAllListings = function (limit) {
     .catch((err) => console.log(err.message));
 };
 
-const browseListings = function(filter, limit) {
+const browseListings = function (filter, limit) {
   const queryParams = [];
   let queryString = `SELECT *
   FROM listings
@@ -67,52 +67,6 @@ const browseListings = function(filter, limit) {
   LIMIT $${queryParams.length};
   `;
   return db.query(queryString, queryParams)
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
-const getInboxNames = () => {
-  return db.query(`SELECT
-  CASE
-  WHEN sender_id = 1 THEN $1
-  WHEN sender_id = 2 THEN $2
-  WHEN sender_id = 3 THEN $3
-  END
-  AS sender,
-  COUNT(*) AS num_of_messages,
-  CASE
-  WHEN receiver_id = 1 THEN $1
-  WHEN receiver_id = 2 THEN $2
-  WHEN receiver_id = 3 THEN $3
-  END
-  AS receiver
-  FROM messagelisting
-  JOIN users
-  ON users.id=receiver_id
-  GROUP BY users.name, receiver_id, sender_id
-  ORDER BY users.name;
-    `, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
-const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id,
-  CASE
-  WHEN users.id = 1 THEN $1
-  WHEN users.id = 2 THEN $2
-  WHEN users.id = 3 THEN $3
-  END
-  AS sender,
-  CASE
-  WHEN receiver_id = 1 THEN $1
-  WHEN receiver_id = 2 THEN $2
-  WHEN receiver_id = 3 THEN $3
-  END AS reciever, messagetext, admin FROM messagelisting
-  JOIN users ON users.id=sender_id
-  ORDER BY messagelisting.id DESC
-  LIMIT 4
-  ;`, ['Jojo Leadbeatter', 'De Roo', 'Tom Doretto'])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
@@ -214,14 +168,14 @@ const getAllModels = () => {
 
 const getMinMaxPrice = () => {
   return db.query(`SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM listings;`)
-  .then((res) => res.rows)
-  .catch((err) => console.log(err.message));
+    .then((res) => res.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getMinMaxYear = () => {
   return db.query(`SELECT MIN(year) as minYear, MAX(year) as maxYear FROM listings;`)
-  .then((res) => res.rows)
-  .catch((err) => console.log(err.message));
+    .then((res) => res.rows)
+    .catch((err) => console.log(err.message));
 };
 
 
