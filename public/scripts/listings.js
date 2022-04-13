@@ -1,10 +1,10 @@
 $(() => {
 
-  const createListingElement = function(listing) {
+  const createListingElement = function (listing) {
 
     // Favorites Button
     let isLiked = false;
-    $('.starButton').click(function() {
+    $('.starButton').click(function () {
       if (!isLiked) {
         $(this).children().css({ "color": "red" });
         isLiked = true;
@@ -53,8 +53,8 @@ $(() => {
     return $listing;
   };
 
-  const renderListing = function(listings) {
-    listings.forEach(function(listing) {
+  const renderListing = function (listings) {
+    listings.forEach(function (listing) {
       $('.listings').prepend(createListingElement(listing));
       if (listing.sold) {
         $('.messageButtonContainer').prepend(`
@@ -66,14 +66,14 @@ $(() => {
     });
   };
 
-  const loadListings = function() {
-    $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
+  const loadListings = function () {
+    $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
       renderListing(data);
     });
   };
   loadListings();
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
     const data = $(this).serialize();
     event.preventDefault();
 
@@ -87,4 +87,19 @@ $(() => {
     })
   });
 
+  // Sold Button
+  $('#sold').click((event) => {
+    const data = $(this).serialize();
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/api/sold',
+      data: data
+    }).then((listings) => {
+      $('.listings').empty();
+    });
+  });
+
 });
+

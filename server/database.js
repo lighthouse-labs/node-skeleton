@@ -205,7 +205,7 @@ const sendMessage = (message) => {
 const getSoldListings = () => {
   return db.query(`
   SELECT * FROM listings
-  WHERE sold IS true;
+  WHERE sold = true;
   `)
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
