@@ -24,8 +24,9 @@ router.post('/login', (req, res) => {
       res.redirect('/');
     } else {
       if (user[0].password === form.password) {
-      res.cookie('username', user[0].id)
-      res.redirect('/');
+        res.clearCookie('username');
+        res.cookie('username', user[0].id)
+        res.redirect('/');
       } else {
         res.redirect('/');
       }
