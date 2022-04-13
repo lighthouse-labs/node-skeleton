@@ -18,18 +18,27 @@ router.get('/browse', (req, res) => {
     search: data.search.toLowerCase(),
     carMake: data.carMake,
     transmission: data.transmission,
-    minPrice:  data.minPrice.slice(1),
+    minPrice: data.minPrice.slice(1),
     maxPrice: data.maxPrice.slice(1),
     minYear: data.minYear,
     maxYear: data.maxYear
   }
 
-  database.browseListings(filter , 20)
-  .then((listings) => res.send(listings))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
+  database.browseListings(filter, 20)
+    .then((listings) => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+router.get('/sold', (req, res) => {
+  database.getSoldListings()
+    .then(listings => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
 router.get('/mylisting', (req, res) => {
