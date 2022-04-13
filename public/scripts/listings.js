@@ -21,7 +21,7 @@ $(() => {
 
 
     let $listing = `
-    <div class="posts">
+    <div id='${listing.id}' class="posts">
       <img src='${listing.imageurl}' class="carPhoto" />
       <button class="starButton" type="button">
         <i class="star fa-solid fa-star"></i>
@@ -44,7 +44,7 @@ $(() => {
         </div>
         </div>
 
-        <button class='listingDelete' type='button'>x</button>
+        <button class='listingDelete' type='button'>Remove X</button>
 
     </div>
     </div>
@@ -68,6 +68,7 @@ $(() => {
 
   const loadListings = function () {
     $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+      $('.listingDelete').css('display', 'none');
       renderListing(data);
     });
   };
@@ -75,7 +76,8 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
+    $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
 
@@ -92,11 +94,13 @@ $(() => {
   // My Listings
 
   $('#listings').click((event) => {
+    $('.listingDelete').css('display', 'none');
     event.preventDefault();
 
     $.ajax({
       method: 'GET',
-      url: '/listing/mylisting'
+      url: '/listing/mylisting',
+      data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
@@ -108,12 +112,20 @@ $(() => {
 
     $.ajax({
       method: 'GET',
-      url: '/listing/soldlisting'
+      url: '/listing/soldlisting',
+      data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
+      $('.listingDelete').css('display', 'flex');
     })
   })
+
+  $('.listingDelete').click(function(event) {
+    event.preventDefault();
+    console.log(`Remove Button ${this.id}`);
+
+  });
 
 
 

@@ -114,10 +114,13 @@
 
   .listingDelete {
     display: none;
+    flex-direction: column;
+    justify-content: end;
     height: auto;
     border: none;
     color: red;
     background-color: inherit;
+    z-index: 2;
   }
 
 }
