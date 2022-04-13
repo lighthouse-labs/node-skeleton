@@ -45,6 +45,7 @@ app.use(
 );
 
 app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   res.cookie('user_id', req.params.id);
   console.log('REQ.QUERY:', req.query);
