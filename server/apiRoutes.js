@@ -15,6 +15,7 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   }
+  console.log(filter);
 
   database.browseListings(filter , 20)
   .then((listings) => res.send(listings))
