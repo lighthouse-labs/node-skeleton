@@ -45,6 +45,27 @@ router.get('/soldlisting', (req, res) => {
     });
 });
 
+router.get('/favorites', (req, res) => {
+  const id = req.cookies.user_id;
+  database.getFavorites(id)
+    .then((favorites) => res.send(favorites))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+router.post('/users/:idUser/listings/:idListing/favorite', (req, res) => {
+  const idUser = req.params.idUser;
+  const idListing = req.params.idListing;
+  const params = {
+    listing_id: req.body.idListing,
+    user_id: req.params.idUser
+  };
+  console.log(params);
+  database.postFavorites(idUser, idListing)
+    .then((favorites) => res.send(favorites))
+
 router.post('/delete/:listID', (req, res) => {
   const listID = req.params.listID;
   const id = req.cookies.user_id;
