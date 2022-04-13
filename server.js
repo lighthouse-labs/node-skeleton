@@ -49,13 +49,12 @@ app.use(
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.cookie('user_id', req.params.id);
 
-  if (req.cookies.username) {
-    database.getUsers(req.cookies.username)
+  if (req.cookies.user_id) {
+    database.getUsers(req.cookies.user_id)
       .then((user) => {
         const params = {
-          name: user[0].name || 'username'
+          name: user[0].name
         };
         res.render('index', params);
       })
