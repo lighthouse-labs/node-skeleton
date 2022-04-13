@@ -117,6 +117,48 @@ const getChat = () => {
     .catch((err) => console.log(err.message));
 };
 
+const getInboxNames = () => {
+  return db.query(`SELECT 
+  CASE 
+  WHEN sender_id = 1 THEN $1
+  WHEN sender_id = 2 THEN $2
+  END  
+  AS sender,
+  COUNT(*) AS num_of_messages,
+  CASE
+  WHEN receiver_id = 1 THEN $1
+  WHEN receiver_id = 2 THEN $2
+  END 
+  AS receiver
+  FROM messagelisting
+  JOIN users
+  ON users.id=receiver_id
+  GROUP BY users.name, receiver_id, sender_id
+  ORDER BY users.name;
+    `, ['Jojo Leadbeatter', 'Tom Doretto'])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
+const getChat = () => {
+  return db.query(`SELECT messagelisting.id AS message_id, 
+  CASE
+  WHEN users.id = 1 THEN $1
+  WHEN users.id = 2 THEN $2
+  END  
+  AS sender, 
+  CASE
+  WHEN receiver_id = 1 THEN $1 
+  WHEN receiver_id = 2 THEN $2
+  END AS receiver, messagetext, admin, listings.user_id AS seller, messages.listing_id AS listing_id FROM messagelisting
+  JOIN users ON users.id=sender_id
+  JOIN listings ON users.id=listings.id JOIN messages ON messages.id=messagelisting.message_id 
+  ORDER BY messagelisting.id DESC
+  ;`, ['Jojo Leadbeatter', 'Tom Doretto'])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
 const getFavorites = function (favorites) {
 
 };
@@ -169,6 +211,7 @@ const getAllModels = () => {
     .catch((err) => console.log(err.message));
 };
 
+
 const getMinMaxPrice = () => {
   return db.query(`SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM listings;`)
   .then((res) => res.rows)
@@ -188,16 +231,17 @@ const sendMessage = (message) => {
   switch (message.sender) {
   case 'Jojo Leadbeatter': message.sender = 1;
     break;
-  case 'De Roo': message.sender = 2;
-    break;
-  case 'Tom Doretto': message.sender = 3;
+  case 'Tom Doretto': message.sender = 2;
     break;
   }
 
   return db.query(`
-  INSERT INTO messagelisting (sender_id,receiver_id, message_id, messageText) VALUES
-($1, 2, 1, $2)
-  `, [message.sender, message.text])
+  INSERT INTO messagelisting (sender_id, 
+    receiver_id, 
+    message_id, 
+    messageText) VALUES
+($1, $2, 1, $3)
+  `, [message.sender, message.receiver, message.text])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };

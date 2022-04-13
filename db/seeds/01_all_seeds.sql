@@ -1,6 +1,5 @@
 INSERT INTO users (name, email, password, admin) VALUES ('Jojo Leadbeatter', 'jleadbeatter2@bandcamp.com', 'UCHuhLhrTYy', false),
-('De Roo', 'droo3@1688.com', '24PJaXBNTEZ', true),
-('Tom Doretto', 'family@tooFast.com', 'family', false);
+('Tom Doretto', 'family@tooFast.com', 'family', true);
 
 
 INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, imageURL) VALUES
@@ -81,14 +80,11 @@ INSERT INTO favorites (user_id, listing_id, favorited) VALUES
 
 
 INSERT INTO messages (listing_id, dateTime, messageReceived) VALUES
-(46, '4/11/2022', true),
-(17, '4/13/2022', false),
-(4, '4/9/2022', true),
-(20, '4/9/2022', false);
+(46, '4/13/2022', true),
+(46, '4/13/2022', true),
+(46, '4/13/2022', true),
+(46, '4/13/2022', true);
 
 
 INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText) VALUES
-(1, 2, 1, 'Hello, is this still available?'),
-(2, 1, 2, 'Yes it is! When would you like to have a look?'),
-(1, 2, 3, 'Does this afternoon work for you?'),
-(2, 1, 4, 'Yes it does! See you then!');
+(1, 2, 1, 'Hello, is this still available?')

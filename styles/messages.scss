@@ -27,11 +27,11 @@
 .chatBox {
   display: none;
   position: fixed;
-  top: 50vh;
+  bottom: 0;
   left: 50vw;
-  min-height: 50vh;
-  max-height: 80vh; 
-  width: 50vw;
+  min-height: 20%;
+  max-height: 80%; 
+  width: 50%;
   border: solid;
   border-radius: 5px;
   background-color: #89b8cb;
@@ -42,31 +42,28 @@
     border-radius: 10px;
     margin: 2%;
     padding: 1%;
+    justify-content: space-between;
 
-    .messageID {
-      margin-left: 1%;
-    }
   }
   .trueAdmin {
     @include flexRow;
+    display: block;
+    justify-content: space-between;
+    width: auto;
+    border: solid rgb(21, 9, 156);
+    border-radius: 10px;
     justify-content: end;
+    margin: 2%;
+    padding: 1%;
 
-    .messageID {
-      text-align: end;
-      width: auto;
-      border: solid rgb(21, 9, 156);
-      border-radius: 10px;
-      justify-content: end;
-      margin: 2%;
-      padding: 1%;
-    }
+  }
+  .messageID {
+    margin-right: 1%;
+    font-weight: bolder;
   }
   .chatText {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 45vw;
-    display: flex;
+
+    @include flexColumn;
     justify-content: center;
 
     textarea {
@@ -77,5 +74,15 @@
       margin: 1%
     }
     
+  }
+
+  .fromTo {
+    @include flexRow;
+  }
+
+  .receiver {
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 }
