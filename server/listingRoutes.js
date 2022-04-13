@@ -55,7 +55,7 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
-  res.cookie('user_id', req.params.id);
+
   const form = req.body;
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
