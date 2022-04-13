@@ -73,6 +73,8 @@ $(() => {
   };
   loadListings();
 
+  // BROWSE/SEARCH and Filter
+
   $('#carSearch').on('submit', function(event) {
     const data = $(this).serialize();
     event.preventDefault();
@@ -86,5 +88,33 @@ $(() => {
       renderListing(listings);
     })
   });
+
+  // My Listings
+
+  $('#listings').click((event) => {
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/listing/mylisting'
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+    })
+  })
+
+  $('#sold').click((event) => {
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/listing/soldlisting'
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+    })
+  })
+
+
 
 });

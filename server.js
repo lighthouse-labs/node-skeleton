@@ -8,12 +8,15 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
+const database = require('./server/database');
 
 // Set Body Parser
 const bodyParser = require("body-parser");
 const db = require("./server/database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Set Cookie Parser
+app.use(cookieParser());
 
 // ROUTERS
 const apiRouter = require('./server/apiRoutes');
@@ -25,7 +28,6 @@ app.use('/api', apiRouter);
 app.use('/user', userRouter);
 app.use('/form', formRouter);
 app.use('/listing', listingRouter);
-app.use(cookieParser());
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -45,15 +47,20 @@ app.use(
 );
 
 app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   res.cookie('user_id', req.params.id);
   console.log('REQ.QUERY:', req.query);
-  const params = {
-    name: req.params.id || 'username'
-  };
-  console.log(req.query);
-  res.cookie('user_id', req.params.id);
-  res.render('index', params);
+
+  database.getUsers(req.cookies.username)
+  .then((user) => {
+    const params = {
+      name: user[0].name || 'username'
+    };
+    res.render('index', params);
+  })
+  .catch((e) => console.error(e));
+
 });
 
 app.listen(PORT, () => {
