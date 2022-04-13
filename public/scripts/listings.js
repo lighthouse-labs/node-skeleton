@@ -55,7 +55,6 @@ $(() => {
 
   const renderListing = function (listings) {
     listings.forEach(function (listing) {
-      console.log('LISTING:', listing);
       $('.listings').prepend(createListingElement(listing));
       if (listing.sold) {
         $('.messageButtonContainer').prepend(`
@@ -122,7 +121,11 @@ $(() => {
     })
   })
 
+  $('.listingDelete').click(function(event) {
+    event.preventDefault();
+    console.log(`Remove Button ${this.id}`);
 
+  });
 
 
 
