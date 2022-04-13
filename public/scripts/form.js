@@ -1,9 +1,9 @@
 $(() => {
 
-  // $('#make').select2();
-  // $('#model').select2();
-  // $('#transmission').select2();
-  // $('#year').select2();
+  $('#make').select2();
+  $('#model').select2();
+  $('#transmission').select2();
+  $('#year').select2();
 
   const createMakeOptions = (makes) => {
     const make = makes.make;
