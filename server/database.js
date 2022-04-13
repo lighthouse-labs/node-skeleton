@@ -232,13 +232,15 @@ const getSoldListings = (id) => {
 };
 
 const deleteFromList = (listing) => {
-  console.log('delete test', listing);
   return db.query(`
   DELETE FROM listings WHERE id = $1
   ;`, [listing])
-    .then((result) => (result.rows))
+    .then((result) => {
+      console.log(`deleted list item ${listing} from table`);
+      result.rows;
+    })
     .catch((err) => console.error(err));
-} 
+}; 
 
 module.exports = {
   browseListings,

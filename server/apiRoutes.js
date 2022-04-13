@@ -11,7 +11,7 @@ router.get('/inbox', (req, res) => {
       console.error(e);
       res.send(e);
     });
-});
+});             
 
 router.get('/messages', (req, res) => {
   database.getChat(messages)
