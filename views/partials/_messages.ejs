@@ -8,6 +8,10 @@
 
   </div>
   <form class='chatText' action='/api/messages/:id' method='POST'>
+    <select class='receiver' name='receiver' readonly>
+      <option value="1">Jojo Leadbeatter</option>
+      <option value="2">Tom Doretto</option>
+    </select>
     <textarea id='chatText' name='text' placeholder='Send a reply' required></textarea>
     <button id='chatSend' type='submit'>Send
     </button>

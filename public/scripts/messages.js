@@ -14,6 +14,7 @@ $(() => {
       $('.inbox').empty();
       console.log('DATA:', data);
       data.forEach(message => {
+        console.log('MESSAGE:', message)
         if ($('.username')[0].innerText === message.receiver) {
           $('.inbox').prepend(createMessages(message));
         }
@@ -39,7 +40,8 @@ $(() => {
   const createChat = (chat) => {
     let $chat = $(`
     <div class="${chat.admin}Admin">
-    <div class="senderID">${chat.sender}:</div>
+    <div class="senderID">From ${chat.sender}</div> 
+    <div>To: ${chat.receiver}</div>
     <div class="messageID">
       ${chat.messagetext}
     </div>
@@ -50,6 +52,7 @@ $(() => {
 
   const renderChat = () => {
     $.get('/api/messages').then(data => {
+      console.log('DATA:', data);
       $('.chatFeed').empty();
       data.forEach(chat => {
         $('.chatFeed').prepend(createChat(chat));
@@ -67,7 +70,10 @@ $(() => {
       type: 'GET',
       url: '/api/messages',
       data: $('.messages').serialize()
-    }).then((data) => renderChat(data))
+    }).then((data) => {
+      renderChat(data);
+
+    })
       .catch((err) => console.log(err.message));
 
   });

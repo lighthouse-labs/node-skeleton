@@ -27,9 +27,9 @@ router.get('/messages', (req, res) => {
 
 router.post('/messages/:id', (req, res) => {
   res.cookie('user_id', req.params.id);
-  console.log('REQ.PARAMS:', req);
   const params = {
     text: req.body.text,
+    receiver: req.body.receiver,
     sender: req.params.id
   };
   database.sendMessage(params)
