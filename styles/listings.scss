@@ -83,9 +83,12 @@
 
   .description {
     height: 50%;
-    width: 75%;
+    width: 100%;
     padding-left: 1%;
     padding-top: 1%;
+    margin-right: 5%;
+    @include flexRow;
+    justify-content: space-between;
   }
 
   &:hover {
@@ -103,6 +106,14 @@
     font-weight: bolder;
     font-size: xx-large;
     display: none;
+  }
+
+  .listingDelete {
+    display: none;
+    height: auto;
+    border: none;
+    color: red;
+    background-color: inherit;
   }
 
 }

@@ -32,16 +32,25 @@ $(() => {
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
+
       <div class='sold'>
       SOLD
       </div>
+
         <div class='messageButton'>
           message_seller
         </div>
       </div>
       <div class="description">
-      <div>${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}</div>
-      <div>${listing.descriptions}</div>
+      <div>
+        <div>${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}
+        </div>
+        <div>${listing.descriptions}
+        </div>
+        </div>
+
+        <button class='listingDelete' type='button'>x</button>
+        
     </div>
     </div>
   </div>`;
