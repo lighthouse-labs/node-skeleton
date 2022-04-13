@@ -7,7 +7,7 @@ const users = 'http://localhost:8080/api/users';
 router.get('/browse', (req, res) => {
   const data = req.query;
   const filter = {
-    search: data.search,
+    search: data.search.toLowerCase(),
     carMake: data.carMake,
     transmission: data.transmission,
     minPrice:  data.minPrice.slice(1),
@@ -16,12 +16,24 @@ router.get('/browse', (req, res) => {
     maxYear: data.maxYear
   }
 
-  database.browseListings(filter , 10)
+  database.browseListings(filter , 20)
   .then((listings) => res.send(listings))
   .catch(e => {
     console.error(e);
     res.send(e);
   });
+});
+
+router.get('/price', (req, res) => {
+  database.getMinMaxPrice()
+  .then((priceRange) => res.send(priceRange))
+  .catch((e) => console.error(e));
+});
+
+router.get('/year', (req, res) => {
+  database.getMinMaxYear()
+  .then((yearRange) => res.send(yearRange))
+  .catch((e) => console.error(e));
 });
 
 router.get('/inbox', (req, res) => {

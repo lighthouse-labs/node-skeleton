@@ -26,7 +26,6 @@ const browseListings = function(filter, limit) {
 
   if (filter.carMake) {
     if (Array.isArray(filter.carMake)) {
-      console.log(filter.carMake);
       for (const make of filter.carMake) {
         queryParams.push(make);
         queryString += `AND make = $${queryParams.length}`;
@@ -130,7 +129,7 @@ const getUsers = (userID) => {
 };
 
 
-const createListing = function (listings) {
+const createListing = (listings) => {
   const queryParams = [
     listings.price,
     listings.year,
@@ -158,17 +157,31 @@ const createListing = function (listings) {
     .catch((err) => console.log(err.message));
 };
 
-const getAllMakes = function () {
+const getAllMakes = () => {
   return db.query(`SELECT DISTINCT make FROM listings;`)
     .then((res) => res.rows)
     .catch((err) => console.log(err.message));
 };
 
-const getAllModels = function () {
+const getAllModels = () => {
   return db.query(`SELECT DISTINCT model, make FROM listings;`)
     .then((res) => res.rows)
     .catch((err) => console.log(err.message));
 };
+
+const getMinMaxPrice = () => {
+  return db.query(`SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM listings;`)
+  .then((res) => res.rows)
+  .catch((err) => console.log(err.message));
+};
+
+const getMinMaxYear = () => {
+  return db.query(`SELECT MIN(year) as minYear, MAX(year) as maxYear FROM listings;`)
+  .then((res) => res.rows)
+  .catch((err) => console.log(err.message));
+};
+
+
 
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
@@ -198,5 +211,7 @@ module.exports = {
   getInboxNames,
   getChat,
   getUsers,
-  sendMessage
+  sendMessage,
+  getMinMaxPrice,
+  getMinMaxYear
 };
