@@ -92,4 +92,8 @@ $(() => {
       .catch((err) => console.log(err.message));
   });
 
+  $('#chatClose').click(()=> {
+    $('.chatBox').slideToggle('slow');
+  });
+
 });
