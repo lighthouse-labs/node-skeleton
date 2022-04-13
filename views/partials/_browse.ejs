@@ -1,8 +1,8 @@
 <div class="browse">
-  <form action="/" method="GET" id="carSearch">
+  <form action="/api/browse" method="GET" id="carSearch">
 
     <section class="searchBar">
-      <input placeholder="   Search..." />
+      <input name="search" placeholder="Search..." />
       <button type="submit">Search</button>
       <div class="filter">
         <i class="fa-solid fa-filter"></i>
@@ -30,21 +30,16 @@
         <div class="rangeSlider">
           <label>Price range</label>
           <div class="sliderInput">
-            <input name='minPrice' value="$3000" type="text" id="minPrice" readonly>
-            <input 
-            name='maxPrice' value="$50000" type="text" id="maxPrice" readonly>
+            <input name='minPrice' value="$0" type="text" id="minPrice" readonly>
+            <input name='maxPrice' value="$50000" type="text" id="maxPrice" readonly>
           </div>
           <div id="priceSlider"></div>
         </div>
         <div class="rangeSlider">
           <label>Year range</label>
           <div class="sliderInput">
-            <input 
-            name='minYear'
-            value="2000" type="text" id="minYear" readonly>
-            <input 
-            name='maxYear'
-            value="2020" type="text" id="maxYear" readonly>
+            <input name='minYear' value="2000" type="text" id="minYear" readonly>
+            <input name='maxYear' value="2022" type="text" id="maxYear" readonly>
           </div>
           <div id="yearSlider"></div>
         </div>
