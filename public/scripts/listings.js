@@ -1,16 +1,33 @@
-const createListingElement = function (listing) {
+$(() => {
 
-  // Favorites Button
-  let isLiked = false;
-  $('.starButton').click(function () {
-    if (!isLiked) {
-      $(this).children().css({ "color": "red" });
-      isLiked = true;
-    } else {
-      $(this).children().css({ "color": "grey" });
-      isLiked = false;
-    }
-  });
+  const createListingElement = function(listing) {
+
+    // Favorites Button
+    let isLiked = false;
+    const userString = document.cookie;
+    const userID = userString.split('=')[1];
+    $('.starButton').click(function() {
+      if (!isLiked) {
+        $(this).children().css({ "color": "red" });
+        const listingID = $(this).parent()[0].id;
+        console.log(listingID);
+        // console.log($(this).parent()[0].id);
+        $.ajax({
+          type: 'POST',
+          url: `/listing/users/${userID}/listings/${listingID}/favorite`,
+          // data: 'api/listings/5',
+          success: console.log('success')
+        }).then((data) => {
+          console.log(data);
+        })
+          .catch((err) => console.log(err.message));
+        isLiked = true;
+      } else {
+        $(this).children().css({ "color": "grey" });
+        isLiked = false;
+      }
+    });
+
 
   // Message Seller Button
   $('.messageButton').click(() => {
@@ -41,6 +58,7 @@ const createListingElement = function (listing) {
       <div>${listing.descriptions}
       </div>
       </div>
+
 
       <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'> 
       <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
@@ -108,11 +126,12 @@ const loadListings = function () {
 
 $(() => {
 
+
   loadListings();
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function (event) {
+  $('#carSearch').on('submit', function(event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
@@ -124,7 +143,7 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
-    })
+    });
   });
 
   // My Listings
@@ -141,8 +160,8 @@ $(() => {
       $('.listings').empty();
       $('.messageButton').css('display', 'none');
       renderListing(listings);
-    })
-  })
+    });
+  });
 
   $('#sold').click((event) => {
     event.preventDefault();
