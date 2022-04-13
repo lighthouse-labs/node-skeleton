@@ -8,6 +8,7 @@
   margin: 5% 0 5% 0;
   background-color: #e4e4e4;
   @include flexRow;
+  position: relative;
 
   .star {
     width: 4vw;
@@ -97,6 +98,10 @@
   }
 
   .sold {
+    position: absolute;
+    align-self: center;
+    top: 50%;
+    left: 0;
     border: double thick red;
     width: 100%;
     padding: 5px;
@@ -105,7 +110,6 @@
     text-align: center;
     font-weight: bolder;
     font-size: xx-large;
-    display: none;
   }
 
   .listingDelete {

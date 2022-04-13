@@ -32,11 +32,6 @@ $(() => {
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
-
-      <div class='sold'>
-      SOLD
-      </div>
-
         <div class='messageButton'>
           message_seller
         </div>
@@ -50,7 +45,7 @@ $(() => {
         </div>
 
         <button class='listingDelete' type='button'>x</button>
-        
+
     </div>
     </div>
   </div>`;
@@ -59,8 +54,15 @@ $(() => {
   };
 
   const renderListing = function(listings) {
-    listings.forEach((listing) => {
+    listings.forEach(function(listing) {
       $('.listings').prepend(createListingElement(listing));
+      if (listing.sold) {
+        $('.messageButtonContainer').prepend(`
+        <div class='sold'>
+        SOLD
+        </div>
+        `);
+      }
     });
   };
 
