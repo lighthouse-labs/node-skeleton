@@ -3,14 +3,7 @@ const router = express.Router();
 const database = require('./database');
 const cookieParser = require('../server');
 
-router.get('', (req, res) => {
-  database.getAllListings(10)
-  .then(listings => res.send(listings))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
-});
+
 
 router.get('/browse', (req, res) => {
   const data = req.query;
@@ -32,36 +25,34 @@ router.get('/browse', (req, res) => {
     });
 });
 
-router.get('/sold', (req, res) => {
-  database.getSoldListings()
-    .then(listings => res.send(listings))
+router.get('/mylisting', (req, res) => {
+  const id = req.cookies.user_id;
+  database.getMyListings(id)
+    .then((listings) => res.send(listings))
     .catch(e => {
       console.error(e);
       res.send(e);
     });
 });
 
-router.get('/mylisting', (req, res) => {
-  const id = req.cookies.username;
-  database.getMyListings(id)
-  .then((listings) => res.send(listings))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
-});
-
 router.get('/soldlisting', (req, res) => {
-  const id = req.cookies.username;
+  const id = req.cookies.user_id;
   database.getSoldListings(id)
-  .then((listings) => res.send(listings))
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
+    .then((listings) => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
-
+router.get('', (req, res) => {
+  database.getAllListings(10)
+    .then(listings => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
 router.post('', (req, res) => {
   res.cookie('user_id', req.params.id);
@@ -70,16 +61,16 @@ router.post('', (req, res) => {
     return;
   }
   database.createListing(req.body)
-  .then(listing => {
-    console.log(req.body, "\nListing Added to Databse");
-    res.status(201);
-    console.log('New Listing Created!');
-    res.redirect('/');
-  })
-  .catch(e => {
-    console.error(e);
-    res.send(e);
-  });
+    .then(listing => {
+      console.log(req.body, "\nListing Added to Databse");
+      res.status(201);
+      console.log('New Listing Created!');
+      res.redirect('/');
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
 module.exports = router;

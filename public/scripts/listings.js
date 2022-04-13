@@ -96,7 +96,8 @@ $(() => {
 
     $.ajax({
       method: 'GET',
-      url: '/listing/mylisting'
+      url: '/listing/mylisting',
+      data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
@@ -104,11 +105,12 @@ $(() => {
   })
 
   $('#sold').click((event) => {
-    event.preventDefault();
+     event.preventDefault();
 
     $.ajax({
       method: 'GET',
-      url: '/listing/soldlisting'
+      url: '/listing/soldlisting',
+      data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);

@@ -194,10 +194,10 @@ const getMinMaxYear = () => {
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
   switch (message.sender) {
-  case 'Jojo Leadbeatter': message.sender = 1;
-    break;
-  case 'Tom Doretto': message.sender = 2;
-    break;
+    case 'Jojo Leadbeatter': message.sender = 1;
+      break;
+    case 'Tom Doretto': message.sender = 2;
+      break;
   }
 
   return db.query(`
@@ -216,9 +216,9 @@ const getMyListings = (id) => {
   SELECT * FROM listings
   WHERE user_id = $1
   AND sold IS FALSE
-  ORDER BY listings DESC;`,[id])
-  .then((result) => (result.rows))
-  .catch((err) => console.error(err));
+  ORDER BY listings DESC;`, [id])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
 };
 
 const getSoldListings = (id) => {
@@ -226,9 +226,9 @@ const getSoldListings = (id) => {
   SELECT * FROM listings
   WHERE user_id = $1
   AND sold IS TRUE
-  ORDER BY listings DESC;`,[id])
-  .then((result) => (result.rows))
-  .catch((err) => console.error(err));
+  ORDER BY listings;`, [id])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
 };
 
 module.exports = {
