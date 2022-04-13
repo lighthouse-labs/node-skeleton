@@ -9,7 +9,10 @@
       <span class="username">
         <%= name %>
       </span>
-      <button>Logout</button>
+      <% if (name !== 'Guest') { %>
+      <form action="/user/logout" method="POST" id="logout">
+        <button type="submit" class="uButton">Logout</button>
+      </form>
     </div>
   </div>
   <div class='navBottom'>
@@ -19,5 +22,12 @@
     <div id='favorites' class="tabs">Favorites</div>
     <div id='sold' class="tabs">Sold</div>
   </div>
-  </nav>
 </nav>
+      <% } else { %>
+        <button type="button" class="uButton" id="login">Login</button>
+        <button type="button" class="uButton" id="signup">Sign Up</button>
+    </div>
+  </div>
+</nav>
+<% } %>
+

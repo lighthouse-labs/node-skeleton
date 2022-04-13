@@ -52,14 +52,22 @@ app.get("/", (req, res) => {
   res.cookie('user_id', req.params.id);
   console.log('REQ.QUERY:', req.query);
 
-  database.getUsers(req.cookies.username)
-  .then((user) => {
+  if (req.cookies.username) {
+    database.getUsers(req.cookies.username)
+    .then((user) => {
+      const params = {
+        name: user[0].name || 'username'
+      };
+      res.render('index', params);
+    })
+    .catch((e) => console.error(e));
+  } else {
     const params = {
-      name: user[0].name || 'username'
-    };
+      name: 'Guest'
+    }
     res.render('index', params);
-  })
-  .catch((e) => console.error(e));
+  }
+
 
 });
 

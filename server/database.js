@@ -127,6 +127,14 @@ const getUsers = (userID) => {
     .catch((err) => console.log(err.message));
 };
 
+const getUserByEmail = (email) => {
+  return db.query(`
+  SELECT * FROM users
+  WHERE LOWER(email) = $1`, [email])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
 
 const createListing = (listings) => {
   const queryParams = [
@@ -236,5 +244,6 @@ module.exports = {
   getMinMaxPrice,
   getMinMaxYear,
   getMyListings,
-  getSoldListings
+  getSoldListings,
+  getUserByEmail
 };
