@@ -1,31 +1,5 @@
-const createListingElement = function (listing) {
 
-  // Favorites Button
-  let isLiked = false;
-  const userString = document.cookie;
-  const userID = userString.split('=')[1];
-  $('.starButton').click(function () {
-    if (!isLiked) {
-      $(this).children().css({ "color": "red" });
-      const listingID = $(this).parent()[0].id;
-      console.log(listingID);
-      // console.log($(this).parent()[0].id);
-      $.ajax({
-        type: 'POST',
-        url: `/listing/users/${userID}/listings/${listingID}/favorite`,
-        // data: 'api/listings/5',
-        success: console.log('success')
-      }).then((data) => {
-        console.log(data);
-      })
-        .catch((err) => console.log(err.message));
-      isLiked = true;
-    } else {
-      $(this).children().css({ "color": "grey" });
-      isLiked = false;
-    }
-  });
-
+const createListingElement = function(listing) {
 
   // Message Seller Button
   $('.messageButton').click(() => {
@@ -36,7 +10,7 @@ const createListingElement = function (listing) {
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="starButton" type="button">
+    <button class="starButton" data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
   <div class="postBox">
@@ -57,24 +31,24 @@ const createListingElement = function (listing) {
       <div>${listing.descriptions}
       </div>
  </div>
-      <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'> 
+      <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
       <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
       SOLD</button>
     </form>
 
-    <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'> 
+    <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'>
     <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
     Remove</button>
   </form>
     </div>
-     
+
 </div>`;
 
   return $listing;
 };
 
-const renderListing = function (listings) {
-  listings.forEach(function (listing) {
+const renderListing = function(listings) {
+  listings.forEach(function(listing) {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.messageButtonContainer').prepend(`
@@ -88,6 +62,8 @@ const renderListing = function (listings) {
 
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
+  const listingFavorite = [...document.querySelectorAll('.starButton')];
+
   listingDelete.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
@@ -102,6 +78,21 @@ const renderListing = function (listings) {
         renderListing(listings);
         $('.messageButton').css('display', 'none');
         $('.listingDelete').css('display', 'flex');
+      });
+    });
+
+    favoriteID.forEach(listItem => {
+      const listingID = listItem.dataset.id;
+      listItem.addEventListener('click', (event) => {
+        event.preventDefault();
+        $.ajax({
+          url: `/api/favorites/${listingID}`,
+          method: 'POST',
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+        });
       });
     });
 
@@ -126,8 +117,8 @@ const renderListing = function (listings) {
 };
 
 
-const loadListings = function () {
-  $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+const loadListings = function() {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
     $('.listingDelete').css('display', 'none');
     renderListing(data);
 
@@ -143,7 +134,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function (event) {
+  $('#carSearch').on('submit', function(event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
@@ -192,3 +183,4 @@ $(() => {
     });
   });
 });
+
