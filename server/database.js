@@ -91,8 +91,8 @@ const getInboxBuyer = (id) => {
   WHERE messages.buyer_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getInboxSeller = (id) => {
@@ -104,8 +104,8 @@ const getInboxSeller = (id) => {
   WHERE messages.buyer_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getMessages = (inbox) => {
@@ -118,15 +118,14 @@ const getMessages = (inbox) => {
   WHERE messages.id = $1
   ORDER BY timesent;
   `, [inbox])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
-
 
 const getChat = (inbox, id) => {
   return db.query(`SELECT * WHEN ,
   CASE
-  WHEN users.id = 1
+  WHEN users.id = 1 THEN $2
   WHEN users.id = 2 THEN $2
   END
   AS sender,
@@ -227,8 +226,8 @@ const sendMessage = (message) => {
   ) VALUES ($1, $2, $3, $4) RETURNING *;`;
 
   return db.query(queryString, queryParams)
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getMyListings = (id) => {
@@ -272,10 +271,13 @@ const getFavorites = (userID) => {
 
 const postFavorites = (user_id, listing_id) => {
   const isFavorite = true;
-  return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
-    .then((result) => (result.rows))
-    .catch((err) => console.error(err));
+  // IF (`SELECT ${listing_id} FROM favorites`) {
+  //   return db.query(`DELETE FROM favorites WHERE listing_id = '${listing_id}'`);
+  //   return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
+  //     .then((result) => (result.rows))
+  //     .catch((err) => console.error(err))
 };
+// };
 
 const deleteFromList = (listing) => {
   return db.query(`

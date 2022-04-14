@@ -83,21 +83,28 @@ const renderListing = function(listings) {
       });
     });
   });
+
   listingFavorite.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
       $(listItem).toggleClass("favoriteTrue");
-      $.ajax({
-        url: `/api/favorites/${listingID}`,
-        method: 'POST',
-        data: $('.listings').serialize()
-      }).then((listings) => {
-        $('.listings').empty();
-        renderListing(listings);
-        $('.listingSold').css('display', 'none');
-        $('.sold').css('display', 'none');
-      });
+
+      ($('.starButton').hasClass('favoriteTrue')) ?
+        console.log('FAV TRUE') :
+        console.log('FAV FALSE');
+
+      // $.ajax({
+      //   url: `/api/favorites/${listingID}`,
+      //   method: 'POST',
+      //   data: $('.listings').serialize()
+      // }).then((listings) => {
+      //   $('.listings').empty();
+      //   renderListing(listings);
+      //   $('.listingSold').css('display', 'none');
+      //   $('.sold').css('display', 'none');
+      // });
+      // });
     });
   });
 
