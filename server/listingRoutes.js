@@ -3,7 +3,15 @@ const router = express.Router();
 const database = require('./database');
 const cookieParser = require('../server');
 
-const id = 
+
+router.get('', (req, res) => {
+  database.getAllListings(10)
+    .then(listings => res.send(listings))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
 router.get('/browse', (req, res) => {
   const data = req.query;
@@ -45,6 +53,23 @@ router.get('/soldlisting', (req, res) => {
     });
 });
 
+router.get('/favorites', (req, res) => {
+  const id = req.cookies.user_id;
+  database.getFavorites(id)
+    .then((favorites) => res.send(favorites))
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+router.post('/users/:idUser/listings/:idListing/favorite', (req, res) => {
+  const idUser = req.params.idUser;
+  const idListing = req.params.idListing;
+  database.postFavorites(idUser, idListing)
+    .then((favorites) => res.send(favorites));
+});
+
 router.post('/delete/:listID', (req, res) => {
   const listID = req.params.listID;
   const id = req.cookies.user_id;
@@ -72,15 +97,6 @@ router.post('/sold/:listID', (req, res) => {
     });
 });
 
-router.get('', (req, res) => {
-  database.getAllListings(10)
-    .then(listings => res.send(listings))
-    .catch(e => {
-      console.error(e);
-      res.send(e);
-    });
-});
-
 router.post('', (req, res) => {
 
   const form = req.body;
@@ -99,5 +115,6 @@ router.post('', (req, res) => {
       res.send(e);
     });
 });
+
 
 module.exports = router;
