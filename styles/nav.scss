@@ -4,7 +4,7 @@ headers {
 
   nav {
     width: 100vw;
-    height: 100px;
+    height: 10vh;
     z-index: 1200;
     @include flexColumn;
     justify-content: space-evenly;
@@ -23,8 +23,12 @@ headers {
       width: 100%;
       display: flex;
       flex-direction: row;
-      margin-top: 15px;
-      justify-content: space-between;
+      margin-top: 20px;
+      justify-content: flex-start;
+
+      img {
+        width: 60%;
+      }
     }
 
     .navBottom {
