@@ -4,11 +4,19 @@ const db = new Pool(dbParams);
 db.connect();
 
 const getAllListings = function(limit) {
-  return db.query(`SELECT *
-    FROM listings
-    WHERE sold IS FALSE
-    ORDER BY listings DESC
-    LIMIT $1;`, [limit])
+  return db.query(`
+  SELECT listings.id AS listing_id,
+  listings.user_id AS seller,
+  price, year, make, model,
+  transmission, color, descriptions,
+  sold, imageURL, favorited
+  FROM users
+  JOIN favorites ON user_id=users.id
+  RIGHT JOIN listings ON listing_id=listings.id
+  WHERE sold IS false
+  GROUP BY listings.id, favorites.favorited, favorites.user_id
+  ORDER BY listing_id
+  LIMIT $1;`, [limit])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
@@ -230,8 +238,8 @@ const getSoldListings = (id) => {
 
 const getFavorites = (userID) => {
   return db.query(`
-  SELECT name AS user_name, f
-  avorites.user_id AS user_id,
+  SELECT name AS user_name,
+  favorites.user_id AS user_id,
   listings.id AS listing_id,
   listings.user_id AS seller,
   price, year, make, model,
@@ -243,7 +251,7 @@ const getFavorites = (userID) => {
   WHERE favorites.user_id = $1
   GROUP BY name, listings.id, favorites.favorited, favorites.user_id
   ORDER BY listing_id;`, [userID])
-    .then((result) => (result.rows))
+    .then((result) => result.rows)
     .catch((err) => console.error(err));
 };
 

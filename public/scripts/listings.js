@@ -8,9 +8,9 @@ const createListingElement = function(listing) {
 
 
   let $listing = `
-  <div id='listing${listing.id}' class="posts">
+  <div id='listing${listing.listing_id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="starButton" data-id='${listing.id}' type="button">
+    <button class="starButton" data-id='${listing.listing_id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
   <div class="postBox">
@@ -31,13 +31,13 @@ const createListingElement = function(listing) {
       <div>${listing.descriptions}
       </div>
  </div>
-      <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
-      <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
+      <form class='listingSold' action='/listing/sold/${listing.listing_id}' method='POST'>
+      <button class='${listing.listing_id} submitListingSold' data-id='${listing.listing_id}' type='button'>
       SOLD</button>
     </form>
 
-    <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'>
-    <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
+    <form class='listingDelete' action='/listing/delete/${listing.listing_id}' method='POST'>
+    <button class='${listing.listing_id} submitListingDelete' data-id='${listing.listing_id}' type='button'>
     Remove</button>
   </form>
     </div>
@@ -48,15 +48,18 @@ const createListingElement = function(listing) {
 };
 
 const renderListing = function(listings) {
-  listings.forEach(function(listing) {
+  console.log('LISTINGS:', listings);
+  listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
-    if (listing.sold) {
-      $('.messageButtonContainer').prepend(`
-      <div class='sold'>
-      SOLD
-      </div>
-      `);
-    }
+    // if (listing.sold) {
+    //   $('.messageButtonContainer').prepend(`
+    //   <div class='sold'>
+    //   SOLD
+    //   </div>
+    //   `);
+    // })
+    // }
+    console.log('EACH LISTING:', listing);
   });
 
 
@@ -81,7 +84,7 @@ const renderListing = function(listings) {
       });
     });
 
-    favoriteID.forEach(listItem => {
+    listingFavorite.forEach(listItem => {
       const listingID = listItem.dataset.id;
       listItem.addEventListener('click', (event) => {
         event.preventDefault();
@@ -165,6 +168,22 @@ $(() => {
       renderListing(listings);
       $('.messageButton').css('display', 'none');
       $('.listingSold').css('display', 'flex');
+    });
+  });
+
+  $('#favorites').click((event) => {
+    event.preventDefault();
+
+    $.ajax({
+      method: 'GET',
+      url: '/listing/favorited',
+      data: $('.listings').serialize()
+    }).then((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+      $('.messageButton').css('display', 'flex');
+      $('.listingDelete').css('display', 'none');
+      $('.listingSold').css('display', 'none');
     });
   });
 
