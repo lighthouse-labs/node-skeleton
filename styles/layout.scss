@@ -1,8 +1,16 @@
 // See: https://sass-lang.com/
 @import "./partials/mixins";
 
-body,
-html {
-  margin: 0;
-  font-size: 22px;
+body {
+
+  background-color: black;
+    background-image:url('https://yesofcorsa.com/wp-content/uploads/2017/02/4K-Road-Desktop-Wallpaper-For-PC.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;  
+  html {
+    margin: 0;
+    font-size: 22px;
+  }
 }

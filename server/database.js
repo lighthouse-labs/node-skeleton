@@ -194,7 +194,6 @@ const getMinMaxYear = () => {
 };
 
 
-
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
   switch (message.sender) {
@@ -283,7 +282,6 @@ const changeToSold = (listingID) => {
     })
     .catch((err) => console.error(err));
 };
-
 
 module.exports = {
   browseListings,
