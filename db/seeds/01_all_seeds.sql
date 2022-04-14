@@ -74,10 +74,10 @@ INSERT INTO listings (user_id, price, year, make, model, transmission, color, de
 INSERT INTO favorites (user_id, listing_id, favorited) VALUES
 (2, 55, true),
 (1, 5, true),
-(1, 29, false),
-(2, 35, false),
+(1, 29, true),
+(2, 35, true),
 (1, 17, true),
-(2, 10, false);
+(2, 10, true);
 
 
 INSERT INTO messages (buyer_id, listing_id, seller_id, dateTime, messageReceived, created_at) VALUES

@@ -25,13 +25,10 @@ $(() => {
     $('.inbox').slideUp('fast');
   });
 
-  // Messages inbox dropdown
 
   // Favorites button
   $('#favorites').click(() => {
 
   });
-
-
 
 });

@@ -3,17 +3,25 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function (limit) {
-  return db.query(`SELECT *
-    FROM listings
-    WHERE sold IS FALSE
-    ORDER BY listings DESC
-    LIMIT $1;`, [limit])
+const getAllListings = function(limit) {
+  return db.query(`
+  SELECT listings.id AS listing_id,
+  listings.user_id AS seller,
+  price, year, make, model,
+  transmission, color, descriptions,
+  sold, imageURL, favorited
+  FROM users
+  JOIN favorites ON user_id=users.id
+  RIGHT JOIN listings ON listing_id=listings.id
+  WHERE sold IS false
+  GROUP BY listings.id, favorites.favorited, favorites.user_id
+  ORDER BY listing_id
+  LIMIT $1;`, [limit])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
 
-const browseListings = function (filter, limit) {
+const browseListings = function(filter, limit) {
   const queryParams = [];
   let queryString = `SELECT *
   FROM listings
@@ -36,7 +44,7 @@ const browseListings = function (filter, limit) {
         queryString += `OR make = $${queryParams.length}`;
       }
     }
-    queryString += `)`
+    queryString += `)`;
   }
 
   if (filter.transmission) {
@@ -134,10 +142,6 @@ const getChat = (inbox, id) => {
     .catch((err) => console.log(err.message));
 };
 
-const getFavorites = function (favorites) {
-
-};
-
 const getUsers = (userID) => {
   return db.query(`SELECT * FROM users
   WHERE id = $1;`, [userID])
@@ -208,7 +212,6 @@ const getMinMaxYear = () => {
 };
 
 
-
 const sendMessage = (message) => {
   const queryParams = [
     message.inbox,
@@ -216,7 +219,6 @@ const sendMessage = (message) => {
     message.text,
     message.time
   ];
-
   const queryString = `INSERT INTO messageListing (
     message_id,
     sender_id,
@@ -249,6 +251,53 @@ const getSoldListings = (id) => {
     .catch((err) => console.error(err));
 };
 
+const getFavorites = (userID) => {
+  return db.query(`
+  SELECT name AS user_name,
+  favorites.user_id AS user_id,
+  listings.id AS listing_id,
+  listings.user_id AS seller,
+  price, year, make, model,
+  transmission, color, descriptions,
+  sold, imageURL, favorited
+  FROM users
+  JOIN favorites ON user_id=users.id
+  JOIN listings ON listing_id=listings.id
+  WHERE favorites.user_id = $1
+  GROUP BY name, listings.id, favorites.favorited, favorites.user_id
+  ORDER BY listing_id;`, [userID])
+    .then((result) => result.rows)
+    .catch((err) => console.error(err));
+};
+
+const postFavorites = (user_id, listing_id) => {
+  const isFavorite = true;
+  return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
+const deleteFromList = (listing) => {
+  return db.query(`
+  DELETE FROM listings WHERE id = $1
+  ;`, [listing])
+    .then((result) => {
+      console.log(`deleted list item ${listing} from table`);
+    })
+    .catch((err) => console.error(err));
+};
+
+const changeToSold = (listingID) => {
+  return db.query(`
+  UPDATE listings
+  SET sold = TRUE
+  WHERE id = $1
+  ;`, [listingID])
+    .then((result) => {
+      console.log(`Listing #${listingID} is now sold`);
+    })
+    .catch((err) => console.error(err));
+};
 
 
 module.exports = {
@@ -267,5 +316,9 @@ module.exports = {
   getUserByEmail,
   getInboxBuyer,
   getInboxSeller,
-  getMessages
+  getMessages,
+  deleteFromList,
+  changeToSold,
+  getFavorites,
+  postFavorites
 };
