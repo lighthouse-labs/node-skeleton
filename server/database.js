@@ -74,33 +74,51 @@ const browseListings = function (filter, limit) {
     .catch((err) => console.log(err.message));
 };
 
-const getInboxNames = () => {
-  return db.query(`SELECT
-  CASE
-  WHEN sender_id = 1 THEN $1
-  WHEN sender_id = 2 THEN $2
-  END
-  AS sender,
-  COUNT(*) AS num_of_messages,
-  CASE
-  WHEN receiver_id = 1 THEN $1
-  WHEN receiver_id = 2 THEN $2
-  END
-  AS receiver
-  FROM messagelisting
-  JOIN users
-  ON users.id=receiver_id
-  GROUP BY users.name, receiver_id, sender_id
-  ORDER BY users.name;
-    `, ['Jojo Leadbeatter', 'Tom Doretto'])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
+const getInboxBuyer = (id) => {
+  return db.query(`
+  SELECT messages.id, listing_id, users.name, created_at
+  FROM messages
+  JOIN listings ON listings.id = listing_id
+  JOIN users ON users.id = listings.user_id
+  WHERE messages.buyer_id = $1 OR listings.user_id = $1
+  ORDER BY created_at;
+  `, [id])
+  .then((result) => result.rows)
+  .catch((err) => console.log(err.message));
 };
 
-const getChat = () => {
-  return db.query(`SELECT messagelisting.id AS message_id,
+const getInboxSeller = (id) => {
+  return db.query(`
+  SELECT messages.id, listing_id, users.name, created_at
+  FROM messages
+  JOIN listings ON listings.id = listing_id
+  JOIN users ON users.id = messages.buyer_id
+  WHERE messages.buyer_id = $1 OR listings.user_id = $1
+  ORDER BY created_at;
+  `, [id])
+  .then((result) => result.rows)
+  .catch((err) => console.log(err.message));
+};
+
+const getMessages = (inbox) => {
+  return db.query(`
+  SELECT users.name, messagetext, messages.id
+  FROM messageListing
+  JOIN messages ON messages.id = message_id
+  JOIN listings ON listings.id = messages.listing_id
+  JOIN users ON users.id = messageListing.sender_id
+  WHERE messages.id = $1
+  ORDER BY timesent;
+  `, [inbox])
+  .then((result) => result.rows)
+  .catch((err) => console.log(err.message));
+};
+
+
+const getChat = (inbox, id) => {
+  return db.query(`SELECT * WHEN ,
   CASE
-  WHEN users.id = 1 THEN $1
+  WHEN users.id = 1
   WHEN users.id = 2 THEN $2
   END
   AS sender,
@@ -192,23 +210,23 @@ const getMinMaxYear = () => {
 
 
 const sendMessage = (message) => {
-  console.log('MESSAGEQUERY:', message);
-  switch (message.sender) {
-    case 'Jojo Leadbeatter': message.sender = 1;
-      break;
-    case 'Tom Doretto': message.sender = 2;
-      break;
-  }
+  const queryParams = [
+    message.inbox,
+    message.sender,
+    message.text,
+    message.time
+  ];
 
-  return db.query(`
-  INSERT INTO messagelisting (sender_id,
-    receiver_id,
+  const queryString = `INSERT INTO messageListing (
     message_id,
-    messageText) VALUES
-($1, $2, 1, $3)
-  `, [message.sender, message.receiver, message.text])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
+    sender_id,
+    messageText,
+    timesent
+  ) VALUES ($1, $2, $3, $4) RETURNING *;`;
+
+  return db.query(queryString, queryParams)
+  .then((result) => result.rows)
+  .catch((err) => console.log(err.message));
 };
 
 const getMyListings = (id) => {
@@ -231,13 +249,14 @@ const getSoldListings = (id) => {
     .catch((err) => console.error(err));
 };
 
+
+
 module.exports = {
   browseListings,
   getAllListings,
   createListing,
   getAllMakes,
   getAllModels,
-  getInboxNames,
   getChat,
   getUsers,
   sendMessage,
@@ -245,5 +264,8 @@ module.exports = {
   getMinMaxYear,
   getMyListings,
   getSoldListings,
-  getUserByEmail
+  getUserByEmail,
+  getInboxBuyer,
+  getInboxSeller,
+  getMessages
 };

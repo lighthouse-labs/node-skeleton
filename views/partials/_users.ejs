@@ -1,4 +1,39 @@
 <section class="userForm">
-  <div class="loginForm"></div>
-  <div class="registerForm"></div>
+  <div class="loginForm">
+    <form id="loginForm" action="/user/login/" method="POST">
+      <header>
+        <h2>Sign In</h2>
+      </header>
+      <div>
+        <input type="email" name="email" placeholder="email" id="loginemail" required>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="password" id="password" required>
+      </div>
+      <div class="submit">
+        <button type="submit">Login</button>
+        <button type="button" id="loginCancel" class="formCancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="registerForm">
+    <form id="registerForm" action="/user/register/" method="POST">
+      <header>
+        <h2>Sign Up</h2>
+      </header>
+      <div>
+        <input type="text" name="name" placeholder="name" id="registername" required>
+      </div>
+      <div>
+        <input type="email" name="email" placeholder="email" id="registeremail" required>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="password" id="registerpassword" required>
+      </div>
+      <div class="submit">
+        <button type="submit">Sign Up</button>
+        <button type="button" id="registerCancel" class="formCancel">Cancel</button>
+      </div>
+    </form>
+  </div>
 </section>

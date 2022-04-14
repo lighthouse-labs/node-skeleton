@@ -10,13 +10,14 @@
   flex-direction: column;
   border: solid;
   background-color: #919191;
+  z-index: 1000;
 
   .message {
     background-color: #d8d5d5;
     border: solid;
     padding: 5px;
     text-align: center;
-    z-index: 5;
+    z-index: 1000;
 
     &:hover {
       transform: scale(0.9);
@@ -28,64 +29,60 @@
   display: none;
   position: fixed;
   bottom: 0;
-  left: 50vw;
+  left: 49vw;
   min-height: 20%;
-  max-height: 80%; 
+  max-height: 80%;
   width: 50%;
   border: solid;
   border-radius: 5px;
   background-color: #89b8cb;
+  z-index: 1000;
+  padding: 10px;
 
-  .falseAdmin {
+  .chatInput {
     @include flexRow;
-    border: solid rgba(238, 114, 20, 0.851);
-    border-radius: 10px;
-    margin: 2%;
-    padding: 1%;
-    justify-content: space-between;
+    justify-content: center;
+    width: 100%
+  }
 
-  }
-  .trueAdmin {
-    @include flexRow;
-    display: block;
-    justify-content: space-between;
-    width: auto;
-    border: solid rgb(21, 9, 156);
-    border-radius: 10px;
-    justify-content: end;
-    margin: 2%;
-    padding: 1%;
-
-  }
-  .messageID {
-    margin-right: 1%;
-    font-weight: bolder;
-  }
   .chatText {
 
-    @include flexColumn;
+    @include flexRow;
     justify-content: center;
+    align-items: center;
+    // background-color: black;
+    width: 100%;
 
     textarea {
-      width: 100%;
-      margin-bottom: 1%;
+      width: 70%;
+      margin-top: 2%;
+      margin-bottom: 0.5%;
+      margin-right: 0.5%
     }
+
     .buttonBox {
       @include flexRow;
       justify-content: space-around;
-    }
-    button {
-      margin: 1%;
-       
+      width: 30%;
+
       #chatSend {
-        width: 75%;
+        display: flex;
+        flex-grow: 2;
+        margin: 0.5%;
+        width: 50%;
+        padding: 10px;
+        border: 2px solid black;
       }
 
       #chatClose {
-        width: 25%;
-       }
+        display: flex;
+        flex-grow: 2;
+        margin: 0.5%;
+        width: 50%;
+        padding: 10px;
+        border: 2px solid black;
+      }
     }
-    
   }
 
   .fromTo {
