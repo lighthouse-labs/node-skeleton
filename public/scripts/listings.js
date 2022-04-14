@@ -10,7 +10,7 @@ const createListingElement = function(listing) {
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="starButton" data-id='${listing.id}' type="button">
+    <button class="starButton ${listing.id}" data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
   <div class="postBox">
@@ -18,7 +18,7 @@ const createListingElement = function(listing) {
       <div class="postTitle">${listing.make}, ${listing.model}</div>
       <div class="postPrice">$${listing.price}</div>
     </div>
-    <div class='messageButtonContainer '>
+    <div class='messageButtonContainer'>
       <div class='messageButton'>
         message_seller
       </div>
@@ -51,7 +51,7 @@ const renderListing = function(listings) {
   listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
-      $('.messageButtonContainer').prepend(`
+      $('.postBox').prepend(`
       <div class='sold'>
       SOLD
       </div>
@@ -59,7 +59,8 @@ const renderListing = function(listings) {
     }
   });
 
-  //
+
+
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   const listingFavorite = [...document.querySelectorAll('.starButton')];
@@ -82,25 +83,48 @@ const renderListing = function(listings) {
     });
   });
 
+
   listingFavorite.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
-      $.ajax({
-        url: `/api/favorites/${listingID}`,
-        method: 'POST',
-        data: $('.listings').serialize()
-      }).then((listings) => {
-        $('.listings').empty();
-        renderListing(listings);
-      });
+
+      $(`.${listingID}`).toggleClass("favoriteTrue");
+
+      if ($(`.${listingID}`).hasClass('favoriteTrue')) {
+
+        console.log('inside the true if statement');
+        $.ajax({
+          url: `/listing/favoritesTrue/${listingID}`,
+          method: 'POST',
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+          $(`.${listingID}`).addClass("favoriteTrue");
+          $('.listingSold').css('display', 'none');
+          $('.sold').css('display', 'none');
+        });
+      } else if ($(`.${listingID}`).hasClass('favoriteFalse')) {
+        console.log('inside the false if statement');
+        $.ajax({
+          url: `/listing/favoritesFalse/${listingID}`,
+          method: 'POST',
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+          $(`.${listingID}`).removeClass("favoriteTrue");
+          $('.listingSold').css('display', 'none');
+          $('.sold').css('display', 'none');
+        });
+      }
     });
   });
 
   listingSold.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-      event.preventDefault();
       $.ajax({
         method: 'POST',
         url: `/listing/sold/${listingID}`,
@@ -115,7 +139,6 @@ const renderListing = function(listings) {
     });
   });
 };
-
 
 const loadListings = function() {
   $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
@@ -196,6 +219,7 @@ $(() => {
       renderListing(listings);
       $('.messageButton').css('display', 'none');
       $('.listingDelete').css('display', 'flex');
+      // $('.listingSold').css('display', 'flex');
     });
   });
 });
