@@ -93,7 +93,6 @@ const renderChat = (inbox) => {
   });
 
   $('#messageText').submit( (event) => {
-    console.log('AAAA')
 
     const mailId = (chatSend[0]).dataset.id;
     event.preventDefault();
