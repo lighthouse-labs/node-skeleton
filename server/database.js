@@ -5,7 +5,7 @@ db.connect();
 
 const getAllListings = function(limit) {
   return db.query(`
-  SELECT listings.id AS listing_id,
+  SELECT listings.id AS id,
   listings.user_id AS seller,
   price, year, make, model,
   transmission, color, descriptions,
@@ -15,7 +15,7 @@ const getAllListings = function(limit) {
   RIGHT JOIN listings ON listing_id=listings.id
   WHERE sold IS false
   GROUP BY listings.id, favorites.favorited, favorites.user_id
-  ORDER BY listing_id
+  ORDER BY id
   LIMIT $1;`, [limit])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
@@ -255,7 +255,7 @@ const getFavorites = (userID) => {
   return db.query(`
   SELECT name AS user_name,
   favorites.user_id AS user_id,
-  listings.id AS listing_id,
+  listings.id AS id,
   listings.user_id AS seller,
   price, year, make, model,
   transmission, color, descriptions,
@@ -265,7 +265,7 @@ const getFavorites = (userID) => {
   JOIN listings ON listing_id=listings.id
   WHERE favorites.user_id = $1
   GROUP BY name, listings.id, favorites.favorited, favorites.user_id
-  ORDER BY listing_id;`, [userID])
+  ORDER BY id;`, [userID])
     .then((result) => result.rows)
     .catch((err) => console.error(err));
 };
