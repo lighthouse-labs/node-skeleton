@@ -80,37 +80,37 @@ const renderListing = function(listings) {
         $('.listingDelete').css('display', 'flex');
       });
     });
+  });
 
-    listingFavorite.forEach(listItem => {
-      const listingID = listItem.dataset.id;
-      listItem.addEventListener('click', (event) => {
-        event.preventDefault();
-        $.ajax({
-          url: `/api/favorites/${listingID}`,
-          method: 'POST',
-          data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-        });
+  listingFavorite.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', (event) => {
+      event.preventDefault();
+      $.ajax({
+        url: `/api/favorites/${listingID}`,
+        method: 'POST',
+        data: $('.listings').serialize()
+      }).then((listings) => {
+        $('.listings').empty();
+        renderListing(listings);
       });
     });
+  });
 
-    listingSold.forEach(listItem => {
-      const listingID = listItem.dataset.id;
-      listItem.addEventListener('click', (event) => {
-        event.preventDefault();
-        $.ajax({
-          method: 'POST',
-          url: `/listing/sold/${listingID}`,
-          data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-          $('.messageButton').css('display', 'none');
-          $('.listingDelete').css('display', 'none');
-          $('.listingSold').css('display', 'flex');
-        });
+  listingSold.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', (event) => {
+      event.preventDefault();
+      $.ajax({
+        method: 'POST',
+        url: `/listing/sold/${listingID}`,
+        data: $('.listings').serialize()
+      }).then((listings) => {
+        $('.listings').empty();
+        renderListing(listings);
+        $('.messageButton').css('display', 'none');
+        $('.listingDelete').css('display', 'none');
+        $('.listingSold').css('display', 'flex');
       });
     });
   });
@@ -130,7 +130,7 @@ const loadListings = function() {
 $(() => {
 
 
-  loadListings();
+  // loadListings();
 
   // BROWSE/SEARCH and Filter
 
