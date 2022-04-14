@@ -2,25 +2,37 @@
 
 .inbox {
   position: fixed;
-  top: 100px;
+  top: 10vh;
   right: 0;
   width: 25%;
-  min-height: 20vh;
   display: none;
   flex-direction: column;
-  border: solid;
-  background-color: #919191;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: solid #45a6fc;
+  background-color: #95BBE9;
   z-index: 1000;
+  padding: 1px;
 
   .message {
-    background-color: #d8d5d5;
-    border: solid;
-    padding: 5px;
+    background-color: white;
+    width: 100%;
+    border: solid black;
+    border-radius: 5px;
     text-align: center;
+    font-size: 1.2rem;
     z-index: 1000;
+    margin: 0.5% 0.5% 0.5% 0.5%;
 
-    &:hover {
-      transform: scale(0.9);
+    button {
+      width: 100%;
+      padding: 10px;
+      opacity: 0.7;
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
     }
   }
 }
