@@ -51,9 +51,20 @@ router.post('/delete/:listID', (req, res) => {
   console.log('/delete/:listID test');
   database.deleteFromList(listID, id)
     .then(() => {
-      console.log('test after THEN')
       res.redirect('/listing/soldlisting');
-      console.log('TEST AFTER REDIRECT')
+
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+router.post('/sold/:listID', (req, res) => {
+  const listID = req.params.listID;
+  database.changeToSold(listID)
+    .then(() => {
+      res.redirect('/listing/mylisting');
     })
     .catch(e => {
       console.error(e);

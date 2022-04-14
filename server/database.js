@@ -239,7 +239,19 @@ const deleteFromList = (listing) => {
       console.log(`deleted list item ${listing} from table`);
     })
     .catch((err) => console.error(err));
-}; 
+};
+
+const changeToSold = (listingID) => {
+  return db.query(`
+  UPDATE listings
+  SET sold = TRUE 
+  WHERE id = $1
+  ;`, [listingID])
+    .then((result) => {
+      console.log(`Listing #${listingID} is now sold`);
+    })
+    .catch((err) => console.error(err));
+};
 
 module.exports = {
   browseListings,
@@ -256,5 +268,6 @@ module.exports = {
   getMyListings,
   getSoldListings,
   getUserByEmail,
-  deleteFromList
+  deleteFromList,
+  changeToSold
 };

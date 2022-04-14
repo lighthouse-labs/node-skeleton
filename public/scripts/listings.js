@@ -38,17 +38,25 @@ const createListingElement = function (listing) {
     <div>
       <div>${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}
       </div>
+      </div>
       <div>${listing.descriptions}
       </div>
-      </div>
-
-      <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'> 
-      <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
-      Remove X</button>
+ </div>
+      <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'> 
+      <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
+      SOLD</button>
     </form>
-   
-      </div>
-      </div>
+
+    <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'> 
+    <button 
+    class='${listing.id} 
+    submitListingDelete' 
+    data-id='${listing.id}' 
+    type='button'>
+    Remove</button>
+  </form>
+    </div>
+     
 </div>`;
 
   return $listing;
@@ -66,26 +74,40 @@ const renderListing = function (listings) {
     }
   });
 
+
+  const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   listingDelete.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-    //   console.log('clicked listing:', listingID);
-    //   event.preventDefault();
-    // console.log("1:", listItem.val());
-    // console.log("2:", listItem);
-    // console.log("3:", listItem.);
-      
+
       $.ajax({
         method: 'POST',
-        url: `/listing/delete/${listItem}`,
+        url: `/listing/delete/${listingID}`,
         data: $('.listings').serialize()
       }).then((listings) => {
-        console.log('AFTER AJAX');
         $('.listings').empty();
         renderListing(listings);
         $('.messageButton').css('display', 'none');
         $('.listingDelete').css('display', 'flex');
+      });
+    });
+
+    listingSold.forEach(listItem => {
+      const listingID = listItem.dataset.id;
+      listItem.addEventListener('click', (event) => {
+
+        $.ajax({
+          method: 'POST',
+          url: `/listing/sold/${listingID}`,
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+          $('.messageButton').css('display', 'none');
+          $('.listingDelete').css('display', 'none');
+          $('.listingSold').css('display', 'flex');
+        });
       });
     });
   });
@@ -127,6 +149,7 @@ $(() => {
 
   $('#listings').click((event) => {
     $('.listingDelete').css('display', 'none');
+
     event.preventDefault();
 
     $.ajax({
@@ -135,10 +158,11 @@ $(() => {
       data: $('.listings').serialize()
     }).then((listings) => {
       $('.listings').empty();
-      $('.messageButton').css('display', 'none');
       renderListing(listings);
-    })
-  })
+      $('.messageButton').css('display', 'none');
+      $('.listingSold').css('display', 'flex');
+    });
+  });
 
   $('#sold').click((event) => {
     event.preventDefault();

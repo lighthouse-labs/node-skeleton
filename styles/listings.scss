@@ -116,17 +116,36 @@
     flex-direction: column;
     justify-content: end;
     height: auto;
-    border: none;
-    color: red;
-    background-color: orange;
-    z-index: 5;
     
     &:hover {
       transform: scale(1.1);
     }
   }
-
+  
+  //create mixin for these ---
   .submitListingDelete {
-    z-index: 9;
+    color: red;
+    border: none;
+    background-color: inherit;
+    margin: 1%;
   }
+  .listingSold {
+    display: none;
+    flex-direction: column;
+    justify-content: end;
+    height: auto;
+    background-color: green;
+    
+    &:hover {
+      transform: scale(0.9);
+    }
+  }
+  .submitListingSold {
+    color: rgb(255, 255, 255);
+    border: none;
+    background-color: inherit;
+    margin: 1%;
+  }
+  //                      ---
+
 }
