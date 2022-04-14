@@ -1,0 +1,21 @@
+<div class="messageBox">
+  <div class="inbox"></div>
+  
+</div>
+
+<div class="chatBox">
+  <div class='chatFeed'>
+
+  </div>
+  <form class='chatText' action='/api/messages/:id' method='POST'>
+    <select class='receiver' name='receiver' readonly>
+      <option value="1">Jojo Leadbeatter</option>
+      <option value="2">Tom Doretto</option>
+    </select>
+    <textarea id='chatText' name='text' placeholder='Send a reply'></textarea>
+    <div class='buttonBox'>
+      <button id='chatSend' type='submit'>Send
+      </button><button id='chatClose' type='reset'>Close</button>
+    </div>
+  </form>
+</div>

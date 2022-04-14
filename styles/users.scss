@@ -1,0 +1,62 @@
+@import "./partials/mixins";
+
+.userForm {
+  @include flexColumn;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .loginForm {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .registerForm {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    @include flexColumn;
+    margin-top: 1%;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 10px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+
+    div {
+      margin: 1% 1% 1% 1%;
+      width:50%;
+
+      input {
+        width: 100%;
+        padding: 5px
+      }
+    }
+
+    .submit {
+      @include flexRow;
+      justify-content: space-around;
+      width: 50%;
+      margin-bottom: 3%;
+
+      button {
+        width: 50%;
+        margin: 1% 1% 1% 1%;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: lightgreen;
+      }
+    }
+  }
+
+}

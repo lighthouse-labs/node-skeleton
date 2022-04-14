@@ -1,21 +1,33 @@
-<headers>
-  <nav>
+<nav>
+  <div class="navTop">
     <div class="navTitle">
       <i class="logo fa-solid fa-car-rear"></i>
       <i class="logoBorder fa-solid fa-car-rear"></i>
       <span>CAR-D-B</span>
     </div>
-    <div class="navSearch">
-      <input placeholder="   Search..." />
-      <button>Search</button>
-      <div class="filter">
-        Filter
-        <i class="fa-solid fa-filter"></i>
-      </div>
-    </div>
     <div class="navRight">
-      <span class="username">Username</span>
-      <button>Logout</button>
+      <span class="username">
+        <%= name %>
+      </span>
+      <% if (name !== 'Guest') { %>
+      <form action="/user/logout" method="POST" id="logout">
+        <button type="submit" class="uButton">Logout</button>
+      </form>
     </div>
-  </nav>
-</headers>
+  </div>
+  <div class='navBottom'>
+    <div id='newListing' class="newPost tabs">New Listing</div>
+    <div id='listings' class="tabs">Listings</div>
+    <div id='messages' class="tabs">Messages</div>
+    <div id='favorites' class="tabs">Favorites</div>
+    <form action='/listing/soldlisting' method='GET' id='sold' class="tabs">Sold</form>
+  </div>
+</nav>
+      <% } else { %>
+        <button type="button" class="uButton" id="login">Login</button>
+        <button type="button" class="uButton" id="signup">Sign Up</button>
+    </div>
+  </div>
+</nav>
+<% } %>
+

@@ -1,5 +1,5 @@
 // load .env data into process.env
-require("dotenv").config({silent: true});
+require("dotenv").config({ silent: true });
 
 // Web server config
 const PORT = process.env.PORT || 8080;
@@ -7,12 +7,27 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
+const database = require('./server/database');
 
-// PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// Set Body Parser
+const bodyParser = require("body-parser");
+const db = require("./server/database.js");
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Set Cookie Parser
+app.use(cookieParser());
+
+// ROUTERS
+const apiRouter = require('./server/apiRoutes');
+const userRouter = require('./server/userRoutes');
+const formRouter = require('./server/formRoutes');
+const listingRouter = require('./server/listingRoutes');
+
+app.use('/api', apiRouter);
+app.use('/user', userRouter);
+app.use('/form', formRouter);
+app.use('/listing', listingRouter);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -33,23 +48,25 @@ app.use(
 
 app.use(express.static("public"));
 
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
-
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
-// Note: mount other resources here, using the same pattern above
-
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
 app.get("/", (req, res) => {
-  res.render("index");
+
+  if (req.cookies.user_id) {
+    database.getUsers(req.cookies.user_id)
+      .then((user) => {
+        const params = {
+          name: user[0].name
+        };
+        res.render('index', params);
+      })
+      .catch((e) => console.error(e));
+  } else {
+    const params = {
+      name: 'Guest'
+    };
+    res.render('index', params);
+  }
+
+
 });
 
 app.listen(PORT, () => {

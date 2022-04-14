@@ -1,0 +1,55 @@
+<section class="newForm">
+  <header>
+    <h2>Create New Listing</h2>
+    <p id="invalid"></p>
+  </header>
+  <form action="/listing" method="post" id="createList">
+    <div>
+      <label for="thumbnail">Thumbnail Image</label>
+      <input placeholder="Thumbnail Image" type="url" name="imageURL" id="imageURL"/>
+    </div>
+    <section class="selections">
+      <div class="makeModel">
+        <div>
+          <label for="carMake">Make</label>
+          <select name="make" id="make" required></select>
+        </div>
+        <div>
+          <label for="carMake">Model</label>
+          <select name="model" id="model" required></select>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label for="transmission">Transmission</label>
+          <select name="transmission" id="transmission" required>
+            <option value="False">Automatic</option>
+            <option value="True">Manual</option>
+          </select>
+        </div>
+        <div>
+          <label for="year">Year</label>
+          <select name="year" id="year" required></select>
+        </div>
+      </div>
+    </section>
+    <section class="selections">
+      <div>
+        <label for="price">Price</label>
+        <input type="number" name="price" placeholder="Price" id="price"/>
+      </div>
+      <div>
+        <label for="color">Color</label>
+        <input type="text" name="color" placeholder="Color" id="color"/>
+      </div>
+
+    </section>
+    <div>
+      <textarea placeholder="Description" name="descriptions" id="descriptions" cols="60" rows="5"></textarea>
+    </div>
+    <section>
+      <button type="submit" id="create">Create</button>
+      <button type="reset" id="cancel">Cancel</button>
+    </section>
+  </form>
+</section>

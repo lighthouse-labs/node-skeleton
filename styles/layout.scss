@@ -1,6 +1,8 @@
 // See: https://sass-lang.com/
+@import "./partials/mixins";
 
 body,
 html {
   margin: 0;
+  font-size: 22px;
 }

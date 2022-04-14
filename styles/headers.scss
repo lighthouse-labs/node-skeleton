@@ -1,0 +1,119 @@
+@import "./partials/mixins";
+
+headers {
+  @include flexColumn;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+
+  .browse {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+
+    #carSearch {
+      @include flexColumn;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      width: 100%;
+
+      .searchBar {
+        @include flexRow;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        margin-top: 3%;
+
+        input {
+          display: flex;
+          width: 55%;
+          outline: none;
+          border: none;
+          border-bottom: 2px solid black;
+          background-color: transparent;
+          margin: 0 2% 0 2%;
+          padding: 5px;
+        }
+
+        button {
+          padding: 5px;
+          background-color: lightgreen;
+          border: 1px solid black;
+          border-radius: 5px;
+          opacity: 0.7;
+          &:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            cursor: pointer;
+          }
+        }
+
+        .filter {
+          opacity: 0.3;
+          margin-left: 2%;
+          &:hover {
+            color: black;
+            transform: scale(1.1);
+            opacity: 1;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .filterOptions {
+        display: none;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        font-size: 0.7rem;
+
+        .multiSelect {
+          @include flexColumn;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.8rem;
+          width: 65%;
+          margin: 0.5% 0.5% 0.5% 0.5%;
+
+          div {
+            @include flexColumn;
+            width: 100%;
+            margin: 0.5% 0.5% 0.5% 0.5%;
+          }
+
+          .rangeSlider {
+            margin-top: 3%;
+            label {
+              text-align: center;
+              margin-bottom: 0.5%;
+            }
+          }
+
+          .sliderInput {
+            @include flexRow;
+            justify-content: center;
+            justify-items: center;
+            width: 100%;
+            margin: 0.5% 0.5% 0.5% 0.5%;
+
+            input {
+              width: 20%;
+              justify-self: center;
+              text-align: center;
+              margin: 1% 1% 1% 1%;
+              background-color: white;
+              opacity: 0.8;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
