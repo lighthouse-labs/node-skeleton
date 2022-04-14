@@ -1,5 +1,10 @@
 $(() => {
 
+  $('.formCancel').click(() => {
+    $('.loginForm').slideUp('fast');
+    $('.registerForm').slideUp('fast');
+  })
+
   const createLoginForm = () => {
     const $loginForm = $('<form id="loginForm" action="/user/login/" method="POST">');
     const $header = $('<header>').append("<h2>Sign In</h2>");
@@ -24,8 +29,6 @@ $(() => {
     $('.filterOptions').slideUp('fast');
     $('.registerForm').slideUp('fast');
     setTimeout(() => {
-      $('.loginForm').empty()
-      $('.loginForm').append(createLoginForm())
       $('.loginForm').slideToggle('fast');
       $('.loginForm').css('display', 'flex');
     }, 200);
@@ -36,18 +39,8 @@ $(() => {
     $('.filterOptions').slideUp('fast');
     $('.loginForm').slideUp('fast');
     setTimeout(() => {
-      $('.registerForm').empty();
-      $('.registerForm').append(createRegisterForm())
       $('.registerForm').slideToggle('fast');
       $('.registerForm').css('display', 'flex');
     }, 200);
   });
-
-  $('#loginCancel').click(() => {
-    $('.loginForm').slideToggle('fast');
-  })
-
-  $('#registerCancel').click(() => {
-    $('.registerForm').slideToggle('fast');
-  })
 });

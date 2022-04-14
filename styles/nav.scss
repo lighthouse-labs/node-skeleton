@@ -3,14 +3,13 @@
 headers {
 
   nav {
-
     width: 100vw;
     height: 100px;
-    z-index: 500;
+    z-index: 1200;
     @include flexColumn;
     justify-content: space-evenly;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
     background: rgb(255, 255, 255);
     background: radial-gradient(

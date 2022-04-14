@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const database = require('./database');
@@ -5,7 +6,8 @@ const messages = 'http://localhost:8080/api/messages';
 const users = 'http://localhost:8080/api/users';
 
 router.get('/inbox', (req, res) => {
-  database.getInboxNames(messages)
+  const id = req.cookies.user_id;
+  database.getInbox(id)
     .then(messages => res.json(messages))
     .catch(e => {
       console.error(e);
@@ -14,7 +16,31 @@ router.get('/inbox', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  database.getChat(messages)
+  const id = req.cookies.user_id;
+  database.getUsers(id)
+  .then((user) => {
+    if (user[0].admin) {
+      database.getInboxSeller(id)
+      .then((result) => res.json(result))
+      .catch((e) => console.error(e));
+    } else {
+      database.getInboxBuyer(id)
+      .then((result) => res.json(result))
+      .catch((e) => console.error(e));
+    };
+  });
+});
+
+router.post('/messages/:id', (req, res) => {
+  console.log("BODY:", req.body)
+  const params = {
+    sender: req.cookies.user_id,
+    text: req.body.text,
+    inbox: req.params.id,
+    time: Math.floor(Date.now() / 10000)
+  };
+
+  database.sendMessage(params)
     .then(messages => res.json(messages))
     .catch(e => {
       console.error(e);
@@ -22,19 +48,11 @@ router.get('/messages', (req, res) => {
     });
 });
 
-router.post('/messages/:id', (req, res) => {
-
-  const params = {
-    text: req.body.text,
-    receiver: req.body.receiver,
-    sender: req.params.id
-  };
-  database.sendMessage(params)
-    .then(messages => res.json(messages))
-    .catch(e => {
-      console.error(e);
-      res.send(e);
-    });
+router.get('/messages/:id', (req, res) => {
+  const inbox = req.params.id;
+  database.getMessages(inbox)
+  .then((messages) => res.send(messages))
+  .catch((e) => console.error(e));
 });
 
 router.get('/:id', (req, res) => {
