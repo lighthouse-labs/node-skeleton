@@ -83,6 +83,7 @@ const renderListing = function(listings) {
     });
   });
 
+
   listingFavorite.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
@@ -124,7 +125,6 @@ const renderListing = function(listings) {
   listingSold.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-
       $.ajax({
         method: 'POST',
         url: `/listing/sold/${listingID}`,
@@ -153,7 +153,7 @@ const loadListings = function() {
 $(() => {
 
 
-  loadListings();
+  // loadListings();
 
   // BROWSE/SEARCH and Filter
 

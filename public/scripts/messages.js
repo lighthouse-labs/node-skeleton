@@ -1,7 +1,7 @@
 const createMails = (mail) => {
   let $mail = $('<div class="message">');
   let $message = $(`<form class="mail" action="/api/messages/${mail.id}" method="GET">`);
-  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id} From: ${mail.name}</button>`);
+  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id}: ${mail.name}</button>`)
 
   return $mail.append($message.append($button));
 };
@@ -92,8 +92,9 @@ const renderChat = (inbox) => {
     });
   });
 
-  $('#messageText').submit((event) => {
-    console.log('AAAA');
+
+  $('#messageText').submit( (event) => {
+
 
     const mailId = (chatSend[0]).dataset.id;
     event.preventDefault();

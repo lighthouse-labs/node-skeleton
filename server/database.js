@@ -3,7 +3,7 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function(limit) {
+const getAllListings = function(id, limit) {
   return db.query(`
   SELECT listings.id AS id,
   listings.user_id AS seller,
@@ -14,17 +14,18 @@ const getAllListings = function(limit) {
   JOIN favorites ON user_id=users.id
   RIGHT JOIN listings ON listing_id=listings.id
   WHERE sold IS false
+  AND listings.user_id != $1
   GROUP BY listings.id, favorites.favorited, favorites.user_id
   ORDER BY id
-  LIMIT $1;`, [limit])
+  LIMIT $2;`, [id, limit])
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
 
-const browseListings = function(filter, limit) {
+const browseListings = function(filter, limit, id) {
   const queryParams = [];
-  let queryString = `SELECT *
-  FROM listings
+  let queryString = `
+  SELECT * FROM listings
   WHERE sold IS FALSE
   `;
 
@@ -72,11 +73,16 @@ const browseListings = function(filter, limit) {
     queryString += `AND year <= $${queryParams.length}`;
   }
 
+  queryParams.push(id);
+  queryString += `AND listings.user_id != $${queryParams.length}`
+
   queryParams.push(limit);
   queryString += `
   ORDER BY listings DESC
   LIMIT $${queryParams.length};
   `;
+
+  console.log(queryString);
   return db.query(queryString, queryParams)
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
@@ -122,6 +128,7 @@ const getMessages = (inbox) => {
     .catch((err) => console.log(err.message));
 };
 
+
 const getChat = (inbox, id) => {
   return db.query(`SELECT * WHEN ,
   CASE
@@ -140,6 +147,7 @@ const getChat = (inbox, id) => {
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
+
 
 const getUsers = (userID) => {
   return db.query(`SELECT * FROM users
@@ -325,7 +333,6 @@ module.exports = {
   createListing,
   getAllMakes,
   getAllModels,
-  getChat,
   getUsers,
   sendMessage,
   getMinMaxPrice,
