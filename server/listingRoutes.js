@@ -22,7 +22,7 @@ router.get('', (req, res) => {
 
 router.get('/browse', (req, res) => {
   const data = req.query;
-  const id = 0;
+  let id = 0;
   if (req.cookies.user_id) {
     id = req.cookies.user_id;
   };

@@ -32,7 +32,10 @@ const browseListings = function(filter, limit, id) {
   if (filter.search) {
     queryParams.push(`%${filter.search}%`);
     queryString += `AND (LOWER(make) LIKE $${queryParams.length}`;
-    queryString += `OR LOWER(model) LIKE $${queryParams.length})`;
+    queryString += `OR LOWER(model) LIKE $${queryParams.length}`;
+    queryString += `OR LOWER(listings.color) LIKE $${queryParams.length}`;
+    queryString += `OR listings.year::text LIKE $${queryParams.length}`;
+    queryString += `OR listings.id::text LIKE $${queryParams.length})`;
   }
 
   if (filter.carMake) {
@@ -74,7 +77,8 @@ const browseListings = function(filter, limit, id) {
   }
 
   queryParams.push(id);
-  queryString += `AND listings.user_id != $${queryParams.length}`
+  queryString += `
+  AND listings.user_id != $${queryParams.length}`
 
   queryParams.push(limit);
   queryString += `
@@ -82,7 +86,6 @@ const browseListings = function(filter, limit, id) {
   LIMIT $${queryParams.length};
   `;
 
-  console.log(queryString);
   return db.query(queryString, queryParams)
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
