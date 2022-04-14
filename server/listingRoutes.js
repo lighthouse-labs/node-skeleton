@@ -5,6 +5,7 @@ const cookieParser = require('../server');
 
 
 router.get('', (req, res) => {
+  // const userID = req.cookies.user_id;
   database.getAllListings(10)
     .then(listings => res.send(listings))
     .catch(e => {
@@ -34,7 +35,7 @@ router.get('/browse', (req, res) => {
 });
 
 router.get('/mylisting', (req, res) => {
-  const id = req.cookies.username || req.cookies.user_id;
+  const id = req.cookies.user_id;
   database.getMyListings(id)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -53,8 +54,9 @@ router.get('/soldlisting', (req, res) => {
     });
 });
 
-router.get('/favorites', (req, res) => {
+router.get('/favorited', (req, res) => {
   const id = req.cookies.user_id;
+  console.log("hey");
   database.getFavorites(id)
     .then((favorites) => res.send(favorites))
     .catch(e => {
