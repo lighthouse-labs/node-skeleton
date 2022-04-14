@@ -1,10 +1,10 @@
 const createMails = (mail) => {
   let $mail = $('<div class="message">');
   let $message = $(`<form class="mail" action="/api/messages/${mail.id}" method="GET">`);
-  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id} From: ${mail.name}</button>`)
+  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id} From: ${mail.name}</button>`);
 
   return $mail.append($message.append($button));
-}
+};
 
 const createChatBox = (inbox) => {
 
@@ -31,9 +31,9 @@ const createChatBox = (inbox) => {
       </div>
     </form>
   </div>
-  `)
+  `);
   return $chatBox;
-}
+};
 
 const createChat = (message) => {
   let $message = $(`
@@ -53,7 +53,7 @@ const createChat = (message) => {
 const renderMails = (mails) => {
   mails.forEach((mail) => {
     $('.inbox').prepend((createMails(mail)));
-  })
+  });
 
   const mailInbox = [...document.querySelectorAll('.mailInbox')];
 
@@ -65,10 +65,10 @@ const renderMails = (mails) => {
       event.preventDefault();
 
       $.ajax({
-       method: 'GET',
+        method: 'GET',
         url: `/api/messages/${mailId}`,
         data: $('.chatFeed').serialize()
-     }).then((messages) => {
+      }).then((messages) => {
         $('.chatBox').css('display', 'block');
         renderChat(messages);
         $('.chatText').focus();
@@ -79,7 +79,7 @@ const renderMails = (mails) => {
 };
 
 const renderChat = (inbox) => {
-  inbox.forEach( (message) => {
+  inbox.forEach((message) => {
     $('.chatFeed').append(createChat(message));
   });
 
@@ -92,8 +92,8 @@ const renderChat = (inbox) => {
     });
   });
 
-  $('#messageText').submit( (event) => {
-    console.log('AAAA')
+  $('#messageText').submit((event) => {
+    console.log('AAAA');
 
     const mailId = (chatSend[0]).dataset.id;
     event.preventDefault();
@@ -112,10 +112,10 @@ const renderChat = (inbox) => {
       }).then((messages) => {
         $('.chatFeed').empty();
         renderChat(messages);
-      $('.chatText').focus();
-      })
+        $('.chatText').focus();
+      });
     });
-  })
+  });
 };
 
 // Messages inbox dropdown
@@ -125,7 +125,7 @@ const loadMessages = () => {
     url: '/api/messages',
   }).then((data) => {
     $('.inbox').empty();
-    renderMails(data)
+    renderMails(data);
   }).catch((err) => console.error(err.message));
 };
 
@@ -133,9 +133,9 @@ const loadMessages = () => {
 $(() => {
 
   $('#messages').click((event) => {
-      event.preventDefault();
-      $('.inbox').fadeToggle('fast');
-      $('.inbox').css('display', 'flex');
-      loadMessages();
-    });
+    event.preventDefault();
+    $('.inbox').fadeToggle('fast');
+    $('.inbox').css('display', 'flex');
+    loadMessages();
+  });
 });

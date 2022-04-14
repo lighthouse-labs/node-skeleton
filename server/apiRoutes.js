@@ -18,21 +18,21 @@ router.get('/inbox', (req, res) => {
 router.get('/messages', (req, res) => {
   const id = req.cookies.user_id;
   database.getUsers(id)
-  .then((user) => {
-    if (user[0].admin) {
-      database.getInboxSeller(id)
-      .then((result) => res.json(result))
-      .catch((e) => console.error(e));
-    } else {
-      database.getInboxBuyer(id)
-      .then((result) => res.json(result))
-      .catch((e) => console.error(e));
-    };
-  });
+    .then((user) => {
+      if (user[0].admin) {
+        database.getInboxSeller(id)
+          .then((result) => res.json(result))
+          .catch((e) => console.error(e));
+      } else {
+        database.getInboxBuyer(id)
+          .then((result) => res.json(result))
+          .catch((e) => console.error(e));
+      }
+    });
 });
 
 router.post('/messages/:id', (req, res) => {
-  console.log("BODY:", req.body)
+  console.log("BODY:", req.body);
   const params = {
     sender: req.cookies.user_id,
     text: req.body.text,
@@ -51,8 +51,8 @@ router.post('/messages/:id', (req, res) => {
 router.get('/messages/:id', (req, res) => {
   const inbox = req.params.id;
   database.getMessages(inbox)
-  .then((messages) => res.send(messages))
-  .catch((e) => console.error(e));
+    .then((messages) => res.send(messages))
+    .catch((e) => console.error(e));
 });
 
 router.get('/:id', (req, res) => {

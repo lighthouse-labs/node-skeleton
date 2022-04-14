@@ -10,7 +10,7 @@ const createListingElement = function(listing) {
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="starButton" data-id='${listing.id}' type="button">
+    <button class="favoriteFalse starButton" data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
   <div class="postBox">
@@ -18,7 +18,7 @@ const createListingElement = function(listing) {
       <div class="postTitle">${listing.make}, ${listing.model}</div>
       <div class="postPrice">$${listing.price}</div>
     </div>
-    <div class='messageButtonContainer '>
+    <div class='messageButtonContainer'>
       <div class='messageButton'>
         message_seller
       </div>
@@ -49,9 +49,10 @@ const createListingElement = function(listing) {
 
 const renderListing = function(listings) {
   listings.forEach(listing => {
+    console.log(listings);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
-      $('.messageButtonContainer').prepend(`
+      $('.postBox').prepend(`
       <div class='sold'>
       SOLD
       </div>
@@ -59,7 +60,8 @@ const renderListing = function(listings) {
     }
   });
 
-  //
+
+
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   const listingFavorite = [...document.querySelectorAll('.starButton')];
@@ -80,42 +82,43 @@ const renderListing = function(listings) {
         $('.listingDelete').css('display', 'flex');
       });
     });
-
-    listingFavorite.forEach(listItem => {
-      const listingID = listItem.dataset.id;
-      listItem.addEventListener('click', (event) => {
-        event.preventDefault();
-        $.ajax({
-          url: `/api/favorites/${listingID}`,
-          method: 'POST',
-          data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-        });
+  });
+  listingFavorite.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', (event) => {
+      event.preventDefault();
+      $(listItem).toggleClass("favoriteTrue");
+      $.ajax({
+        url: `/api/favorites/${listingID}`,
+        method: 'POST',
+        data: $('.listings').serialize()
+      }).then((listings) => {
+        $('.listings').empty();
+        renderListing(listings);
+        $('.listingSold').css('display', 'none');
+        $('.sold').css('display', 'none');
       });
     });
+  });
 
-    listingSold.forEach(listItem => {
-      const listingID = listItem.dataset.id;
-      listItem.addEventListener('click', (event) => {
-        event.preventDefault();
-        $.ajax({
-          method: 'POST',
-          url: `/listing/sold/${listingID}`,
-          data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-          $('.messageButton').css('display', 'none');
-          $('.listingDelete').css('display', 'none');
-          $('.listingSold').css('display', 'flex');
-        });
+  listingSold.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', (event) => {
+
+      $.ajax({
+        method: 'POST',
+        url: `/listing/sold/${listingID}`,
+        data: $('.listings').serialize()
+      }).then((listings) => {
+        $('.listings').empty();
+        renderListing(listings);
+        $('.messageButton').css('display', 'none');
+        $('.listingDelete').css('display', 'none');
+        $('.listingSold').css('display', 'flex');
       });
     });
   });
 };
-
 
 const loadListings = function() {
   $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
@@ -196,6 +199,7 @@ $(() => {
       renderListing(listings);
       $('.messageButton').css('display', 'none');
       $('.listingDelete').css('display', 'flex');
+      // $('.listingSold').css('display', 'flex');
     });
   });
 });
