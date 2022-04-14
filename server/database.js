@@ -186,7 +186,6 @@ const getMinMaxYear = () => {
 };
 
 
-
 const sendMessage = (message) => {
   console.log('MESSAGEQUERY:', message);
   switch (message.sender) {
@@ -228,11 +227,17 @@ const getSoldListings = (id) => {
 };
 
 
-const getFavorites = (id) => {
+const getFavorites = (userID) => {
   return db.query(`
-  SELECT * FROM favorites
-  WHERE user_id = $1
-  ORDER BY favorites;`, [id])
+  SELECT name AS user_name, favorites.user_id AS user_id,
+  listings.id AS listing_id,
+  listings.user_id AS seller,
+  price, year, make, model, transmission, color, descriptions, sold, imageURL, favorited
+  FROM users
+  JOIN favorites ON user_id=users.id
+  JOIN listings ON listing_id=listings.id WHERE favorites.user_id = $1
+  GROUP BY name, listings.id, favorites.favorited, favorites.user_id   
+  ORDER BY listing_id;`, [userID])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
@@ -265,7 +270,6 @@ const changeToSold = (listingID) => {
     })
     .catch((err) => console.error(err));
 };
-
 
 module.exports = {
   browseListings,
