@@ -10,7 +10,7 @@ const createListingElement = function(listing) {
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="favoriteFalse starButton" data-id='${listing.id}' type="button">
+    <button class="starButton ${listing.id}" data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
   <div class="postBox">
@@ -49,7 +49,6 @@ const createListingElement = function(listing) {
 
 const renderListing = function(listings) {
   listings.forEach(listing => {
-    console.log(listings);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.postBox').prepend(`
@@ -88,23 +87,37 @@ const renderListing = function(listings) {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
-      $(listItem).toggleClass("favoriteTrue");
 
-      ($('.starButton').hasClass('favoriteTrue')) ?
-        console.log('FAV TRUE') :
-        console.log('FAV FALSE');
+      $(`.${listingID}`).toggleClass("favoriteTrue");
 
-      // $.ajax({
-      //   url: `/api/favorites/${listingID}`,
-      //   method: 'POST',
-      //   data: $('.listings').serialize()
-      // }).then((listings) => {
-      //   $('.listings').empty();
-      //   renderListing(listings);
-      //   $('.listingSold').css('display', 'none');
-      //   $('.sold').css('display', 'none');
-      // });
-      // });
+      if ($(`.${listingID}`).hasClass('favoriteTrue')) {
+
+        console.log('inside the true if statement');
+        $.ajax({
+          url: `/listing/favoritesTrue/${listingID}`,
+          method: 'POST',
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+          $(`.${listingID}`).addClass("favoriteTrue");
+          $('.listingSold').css('display', 'none');
+          $('.sold').css('display', 'none');
+        });
+      } else if ($(`.${listingID}`).hasClass('favoriteFalse')) {
+        console.log('inside the false if statement');
+        $.ajax({
+          url: `/listing/favoritesFalse/${listingID}`,
+          method: 'POST',
+          data: $('.listings').serialize()
+        }).then((listings) => {
+          $('.listings').empty();
+          renderListing(listings);
+          $(`.${listingID}`).removeClass("favoriteTrue");
+          $('.listingSold').css('display', 'none');
+          $('.sold').css('display', 'none');
+        });
+      }
     });
   });
 

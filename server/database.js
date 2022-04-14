@@ -269,15 +269,32 @@ const getFavorites = (userID) => {
     .catch((err) => console.error(err));
 };
 
-const postFavorites = (user_id, listing_id) => {
-  const isFavorite = true;
-  // IF (`SELECT ${listing_id} FROM favorites`) {
-  //   return db.query(`DELETE FROM favorites WHERE listing_id = '${listing_id}'`);
-  //   return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
-  //     .then((result) => (result.rows))
-  //     .catch((err) => console.error(err))
+const deleteFromTable = (id, listID) => {
+  return db.query(`
+  DELETE from favorites
+  WHERE user_id = $1 AND listing_id = $2
+  `, [id, listID])
+    .then((result) => result.rows)
+    .catch((err) => console.error(err));
 };
-// };
+
+const postFavoritesTrue = (id, listID) => {
+  deleteFromTable(id, listID);
+  return db.query(`
+  INSERT INTO favorites (user_id, listing_id, favorited)
+  VALUES ($1, $2, TRUE)`, [id, listID])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
+const postFavoritesFalse = (id, listID) => {
+  deleteFromTable(id, listID);
+  return db.query(`
+  INSERT INTO favorites (user_id, listing_id, favorited)
+  VALUES ($1, $2, FALSE)`, [id, listID])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
 
 const deleteFromList = (listing) => {
   return db.query(`
@@ -322,5 +339,6 @@ module.exports = {
   deleteFromList,
   changeToSold,
   getFavorites,
-  postFavorites
+  postFavoritesTrue,
+  postFavoritesFalse
 };
