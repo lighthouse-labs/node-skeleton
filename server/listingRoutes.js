@@ -7,7 +7,8 @@ const cookieParser = require('../server');
 router.get('', (req, res) => {
   // const userID = req.cookies.user_id;
   database.getAllListings(10)
-    .then(listings => res.send(listings))
+    .then(listings => {
+      res.send(listings)})
     .catch(e => {
       console.error(e);
       res.send(e);
@@ -56,7 +57,6 @@ router.get('/soldlisting', (req, res) => {
 
 router.get('/favorited', (req, res) => {
   const id = req.cookies.user_id;
-  console.log("hey");
   database.getFavorites(id)
     .then((favorites) => res.send(favorites))
     .catch(e => {
@@ -74,9 +74,7 @@ router.post('/users/:idUser/listings/:idListing/favorite', (req, res) => {
 
 router.post('/delete/:listID', (req, res) => {
   const listID = req.params.listID;
-  const id = req.cookies.user_id;
-  console.log('/delete/:listID test');
-  database.deleteFromList(listID, id)
+  database.deleteFromList(listID)
     .then(() => {
       res.redirect('/listing/soldlisting');
 
