@@ -5,8 +5,12 @@ const cookieParser = require('../server');
 
 
 router.get('', (req, res) => {
-  // const userID = req.cookies.user_id;
-  database.getAllListings(10)
+  let id = 0;
+  if (req.cookies.user_id) {
+    id = req.cookies.user_id;
+  };
+
+  database.getAllListings(id, 10)
     .then(listings => {
       res.send(listings);
     })
@@ -18,6 +22,11 @@ router.get('', (req, res) => {
 
 router.get('/browse', (req, res) => {
   const data = req.query;
+  let id = 0;
+  if (req.cookies.user_id) {
+    id = req.cookies.user_id;
+  };
+
   const filter = {
     search: data.search.toLowerCase(),
     carMake: data.carMake,
@@ -27,8 +36,11 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   };
+  console.log('SEARCH DATA:', data.search.toLowerCase());
 
-  database.browseListings(filter, 20)
+  console.log(id);
+
+  database.browseListings(filter, 20, id)
     .then((listings) => res.send(listings))
     .catch(e => {
       console.error(e);
@@ -113,7 +125,9 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  database.createListing(req.body)
+  const id = req.cookies.user_id;
+
+  database.createListing(id, req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
       res.status(201);

@@ -80,11 +80,11 @@ INSERT INTO favorites (user_id, listing_id, favorited) VALUES
 (2, 10, true);
 
 
-INSERT INTO messages (buyer_id, listing_id, seller_id, dateTime, messageReceived, created_at) VALUES
-(1, 46, 2, '4/13/2022', true, 19),
-(1, 23, 2, '4/13/2022', true, 29),
-(3, 23, 2,  '4/13/2022', true, 23),
-(3, 46, 2, '4/13/2022', true, 15);
+INSERT INTO messages (buyer_id, listing_id, seller_id, messageReceived, created_at) VALUES
+(1, 46, 2, true, 19),
+(1, 23, 2, true, 29),
+(3, 23, 2, true, 23),
+(3, 46, 2, true, 15);
 
 
 INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText, timeSent) VALUES
