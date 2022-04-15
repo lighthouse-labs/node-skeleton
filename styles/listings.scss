@@ -13,7 +13,7 @@
   margin: 3% 3% 3% 3%;
   background-color: #e4e4e4;
   @include flexRow;
-  // position: relative;
+  position: relative;
 
   .star {
     width: 5vw;
@@ -156,6 +156,7 @@
     text-align: center;
     font-weight: bolder;
     font-size: xx-large;
+    z-index: 10;
   }
 
   .listingDelete {
@@ -193,6 +194,5 @@
     background-color: inherit;
     margin: 1%;
   }
-  //                      ---
 
 }

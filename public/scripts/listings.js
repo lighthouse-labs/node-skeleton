@@ -53,7 +53,7 @@ const renderListing = listings => {
   listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
-      $('.postBox').prepend(`
+      $('.posts').prepend(`
       <div class='sold'>
       SOLD
       </div>
