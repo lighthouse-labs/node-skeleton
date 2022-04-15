@@ -2,6 +2,7 @@ const { json } = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const database = require('./database');
+const { checkInbox } = require('./helper/helper');
 
 
 
@@ -31,6 +32,31 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.post('/messages/new/:id', (req, res) => {
+  let id = 0;
+  if (req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+  const params = {
+    listing_id: req.params.id,
+    id: id,
+    created_at: Math.floor(Date.now() / 10000)
+  }
+
+  database.getInboxBuyer(id)
+    .then((inbox) => {
+      if (!checkInbox(inbox, req.params.id)) {
+        database.createMessage(params)
+        .then((newMessage) => res.send(newMessage))
+        .catch((e) => {
+          console.error(e);
+          res.send(e);
+        })
+      } else {
+        res.sendStatus(403);
+      }
+    })
+});
 
 
 router.post('/messages/:id', (req, res) => {
@@ -71,27 +97,5 @@ router.get('/:id', (req, res) => {
       res.send(e);
     });
 });
-
-router.post('/messages/new/:id', (req, res) => {
-  let userID = 0;
-  const id = req.params.id;
-
-  if (req.cookies.user_id) {
-    userID = req.cookies.user_id;
-  }
-  const params = {
-    listing_id: id,
-    id: userID,
-    created_at: Math.floor(Date.now() / 10000)
-  }
-  console.log('APIROUTE:', 'CHECK');
-  database.createMessage(params)
-    .then((newMessage) => res.send(newMessage))
-    .catch((e) => {
-      console.error(e);
-      res.send(e);
-    });
-});
-
 
 module.exports = router;

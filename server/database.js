@@ -82,6 +82,7 @@ const browseListings = function (filter, limit, id) {
 
   queryParams.push(limit);
   queryString += `
+  GROUP BY listings.id
   ORDER BY listings DESC
   LIMIT $${queryParams.length};
   `;
@@ -239,10 +240,8 @@ const createMessage = (request) => {
 
   return db.query(queryString, queryParams)
     .then((result) => {
-      console.log('DATABASEJS:', 'CHECK');
-      result.rows;
-    })
-    .catch((err) => console.log(err.message));
+      result.rows})
+      .catch((err) => console.log(err.message));
 };
 
 
