@@ -100,8 +100,8 @@ const getInboxBuyer = (id) => {
   WHERE messages.buyer_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getInboxSeller = (id) => {
@@ -113,8 +113,8 @@ const getInboxSeller = (id) => {
   WHERE messages.buyer_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getMessages = (inbox) => {
@@ -127,8 +127,28 @@ const getMessages = (inbox) => {
   WHERE messages.id = $1
   ORDER BY timesent;
   `, [inbox])
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+
+
+const getChat = (inbox, id) => {
+  return db.query(`SELECT * WHEN ,
+  CASE
+  WHEN users.id = 1 THEN $2
+  WHEN users.id = 2 THEN $2
+  END
+  AS sender,
+  CASE
+  WHEN receiver_id = 1 THEN $1
+  WHEN receiver_id = 2 THEN $2
+  END AS receiver, messagetext, admin, listings.user_id AS seller, messages.listing_id AS listing_id FROM messagelisting
+  JOIN users ON users.id=sender_id
+  JOIN listings ON users.id=listings.id JOIN messages ON messages.id=messagelisting.message_id
+  ORDER BY messagelisting.id DESC
+  ;`, ['Jojo Leadbeatter', 'Tom Doretto'])
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 
@@ -235,8 +255,8 @@ const sendMessage = (message) => {
   ) VALUES ($1, $2, $3, $4) RETURNING *;`;
 
   return db.query(queryString, queryParams)
-  .then((result) => result.rows)
-  .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
 };
 
 const getMyListings = (id) => {
@@ -278,9 +298,29 @@ const getFavorites = (userID) => {
     .catch((err) => console.error(err));
 };
 
-const postFavorites = (user_id, listing_id) => {
-  const isFavorite = true;
-  return db.query(`INSERT INTO favorites (user_id, listing_id, favorited) VALUES (${user_id}, ${listing_id}, ${isFavorite})`)
+const deleteFromTable = (id, listID) => {
+  return db.query(`
+  DELETE from favorites
+  WHERE user_id = $1 AND listing_id = $2
+  `, [id, listID])
+    .then((result) => result.rows)
+    .catch((err) => console.error(err));
+};
+
+const postFavoritesTrue = (id, listID) => {
+  deleteFromTable(id, listID);
+  return db.query(`
+  INSERT INTO favorites (user_id, listing_id, favorited)
+  VALUES ($1, $2, TRUE)`, [id, listID])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
+const postFavoritesFalse = (id, listID) => {
+  deleteFromTable(id, listID);
+  return db.query(`
+  INSERT INTO favorites (user_id, listing_id, favorited)
+  VALUES ($1, $2, FALSE)`, [id, listID])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
@@ -328,5 +368,7 @@ module.exports = {
   changeToSold,
   getFavorites,
   postFavorites,
-  createMessage
+  createMessage,
+  postFavoritesTrue,
+  postFavoritesFalse
 };

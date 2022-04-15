@@ -11,7 +11,6 @@
 
   .star {
     width: 4vw;
-    color: grey;
     background: rgb(163, 208, 219);
   background: linear-gradient(
     227deg,
@@ -35,6 +34,10 @@
     display: contents;
     align-items: center;
     background: local;
+  }
+
+  .favoriteTrue {
+    color: red;
   }
 
   .carPhoto {
@@ -116,12 +119,12 @@
     flex-direction: column;
     justify-content: end;
     height: auto;
-    
+
     &:hover {
       transform: scale(1.1);
     }
   }
-  
+
   //create mixin for these ---
   .submitListingDelete {
     color: red;
@@ -135,7 +138,7 @@
     justify-content: end;
     height: auto;
     background-color: green;
-    
+
     &:hover {
       transform: scale(0.9);
     }

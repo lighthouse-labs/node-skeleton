@@ -12,7 +12,8 @@ router.get('', (req, res) => {
 
   database.getAllListings(id, 10)
     .then(listings => {
-      res.send(listings)})
+      res.send(listings);
+    })
     .catch(e => {
       console.error(e);
       res.send(e);
@@ -77,11 +78,20 @@ router.get('/favorited', (req, res) => {
     });
 });
 
-router.post('/users/:idUser/listings/:idListing/favorite', (req, res) => {
-  const idUser = req.params.idUser;
-  const idListing = req.params.idListing;
-  database.postFavorites(idUser, idListing)
-    .then((favorites) => res.send(favorites));
+router.post('/favoritesTrue/:listID', (req, res) => {
+  const id = req.cookies.user_id;
+  const listID = req.params.listID;
+  console.log('LISTID:', listID, 'in TRUE ROUTER');
+  database.postFavoritesTrue(id, listID)
+    .then(() => res.redirect('/listing'));
+});
+
+router.post('/favoritesFalse/:listID', (req, res) => {
+  const id = req.cookie.id;
+  const listID = req.params.listID;
+  console.log('LISTID:', listID, 'in FALSE ROUTER');
+  database.postFavoritesFalse(id, listID)
+    .then(() => res.redirect('/listing'));
 });
 
 router.post('/delete/:listID', (req, res) => {
