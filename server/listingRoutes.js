@@ -4,8 +4,8 @@ const database = require('./database');
 
 
 router.get('', (req, res) => {
-  // const userID = req.cookies.user_id;
-  database.getAllListings(10)
+  const userID = req.cookies.user_id;
+  database.getAllListings(userID, 10)
     .then(listings => {
       res.send(listings);
     })
@@ -26,7 +26,7 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   };
-
+  console.log('TESTING FROM ROUTER');
   database.browseListings(filter, 20)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -112,7 +112,9 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  database.createListing(req.body)
+  const userID = req.cookies.user_id;
+
+  database.createListing(userID, req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
       res.status(201);

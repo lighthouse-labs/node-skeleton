@@ -1,5 +1,5 @@
-const createListingElement = function(listing) {
-
+const createListingElement = function (listing) {
+console.log('TEST FROM CREATE ELEMENT');
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
@@ -42,7 +42,7 @@ const createListingElement = function(listing) {
   return $listing;
 };
 
-const renderListing = function(listings) {
+const renderListing = function (listings) {
   listings.forEach(listing => {
     // console.log('LISTING IS', listing);
     $('.listings').prepend(createListingElement(listing));
@@ -134,28 +134,28 @@ const renderListing = function(listings) {
         method: 'POST',
         url: `/api/messages/new/${listingID}`,
       })
-      .then(() => {
-        $.ajax({
-          method: 'GET',
-          url: '/api/messages',
-        }).then((data) => {
-          $('.inbox').empty();
-          renderMails(data);
-          $('.inbox').fadeIn('fast');
-        }).catch((err) => console.error(err.message));
-      });
+        .then(() => {
+          $.ajax({
+            method: 'GET',
+            url: '/api/messages',
+          }).then((data) => {
+            $('.inbox').empty();
+            renderMails(data);
+            $('.inbox').fadeIn('fast');
+          }).catch((err) => console.error(err.message));
+        });
     });
   });
 };
 
 
-  const loadListings = function () {
-    $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
-      $('.listingDelete').css('display', 'none');
-      renderListing(data);
-    });
-  };
-}
+const loadListings = function () {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+    $('.listingDelete').css('display', 'none');
+    renderListing(data);
+  });
+};
+
 
 $(() => {
 
@@ -164,7 +164,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();

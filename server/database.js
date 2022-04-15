@@ -4,6 +4,7 @@ const db = new Pool(dbParams);
 db.connect();
 
 const getAllListings = function (id, limit) {
+  console.log('TEST ING GETALLISTINGS')
   return db.query(`
   SELECT listings.id AS id,
   listings.user_id AS seller,
