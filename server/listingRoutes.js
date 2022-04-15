@@ -87,7 +87,7 @@ router.post('/favoritesTrue/:listID', (req, res) => {
 });
 
 router.post('/favoritesFalse/:listID', (req, res) => {
-  const id = req.cookie.id;
+  const id = req.cookies.user_id;
   const listID = req.params.listID;
   console.log('LISTID:', listID, 'in FALSE ROUTER');
   database.postFavoritesFalse(id, listID)
