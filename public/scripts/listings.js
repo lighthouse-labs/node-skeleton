@@ -1,4 +1,4 @@
-const createListingElement = function (listing) {
+const createListingElement = function(listing) {
 
   let $listing = `
   <div id='listing${listing.id}' class="posts">
@@ -42,7 +42,7 @@ const createListingElement = function (listing) {
   return $listing;
 };
 
-const renderListing = function (listings) {
+const renderListing = function(listings) {
   listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
@@ -84,21 +84,14 @@ const renderListing = function (listings) {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
-
-      $(`.${listingID}`).toggleClass("favoriteTrue");
-
+      $(`.${listingID}`).toggleClass('favoriteTrue');
       if ($(`.${listingID}`).hasClass('favoriteTrue')) {
-
         console.log('inside the true if statement');
         $.ajax({
           url: `/listing/favoritesTrue/${listingID}`,
           method: 'POST',
           data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-          $(`.${listingID}`).addClass("favoriteTrue");
-          $('.listingSold').css('display', 'none');
+        }).then(() => {
           $('.sold').css('display', 'none');
         });
       } else {
@@ -106,12 +99,8 @@ const renderListing = function (listings) {
         $.ajax({
           url: `/listing/favoritesFalse/${listingID}`,
           method: 'POST',
-          data: $('.listings').serialize()
-        }).then((listings) => {
-          $('.listings').empty();
-          renderListing(listings);
-          $(`.${listingID}`).removeClass("favoriteTrue");
-          $('.listingSold').css('display', 'none');
+          data: $('.favorites').serialize()
+        }).then(() => {
           $('.sold').css('display', 'none');
         });
       }
@@ -136,8 +125,6 @@ const renderListing = function (listings) {
   });
 
 
-  
-
   listingMessage.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
@@ -149,20 +136,20 @@ const renderListing = function (listings) {
         url: `/api/messages/new/${listingID}`,
         // data: $('.listings').serialize()
       })
-      .then(() => {
-        console.log('test from after then click from listing', listingID)
-      //   $('.chatBox').empty();
-      //   $('.chatBox').prepend(createChatBox(mailId));
-      //   renderChat(listings);
-      //   $('.chatText').focus();
-      });
+        .then(() => {
+          console.log('test from after then click from listing', listingID);
+          //   $('.chatBox').empty();
+          //   $('.chatBox').prepend(createChatBox(mailId));
+          //   renderChat(listings);
+          //   $('.chatText').focus();
+        });
     });
   });
 
 };
 
-const loadListings = function () {
-  $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+const loadListings = function() {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
     $('.listingDelete').css('display', 'none');
     renderListing(data);
 
@@ -178,7 +165,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function (event) {
+  $('#carSearch').on('submit', function(event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
@@ -212,9 +199,9 @@ $(() => {
     });
   });
 
-  $('#favorites').click((event) => {
-    event.preventDefault();
 
+  $('#favorites').click((event,) => {
+    event.preventDefault();
     $.ajax({
       method: 'GET',
       url: '/listing/favorited',
@@ -222,10 +209,10 @@ $(() => {
     }).then((listings) => {
       $('.listings').empty();
       renderListing(listings);
-      $('.messageButton').css('display', 'flex');
+      $('.messageButton').css('color', 'black');
       $('.listingDelete').css('display', 'none');
       $('.listingSold').css('display', 'none');
-
+      $('.starButton').css('color', 'red');
     });
   });
 
