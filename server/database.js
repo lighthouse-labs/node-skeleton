@@ -3,7 +3,7 @@ const dbParams = require("../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const getAllListings = function(id, limit) {
+const getAllListings = function (id, limit) {
   return db.query(`
   SELECT listings.id AS id,
   listings.user_id AS seller,
@@ -22,7 +22,7 @@ const getAllListings = function(id, limit) {
     .catch((err) => console.log(err.message));
 };
 
-const browseListings = function(filter, limit, id) {
+const browseListings = function (filter, limit, id) {
   const queryParams = [];
   let queryString = `
   SELECT * FROM listings
@@ -224,7 +224,8 @@ const getMinMaxYear = () => {
     .catch((err) => console.log(err.message));
 };
 
-const createMessage = (request) =>  {
+const createMessage = (request) => {
+  console.log('REQUEST:', request);
   const queryParams = [
     request.listing_id,
     request.id,
@@ -238,9 +239,9 @@ const createMessage = (request) =>  {
   ) VALUES ($1, $2, $3) RETURNING *;`;
 
   return db.query(queryString, queryParams)
-  .then((result) => {
-    result.rows})
-  .catch((err) => console.log(err.message));
+    .then((result) => {
+      result.rows})
+      .catch((err) => console.log(err.message));
 };
 
 

@@ -4,12 +4,8 @@ const database = require('./database');
 
 
 router.get('', (req, res) => {
-  let id = 0;
-  if (req.cookies.user_id) {
-    id = req.cookies.user_id;
-  };
-
-  database.getAllListings(id, 10)
+  // const userID = req.cookies.user_id;
+  database.getAllListings(10)
     .then(listings => {
       res.send(listings);
     })
@@ -21,11 +17,6 @@ router.get('', (req, res) => {
 
 router.get('/browse', (req, res) => {
   const data = req.query;
-  let id = 0;
-  if (req.cookies.user_id) {
-    id = req.cookies.user_id;
-  };
-
   const filter = {
     search: data.search.toLowerCase(),
     carMake: data.carMake,
@@ -35,11 +26,8 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   };
-  console.log('SEARCH DATA:', data.search.toLowerCase());
 
-  console.log(id);
-
-  database.browseListings(filter, 20, id)
+  database.browseListings(filter, 20)
     .then((listings) => res.send(listings))
     .catch(e => {
       console.error(e);
@@ -80,7 +68,7 @@ router.get('/favorited', (req, res) => {
 router.post('/favoritesTrue/:listID', (req, res) => {
   const id = req.cookies.user_id;
   const listID = req.params.listID;
-  console.log('LISTID:', listID, 'in TRUE ROUTER');
+  // console.log('LISTID:', listID, 'in TRUE ROUTER');
   database.postFavoritesTrue(id, listID)
     .then(() => res.redirect('/listing'));
 });
@@ -88,7 +76,7 @@ router.post('/favoritesTrue/:listID', (req, res) => {
 router.post('/favoritesFalse/:listID', (req, res) => {
   const id = req.cookies.user_id;
   const listID = req.params.listID;
-  console.log('LISTID:', listID, 'in FALSE ROUTER');
+  // console.log('LISTID:', listID, 'in FALSE ROUTER');
   database.postFavoritesFalse(id, listID)
     .then(() => res.redirect('/listing'));
 });
@@ -124,9 +112,7 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  const id = req.cookies.user_id;
-
-  database.createListing(id, req.body)
+  database.createListing(req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
       res.status(201);

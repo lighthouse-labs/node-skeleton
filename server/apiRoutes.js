@@ -4,6 +4,8 @@ const router = express.Router();
 const database = require('./database');
 const { checkInbox } = require('./helper/helper');
 
+
+
 router.get('/inbox', (req, res) => {
   const id = req.cookies.user_id;
   database.getInbox(id)
@@ -56,8 +58,8 @@ router.post('/messages/new/:id', (req, res) => {
     })
 });
 
+
 router.post('/messages/:id', (req, res) => {
-  console.log("BODY:", req.body);
   const params = {
     sender: req.cookies.user_id,
     text: req.body.text,
@@ -88,7 +90,6 @@ router.get('/:id', (req, res) => {
       const params = {
         name: user[0].name
       };
-      console.log('USER LOGGED:', user[0]);
       res.render("index", params);
     })
     .catch(e => {
