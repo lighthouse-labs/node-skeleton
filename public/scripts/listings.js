@@ -104,7 +104,7 @@ const renderListing = function(listings) {
           $('.listingSold').css('display', 'none');
           $('.sold').css('display', 'none');
         });
-      } else if ($(`.${listingID}`).hasClass('favoriteFalse')) {
+      } else {
         console.log('inside the false if statement');
         $.ajax({
           url: `/listing/favoritesFalse/${listingID}`,
@@ -219,7 +219,6 @@ $(() => {
       renderListing(listings);
       $('.messageButton').css('display', 'none');
       $('.listingDelete').css('display', 'flex');
-      // $('.listingSold').css('display', 'flex');
     });
   });
 });
