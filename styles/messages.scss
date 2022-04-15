@@ -10,8 +10,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  border: solid #45a6fc;
-  background-color: #95BBE9;
+  border: solid;
+  background-color: grey;
   z-index: 1000;
   padding: 1px;
 
@@ -29,6 +29,7 @@
       width: 100%;
       padding: 10px;
       opacity: 0.7;
+      background-color: #45a6fc;
       &:hover {
         cursor: pointer;
         opacity: 1;
@@ -57,18 +58,18 @@
     @include flexRow;
     justify-content: center;
     width: 100%;
-  
+
     #messageText {
       width: 90%;
       @include flexColumn;
-      
+
       .sendButton {
         @include flexRow;
         justify-content: center;
         margin: 1px;
       }
     }
-  
+
   }
 
   .chatText {
@@ -90,7 +91,7 @@
       justify-content: space-around;
       width: 30%;
 
-      #chatSend {
+      .chatSend {
         display: flex;
         flex-grow: 2;
         margin: 0.5%;
@@ -99,13 +100,14 @@
         border: 2px solid black;
       }
 
-      
-      #chatClose {
+
+      .chatClose {
         display: flex;
         flex-grow: 2;
         margin: 0.5%;
         width: 50%;
         padding: 10px;
+        background-color: #45a6fc;
         border: 2px solid black;
       }
     }
@@ -115,7 +117,7 @@
     justify-content: end;
     width: 100%;
   }
-  
+
   .fromTo {
     @include flexRow;
   }
