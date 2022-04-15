@@ -4,7 +4,6 @@ const db = new Pool(dbParams);
 db.connect();
 
 const getAllListings = function (id, limit) {
-  console.log('TEST ING GETALLISTINGS')
   return db.query(`
   SELECT listings.id AS id,
   listings.user_id AS seller,
@@ -32,54 +31,54 @@ const browseListings = function (filter, limit, id) {
 
   if (filter.search) {
     queryParams.push(`%${filter.search}%`);
-    queryString += `AND (LOWER(make) LIKE $${queryParams.length}`;
-    queryString += `OR LOWER(model) LIKE $${queryParams.length}`;
-    queryString += `OR LOWER(listings.color) LIKE $${queryParams.length}`;
-    queryString += `OR listings.year::text LIKE $${queryParams.length}`;
-    queryString += `OR listings.id::text LIKE $${queryParams.length})`;
+    queryString += `AND (LOWER(make) LIKE $${queryParams.length} `;
+    queryString += `OR LOWER(model) LIKE $${queryParams.length} `;
+    queryString += `OR LOWER(listings.color) LIKE $${queryParams.length} `;
+    queryString += `OR listings.year::text LIKE $${queryParams.length} `;
+    queryString += `OR listings.id::text LIKE $${queryParams.length}) `;
   }
 
   if (filter.carMake) {
     queryParams.push(filter.carMake[0]);
-    queryString += `AND (make = $${queryParams.length}`;
+    queryString += `AND (make = $${queryParams.length} `;
 
     if (filter.carMake.length > 1) {
       for (const make of filter.carMake.slice(1)) {
         queryParams.push(make);
-        queryString += `OR make = $${queryParams.length}`;
+        queryString += `OR make = $${queryParams.length} `;
       }
     }
-    queryString += `)`;
+    queryString += `) `;
   }
 
   if (filter.transmission) {
     queryParams.push(filter.transmission);
-    queryString += `AND transmission = $${queryParams.length}`;
+    queryString += `AND transmission = $${queryParams.length} `;
   }
 
   if (filter.minPrice) {
     queryParams.push(filter.minPrice);
-    queryString += `AND price >= $${queryParams.length}`;
+    queryString += `AND price >= $${queryParams.length} `;
   }
 
   if (filter.maxPrice) {
     queryParams.push(filter.maxPrice);
-    queryString += `AND price <= $${queryParams.length}`;
+    queryString += `AND price <= $${queryParams.length} `;
   }
 
   if (filter.minYear) {
     queryParams.push(filter.minYear);
-    queryString += `AND year >= $${queryParams.length}`;
+    queryString += `AND year >= $${queryParams.length} `;
   }
 
   if (filter.maxYear) {
     queryParams.push(filter.maxYear);
-    queryString += `AND year <= $${queryParams.length}`;
+    queryString += `AND year <= $${queryParams.length} `;
   }
 
   queryParams.push(id);
   queryString += `
-  AND listings.user_id != $${queryParams.length}`
+  AND listings.user_id != $${queryParams.length} `;
 
   queryParams.push(limit);
   queryString += `
@@ -241,8 +240,9 @@ const createMessage = (request) => {
 
   return db.query(queryString, queryParams)
     .then((result) => {
-      result.rows})
-      .catch((err) => console.log(err.message));
+      result.rows
+    })
+    .catch((err) => console.log(err.message));
 };
 
 

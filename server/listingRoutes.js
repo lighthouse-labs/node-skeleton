@@ -16,6 +16,7 @@ router.get('', (req, res) => {
 });
 
 router.get('/browse', (req, res) => {
+  const id = req.cookies.user_id;
   const data = req.query;
   const filter = {
     search: data.search.toLowerCase(),
@@ -26,8 +27,8 @@ router.get('/browse', (req, res) => {
     minYear: data.minYear,
     maxYear: data.maxYear
   };
-  console.log('TESTING FROM ROUTER');
-  database.browseListings(filter, 20)
+
+  database.browseListings(filter, 20, id)
     .then((listings) => res.send(listings))
     .catch(e => {
       console.error(e);
@@ -112,9 +113,8 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  const userID = req.cookies.user_id;
-
-  database.createListing(userID, req.body)
+  const id = req.cookies.user_id;
+  database.createListing(id, req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
       res.status(201);
