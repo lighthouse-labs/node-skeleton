@@ -29,7 +29,7 @@ const browseListings = function (filter, limit, id) {
   listings.user_id AS user_id,
   price, year, make, model, transmission,
   color, descriptions, sold, imageURL,
-  name, admin, city
+  name, admin, city,
   country, province
   FROM listings
   JOIN users on users.id = listings.user_id
@@ -254,6 +254,8 @@ const sendMessage = (message) => {
 const getMyListings = (id) => {
   return db.query(`
   SELECT * FROM listings
+
+  JOIN users ON listings.user_id=users.id
   WHERE user_id = $1
   AND sold IS FALSE
   ORDER BY listings;`, [id])
@@ -263,9 +265,14 @@ const getMyListings = (id) => {
 
 const getSoldListings = (id) => {
   return db.query(`
-  SELECT * FROM listings
+  SELECT listings.*, users.city,
+  users.country, 
+  users.province
+  FROM listings
+  JOIN users ON users.id=listings.user_id
   WHERE user_id = $1
   AND sold IS TRUE
+  GROUP BY users.id, listings.id
   ORDER BY listings;`, [id])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
@@ -279,13 +286,17 @@ const getFavorites = (userID) => {
   listings.user_id AS seller,
   price, year, make, model,
   transmission, color, descriptions,
-  sold, imageURL, favorited
+  sold, imageURL, favorited,
+  users.city,
+  users.country, 
+  users.province
   FROM users
-  JOIN favorites ON user_id=users.id
-  JOIN listings ON listing_id=listings.id
+  JOIN listings ON users.id=listings.user_id
+  JOIN favorites ON listing_id=listings.id
   WHERE favorites.user_id = $1
   AND sold = FALSE
-  GROUP BY name, listings.id, favorites.favorited, favorites.user_id
+  GROUP BY name, listings.id, favorites.favorited, favorites.user_id, 
+  users.city, users.country, users.province
   ORDER BY id;`, [userID])
     .then((result) => result.rows)
     .catch((err) => console.error(err));
