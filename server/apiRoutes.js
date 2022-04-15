@@ -40,6 +40,7 @@ router.get('/messages', (req, res) => {
 });
 
 router.post('/messages/new/:id', (req, res) => {
+  let id = req.cookies.user_id;
   if (!req.cookies.user_id) {
     res.sendStatus(403);
   }

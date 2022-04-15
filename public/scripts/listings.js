@@ -27,7 +27,7 @@ const createListingElement = listing => {
           ${listing.descriptions}
         </div>
       </div>
-        
+
       <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
         <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
           SOLD
@@ -143,6 +143,7 @@ const renderListing = listings => {
 
     listItem.addEventListener('click', event => {
       event.preventDefault();
+      console.log('AAAA');
 
       $.ajax({
         method: 'POST',
@@ -164,9 +165,9 @@ const renderListing = listings => {
 
 // function that loads listings to the front page (REMOVED FOR CLEANER FRONT UI)
 const loadListings = () => {
-  $.ajax({ 
-    method: 'GET', 
-    url: '/listing' 
+  $.ajax({
+    method: 'GET',
+    url: '/listing'
   }).then(data => {
     $('.listingDelete').css('display', 'none');
     renderListing(data);

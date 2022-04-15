@@ -205,7 +205,6 @@ const getMinMaxYear = () => {
 };
 
 const createMessage = (request) => {
-  console.log('REQUEST:', request);
   const queryParams = [
     request.listing_id,
     request.id,

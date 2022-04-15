@@ -119,6 +119,16 @@ const renderChat = inbox => {
       });
     });
   });
+
+  $('.chatText').keydown((event) => {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      $('#messageText').submit();
+    }
+  });
+
+  $('.chatText').blur(event => {
+    $('.chatBox').hide();
+  })
 };
 
 // Messages inbox dropdown
@@ -142,5 +152,5 @@ $(() => {
     loadMessages();
   });
 
-  // loadMessages();
+  loadMessages();
 });
