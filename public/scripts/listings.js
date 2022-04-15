@@ -44,6 +44,7 @@ const createListingElement = function(listing) {
 
 const renderListing = function(listings) {
   listings.forEach(listing => {
+    // console.log('LISTING IS', listing);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.postBox').prepend(`
@@ -72,7 +73,7 @@ const renderListing = function(listings) {
         data: $('.listings').serialize()
       }).then((listings) => {
         $('.listings').empty();
-        renderListing(listings);
+        renderListing(listings.id);
         $('.messageButton').css('display', 'none');
         $('.listingDelete').css('display', 'flex');
       });
@@ -128,43 +129,30 @@ const renderListing = function(listings) {
   listingMessage.forEach(listItem => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
-      // const mailId = (chatSend[0]).dataset.id;
       event.preventDefault();
-      console.log('message click', listingID);
-
       $.ajax({
         method: 'POST',
         url: `/api/messages/new/${listingID}`,
-        // data: $('#messageText').serialize()
       })
-        .then(() => {
-
-          console.log('test from after then click from listing', listingID)
-          $('.chatBox').empty();
-          $('.chatBox').prepend();
-          renderChat(listings);
-          $('.chatText').focus();
-
-          $.ajax({
-            method: 'GET',
-            url: `/api/messages/${mailId}`,
-          }).then((messages) => {
-            $('.chatFeed').empty();
-            renderChat(messages);
-            $('.chatText').focus();
-          });
-        });
+      .then(() => {
+        $.ajax({
+          method: 'GET',
+          url: '/api/messages',
+        }).then((data) => {
+          $('.inbox').empty();
+          renderMails(data);
+          $('.inbox').fadeIn('fast');
+        }).catch((err) => console.error(err.message));
+      });
     });
   });
-
+};
 
 
   const loadListings = function () {
     $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
       $('.listingDelete').css('display', 'none');
       renderListing(data);
-
-
     });
   };
 }
