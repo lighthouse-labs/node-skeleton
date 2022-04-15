@@ -155,7 +155,6 @@ const renderListing = function(listings) {
       renderListing(data);
     });
   };
-}
 
 $(() => {
 
