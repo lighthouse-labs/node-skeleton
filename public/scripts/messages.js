@@ -1,17 +1,19 @@
-const createMails = (mail) => {
+const createMails = mail => {
   let $mail = $('<div class="message">');
   let $message = $(`<form class="mail" action="/api/messages/${mail.id}" method="GET">`);
-  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id}: ${mail.name}</button>`)
+  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">Listing ${mail.listing_id}: ${mail.name}</button>`);
 
   return $mail.append($message.append($button));
 };
 
-const createChatBox = (inbox) => {
+const createChatBox = inbox => {
 
   const $chatBox = $(`
   <div>
     <div class='closeContainer'>
-    <button class="${inbox} closeChatBox" type="button" data-id="${inbox}">Close</button>
+      <button class="${inbox} closeChatBox" type="button" data-id="${inbox}">
+        Close
+       </button>
     </div>
     <div class="chatFeed">
       <div>
@@ -24,10 +26,13 @@ const createChatBox = (inbox) => {
   <div class="chatInput">
     <form id="messageText" method:"POST" action="/api/messages/${inbox}">
       <div class='inputBox'>
-        <textarea class="chatText" name="text" placeholder="Send a message..."></textarea>
+        <textarea class="chatText" name="text" placeholder="Send a message...">
+        </textarea>
       </div>
       <div class="sendButton">
-        <button class="${inbox} chatSend" type="submit" data-id="${inbox}">Send</button>
+        <button class="${inbox} chatSend" type="submit" data-id="${inbox}">
+          Send
+        </button>
       </div>
     </form>
   </div>
@@ -35,14 +40,14 @@ const createChatBox = (inbox) => {
   return $chatBox;
 };
 
-const createChat = (message) => {
+const createChat = message => {
   let $message = $(`
   <div>
     <div class="sender">
-    ${message.name}
+      ${message.name}
     </div>
     <div class="message">
-    ${message.messagetext}
+     ${message.messagetext}
     </div>
   </div>
 `);
@@ -50,8 +55,8 @@ const createChat = (message) => {
 };
 
 
-const renderMails = (mails) => {
-  mails.forEach((mail) => {
+const renderMails = mails => {
+  mails.forEach(mail => {
     $('.inbox').prepend((createMails(mail)));
   });
 
@@ -59,7 +64,8 @@ const renderMails = (mails) => {
 
   mailInbox.forEach(listingMail => {
     let mailId = listingMail.dataset.id;
-    listingMail.addEventListener('click', (event) => {
+
+    listingMail.addEventListener('click', event => {
       $('.chatBox').empty();
       $('.chatBox').prepend(createChatBox(mailId));
       event.preventDefault();
@@ -68,34 +74,29 @@ const renderMails = (mails) => {
         method: 'GET',
         url: `/api/messages/${mailId}`,
         data: $('.chatFeed').serialize()
-      }).then((messages) => {
+      }).then(messages => {
         $('.chatBox').css('display', 'flex');
         renderChat(messages);
         $('.inbox').slideUp('slow');
         $('.chatText').focus();
-      }).catch((err) => console.error(err));
+      }).catch(err => console.error(err));
     });
   });
 
 };
 
-const renderChat = (inbox) => {
-  inbox.forEach((message) => {
-    $('.chatFeed').append(createChat(message));
-  });
+const renderChat = inbox => {
+  inbox.forEach(message => $('.chatFeed').append(createChat(message)));
 
   const chatSend = [...document.querySelectorAll('.chatSend')];
   const chatClose = [...document.querySelectorAll('.closeChatBox')];
 
-  chatClose.forEach(closingChat => {
-    closingChat.addEventListener('click', (event) => {
-      $('.chatBox').hide();
-    });
-  });
+  chatClose.forEach(closingChat =>
+    closingChat.addEventListener('click', () =>
+      $('.chatBox').hide()));
 
 
-  $('#messageText').submit((event) => {
-
+  $('#messageText').submit(event => {
 
     const mailId = (chatSend[0]).dataset.id;
     event.preventDefault();
@@ -110,8 +111,8 @@ const renderChat = (inbox) => {
       $('.chatBox').prepend(createChatBox(mailId));
       $.ajax({
         method: 'GET',
-        url: `/api/messages/${mailId}`,
-      }).then((messages) => {
+        url: `/api/messages/${mailId}`
+      }).then(messages => {
         $('.chatFeed').empty();
         renderChat(messages);
         $('.chatText').focus();
@@ -124,8 +125,8 @@ const renderChat = (inbox) => {
 const loadMessages = () => {
   $.ajax({
     method: 'GET',
-    url: '/api/messages',
-  }).then((data) => {
+    url: '/api/messages'
+  }).then(data => {
     $('.inbox').empty();
     renderMails(data);
   }).catch((err) => console.error(err.message));
@@ -134,12 +135,12 @@ const loadMessages = () => {
 
 $(() => {
 
-  $('#messages').click((event) => {
+  $('#messages').click(event => {
     event.preventDefault();
     $('.inbox').fadeToggle('slow');
     $('.inbox').css('display', 'flex');
     loadMessages();
   });
 
-  loadMessages();
+  // loadMessages();
 });
