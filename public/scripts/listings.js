@@ -9,31 +9,36 @@ const createListingElement = listing => {
     </button>
     <div class="postBox">
       <div class="titlePrice">
-        <div class="postTitle">${listing.make}, ${listing.model}</div>
+        <div class="postTitle"> ${listing.year} ${listing.make} ${listing.model}</div>
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
+        <div class="postInfo">
+          <div>
+            <b>Color:</b> ${listing.color}
+          </div>
+          <div>
+            <b>Transmission:</b> ${listing.transmission ? 'M/T' : 'A/T'}
+          </div>
+          <div>
+            ${listing.city}, ${listing.province} ${listing.country}
+          </div>
+        </div>
         <button class='messageButton ${listing.id}' data-id='${listing.id}' type='button'>
-        message_seller
+        <i class="fa-solid fa-message"></i>
         </button>
       </div>
       <div class="description">
-        <div>
-          <div>
-            ${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}
-          </div>
-        </div>
-        <div>
+
+        <div class="postDesc">
           ${listing.descriptions}
         </div>
       </div>
-
       <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
         <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
           SOLD
         </button>
       </form>
-
       <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'>
         <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
         Remove
@@ -50,6 +55,7 @@ const createListingElement = listing => {
 // Renders listings onto the DOM
 const renderListing = listings => {
   listings.forEach(listing => {
+    console.log(listing);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.postBox').prepend(`
