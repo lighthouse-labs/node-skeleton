@@ -122,7 +122,7 @@ const renderListing = listings => {
 
     listItem.addEventListener('click', event => {
       event.preventDefault();
-
+      
       $.ajax({
         method: 'POST',
         url: `/listing/sold/${listingID}`,

@@ -24,4 +24,13 @@ $(() => {
     $('.inbox').slideUp('slow');
   });
 
+  // Nav Buttons disappear on page scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 100) {
+      $('.navBottom').fadeIn('slow');
+    } else {
+      $('.navBottom').fadeOut('slow');
+    }
+  });
+
 });
