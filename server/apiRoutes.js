@@ -31,6 +31,25 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.post('/messages/new/:id'), (req, res) => {
+  let id = 0;
+  if (req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+  const params = {
+    listing_id: req.params.id,
+    id: id,
+    created_at: Date.now()
+  }
+
+  database.createMessage(params)
+  .then((newMessage) => res.send(newMessage))
+  .catch((e) => {
+    console.error(e);
+    res.send(e);
+  });
+};
+
 router.post('/messages/:id', (req, res) => {
   console.log("BODY:", req.body);
   const params = {
