@@ -54,8 +54,14 @@
         width: 50%;
         margin: 1% 1% 1% 1%;
         padding: 5px;
+        border: solid;
         border-radius: 5px;
-        background-color: lightgreen;
+        background-color: #7cbef8;
+        opacity: 0.8;
+        &:hover {
+          cursor: pointer;
+          opacity: 1;
+        }
       }
     }
   }

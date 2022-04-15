@@ -26,6 +26,7 @@ const browseListings = function (filter, limit, id) {
   const queryParams = [];
   let queryString = `
   SELECT * FROM listings
+  JOIN users on users.id = listings.user_id
   WHERE sold IS FALSE
   `;
 
@@ -82,7 +83,7 @@ const browseListings = function (filter, limit, id) {
 
   queryParams.push(limit);
   queryString += `
-  GROUP BY listings.id
+  GROUP BY listings.id, users.id
   ORDER BY listings DESC
   LIMIT $${queryParams.length};
   `;

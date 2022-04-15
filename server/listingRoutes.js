@@ -36,7 +36,7 @@ router.get('/browse', (req, res) => {
     maxYear: data.maxYear
   };
 
-  database.browseListings(filter, 20, id)
+  database.browseListings(filter, 50, id)
     .then((listings) => res.send(listings))
     .catch(e => {
       console.error(e);
@@ -144,7 +144,7 @@ router.post('/sold/:listID', (req, res) => {
 
 router.post('', (req, res) => {
   const form = req.body;
-  
+
   if (!form.imageURL ||
     !form.model ||
     !form.make ||
