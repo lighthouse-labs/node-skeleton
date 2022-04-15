@@ -253,12 +253,15 @@ const sendMessage = (message) => {
 
 const getMyListings = (id) => {
   return db.query(`
-  SELECT * FROM listings
-
+  SELECT listings.*, users.city,
+  users.country, 
+  users.province
+  FROM listings
   JOIN users ON listings.user_id=users.id
   WHERE user_id = $1
   AND sold IS FALSE
-  ORDER BY listings;`, [id])
+  GROUP BY listings.id, users.city, users.country, users.province
+  ORDER BY listings.id;`, [id])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
@@ -340,6 +343,7 @@ const deleteFromList = (listing) => {
 };
 
 const changeToSold = (listingID) => {
+  console.log(listingID);
   return db.query(`
   UPDATE listings
   SET sold = TRUE
