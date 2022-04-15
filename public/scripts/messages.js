@@ -71,6 +71,7 @@ const renderMails = (mails) => {
       }).then((messages) => {
         $('.chatBox').css('display', 'flex');
         renderChat(messages);
+        $('.inbox').slideUp('slow');
         $('.chatText').focus();
       }).catch((err) => console.error(err));
     });
@@ -140,7 +141,7 @@ $(() => {
 
   $('#messages').click((event) => {
     event.preventDefault();
-    $('.inbox').fadeToggle('fast');
+    $('.inbox').fadeToggle('slow');
     $('.inbox').css('display', 'flex');
     loadMessages();
   });

@@ -99,10 +99,10 @@ $(() => {
 
     if (!$('#imageURL').val().trim() || !$('#price').val().trim() || !$('#color').val().trim()) {
       console.log($('#make').val());
-      $('#invalid').text('Please fill in empty field!').slideDown('fast');
+      $('#invalid').text('Please fill in empty field!').slideDown('slow');
       setTimeout(() => {
         $('#invalid').text('');
-        $('#invalid').slideUp('fast');
+        $('#invalid').slideUp('slow');
       }, 2000);
       return;
     }
