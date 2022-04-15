@@ -19,6 +19,9 @@ const createListingElement = listing => {
           <div>
             <b>Transmission:</b> ${listing.transmission ? 'M/T' : 'A/T'}
           </div>
+          <div>
+            ${listing.city}, ${listing.province} ${listing.country}
+          </div>
         </div>
         <button class='messageButton submitListingMessage message${listing.id}' data-id='${listing.id}' type='button'>
         <i class="fa-solid fa-message"></i>
