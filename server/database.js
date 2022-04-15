@@ -23,9 +23,17 @@ const getAllListings = function (id, limit) {
 };
 
 const browseListings = function (filter, limit, id) {
+  console.log('FILTER:', filter);
+  console.log('ID:', id);
   const queryParams = [];
   let queryString = `
-  SELECT * FROM listings
+  SELECT listings.id AS id,
+  listings.user_id AS user_id,
+  price, year, make, model, transmission,
+  color, descriptions, sold, imageURL,
+  name, admin, city
+  country, province
+  FROM listings
   JOIN users on users.id = listings.user_id
   WHERE sold IS FALSE
   `;
@@ -84,7 +92,7 @@ const browseListings = function (filter, limit, id) {
   queryParams.push(limit);
   queryString += `
   GROUP BY listings.id, users.id
-  ORDER BY listings DESC
+  ORDER BY listings.id DESC
   LIMIT $${queryParams.length};
   `;
 

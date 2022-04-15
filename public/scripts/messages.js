@@ -68,6 +68,7 @@ const renderMails = mails => {
     listingMail.addEventListener('click', event => {
       $('.chatBox').empty();
       $('.chatBox').prepend(createChatBox(mailId));
+      $('.chatBox').fadeIn('slow');
       event.preventDefault();
 
       $.ajax({

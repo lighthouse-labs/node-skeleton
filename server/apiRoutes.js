@@ -8,7 +8,7 @@ const { checkInbox } = require('./helper/helper');
 
 router.get('/inbox', (req, res) => {
   let id = 3;
-  if ( req.cookies.user_id) {
+  if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
   database.getInbox(id)
@@ -21,7 +21,7 @@ router.get('/inbox', (req, res) => {
 
 router.get('/messages', (req, res) => {
   let id = 3;
-  if ( req.cookies.user_id) {
+  if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
 
@@ -54,11 +54,11 @@ router.post('/messages/new/:id', (req, res) => {
     .then((inbox) => {
       if (!checkInbox(inbox, req.params.id)) {
         database.createMessage(params)
-        .then((newMessage) => res.send(newMessage))
-        .catch((e) => {
-          console.error(e);
-          res.send(e);
-        })
+          .then((newMessage) => res.send(newMessage))
+          .catch((e) => {
+            console.error(e);
+            res.send(e);
+          })
       } else {
         res.sendStatus(403);
       }

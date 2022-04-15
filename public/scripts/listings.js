@@ -1,10 +1,9 @@
 // Creates listings based on database info
 const createListingElement = listing => {
-
   let $listing = `
   <div id='listing${listing.id}' class="posts">
     <img src='${listing.imageurl}' class="carPhoto" />
-    <button class="starButton ${listing.id}" data-id='${listing.id}' type="button">
+    <button class='starButton submitListingStar star${listing.id}' data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
     <div class="postBox">
@@ -20,11 +19,8 @@ const createListingElement = listing => {
           <div>
             <b>Transmission:</b> ${listing.transmission ? 'M/T' : 'A/T'}
           </div>
-          <div>
-            ${listing.city}, ${listing.province} ${listing.country}
-          </div>
         </div>
-        <button class='messageButton ${listing.id}' data-id='${listing.id}' type='button'>
+        <button class='messageButton submitListingMessage message${listing.id}' data-id='${listing.id}' type='button'>
         <i class="fa-solid fa-message"></i>
         </button>
       </div>
@@ -55,7 +51,6 @@ const createListingElement = listing => {
 // Renders listings onto the DOM
 const renderListing = listings => {
   listings.forEach(listing => {
-    console.log(listing);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.postBox').prepend(`
@@ -68,10 +63,10 @@ const renderListing = listings => {
 
 
   //arrays that designate each button of the injected listings
-  const listingMessage = [...document.querySelectorAll('.messageButton')];
+  const listingMessage = [...document.querySelectorAll('.submitListingMessage')];
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
-  const listingFavorite = [...document.querySelectorAll('.starButton')];
+  const listingFavorite = [...document.querySelectorAll('.submitListingStar')];
 
 
   // Creates click event listener for each injected delete button
@@ -98,9 +93,9 @@ const renderListing = listings => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', event => {
       event.preventDefault();
-      $(`.${listingID}`).toggleClass('favoriteTrue');
+      $(`.star${listingID}`).toggleClass('favoriteTrue');
 
-      if ($(`.${listingID}`).hasClass('favoriteTrue')) {
+      if ($(`.star${listingID}`).hasClass('favoriteTrue')) {
 
         $.ajax({
           url: `/listing/favoritesTrue/${listingID}`,
@@ -149,7 +144,7 @@ const renderListing = listings => {
 
     listItem.addEventListener('click', event => {
       event.preventDefault();
-      console.log('AAAA');
+
 
       $.ajax({
         method: 'POST',
