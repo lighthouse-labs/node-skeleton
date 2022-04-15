@@ -13,7 +13,7 @@
   margin: 3% 3% 3% 3%;
   background-color: #e4e4e4;
   @include flexRow;
-  // position: relative;
+  position: relative;
 
   .star {
     width: 5vw;
@@ -33,6 +33,11 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 1px 0.5px rgb(208, 218, 230);
+
+    &:hover {
+      transition: all .2s ease-in;
+      color: red;
+    }
   }
 
   .starButton {
@@ -105,8 +110,10 @@
       opacity: 0.8;
       &:hover{
         cursor: pointer;
-        transform: scale(1.1);
+        transition: all .2s ease-in;
         opacity: 1;
+        transform: scale(1.1);
+        background-color: orange;
       }
 
       i {
@@ -139,6 +146,7 @@
   }
 
   &:hover {
+    transition: all .2s ease-in;
     box-shadow: 0px 5px 5px 5px #7cbef8;
     transform: scale(1.01);
   }
@@ -156,6 +164,7 @@
     text-align: center;
     font-weight: bolder;
     font-size: xx-large;
+    z-index: 10;
   }
 
   .listingDelete {
@@ -165,7 +174,9 @@
     height: auto;
 
     &:hover {
+      transition: all .2s ease-in;
       transform: scale(1.1);
+      font-weight: bolder;
     }
   }
 
@@ -184,7 +195,9 @@
     background-color: green;
 
     &:hover {
+      transition: all .2s ease-in;
       transform: scale(0.9);
+      background-color: red;
     }
   }
   .submitListingSold {
@@ -193,6 +206,5 @@
     background-color: inherit;
     margin: 1%;
   }
-  //                      ---
 
 }

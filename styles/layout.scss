@@ -13,4 +13,20 @@ body {
     margin: 0;
     font-size: 22px;
   }
+
+  #arrow-up {
+    color: rgb(0, 255, 81);
+    opacity: 0.7;
+    position: fixed;
+    right: 2em;
+    bottom: 2em;
+    display: none;
+    transform: scale(2);
+
+    &:hover {
+      transform: scale(2.5);
+      transition: all .2s ease-in;
+      color: orange;
+    }
+  }
 }

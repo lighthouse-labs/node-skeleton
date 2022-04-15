@@ -24,4 +24,20 @@ $(() => {
     $('.inbox').slideUp('slow');
   });
 
+  // Nav Buttons disappear on page scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 100) {
+      $('.navBottom').fadeIn('slow');
+      $('#arrow-up').fadeOut('slow');
+    } else {
+      $('.navBottom').fadeOut('slow');
+      $('#arrow-up').fadeIn('slow');
+    }
+  });
+
+  document.querySelector('#arrow-up').addEventListener('click', () => {
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+    $('#arrow-up').fadeOut();
+  });
+
 });

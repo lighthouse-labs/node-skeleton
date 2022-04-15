@@ -23,8 +23,6 @@ const getAllListings = function (id, limit) {
 };
 
 const browseListings = function (filter, limit, id) {
-  console.log('FILTER:', filter);
-  console.log('ID:', id);
   const queryParams = [];
   let queryString = `
   SELECT listings.id AS id,
