@@ -2,8 +2,8 @@ const { json } = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const database = require('./database');
-const messages = 'http://localhost:8080/api/messages';
-const users = 'http://localhost:8080/api/users';
+
+
 
 router.get('/inbox', (req, res) => {
   const id = req.cookies.user_id;
@@ -31,27 +31,9 @@ router.get('/messages', (req, res) => {
     });
 });
 
-router.post('/messages/new/:id'), (req, res) => {
-  let id = 0;
-  if (req.cookies.user_id) {
-    id = req.cookies.user_id;
-  }
-  const params = {
-    listing_id: req.params.id,
-    id: id,
-    created_at: Date.now()
-  }
-  console.log('APIROUTE:', 'CHECK');
-  database.createMessage(params)
-    .then((newMessage) => res.send(newMessage))
-    .catch((e) => {
-      console.error(e);
-      res.send(e);
-    });
-};
+
 
 router.post('/messages/:id', (req, res) => {
-  console.log("BODY:", req.body);
   const params = {
     sender: req.cookies.user_id,
     text: req.body.text,
@@ -82,7 +64,6 @@ router.get('/:id', (req, res) => {
       const params = {
         name: user[0].name
       };
-      console.log('USER LOGGED:', user[0]);
       res.render("index", params);
     })
     .catch(e => {
@@ -90,5 +71,27 @@ router.get('/:id', (req, res) => {
       res.send(e);
     });
 });
+
+router.post('/messages/new/:id', (req, res) => {
+  let userID = 0;
+  const id = req.params.id;
+
+  if (req.cookies.user_id) {
+    userID = req.cookies.user_id;
+  }
+  const params = {
+    listing_id: id,
+    id: userID,
+    created_at: Math.floor(Date.now() / 10000)
+  }
+  console.log('APIROUTE:', 'CHECK');
+  database.createMessage(params)
+    .then((newMessage) => res.send(newMessage))
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
 
 module.exports = router;

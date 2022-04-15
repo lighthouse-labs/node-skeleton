@@ -21,17 +21,26 @@ headers {
       padding: 10px;
       width: 100%;
 
+      .searchBarBox {
+        width: 65%;
+        @include flexRow;
+        justify-content: center;
+      }
       .searchBar {
         @include flexRow;
         width: 100%;
         justify-content: center;
         align-items: center;
         font-size: 1rem;
-        margin-top: 3%;
+        background-color: rgba(251, 251, 251, 0.674);
+        margin: 0;
+        padding: 0;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
 
         input {
           display: flex;
-          width: 55%;
+          width: 100%;
           outline: none;
           border: none;
           border-bottom: 2px solid black;
@@ -57,7 +66,7 @@ headers {
           opacity: 0.3;
           margin-left: 2%;
           &:hover {
-            color: black;
+            color: limegreen;
             transform: scale(1.1);
             opacity: 1;
             cursor: pointer;
@@ -67,12 +76,15 @@ headers {
 
       .filterOptions {
         display: none;
-        width: 100%;
+        width: 65%;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 10px;
         font-size: 0.7rem;
+        background-color: rgba(251, 251, 251, 0.674);
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
 
         .multiSelect {
           @include flexColumn;
