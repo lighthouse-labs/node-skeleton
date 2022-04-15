@@ -27,8 +27,8 @@ $(() => {
 
 
   // Favorites button
-  $('#favorites').click(() => {
+  // $('#favorites').click(() => {
 
-  });
+  // });
 
 });
