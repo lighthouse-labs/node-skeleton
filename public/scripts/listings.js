@@ -44,7 +44,6 @@ const createListingElement = function(listing) {
 
 const renderListing = function(listings) {
   listings.forEach(listing => {
-    // console.log('LISTING IS', listing);
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
       $('.postBox').prepend(`
@@ -66,7 +65,6 @@ const renderListing = function(listings) {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
-
       $.ajax({
         method: 'POST',
         url: `/listing/delete/${listingID}`,
@@ -79,7 +77,6 @@ const renderListing = function(listings) {
       });
     });
   });
-
 
   listingFavorite.forEach(listItem => {
     const listingID = listItem.dataset.id;
@@ -134,28 +131,27 @@ const renderListing = function(listings) {
         method: 'POST',
         url: `/api/messages/new/${listingID}`,
       })
-      .then(() => {
-        $.ajax({
-          method: 'GET',
-          url: '/api/messages',
-        }).then((data) => {
-          $('.inbox').empty();
-          renderMails(data);
-          $('.inbox').fadeIn('fast');
-        }).catch((err) => console.error(err.message));
-      });
+        .then(() => {
+          $.ajax({
+            method: 'GET',
+            url: '/api/messages',
+          }).then((data) => {
+            $('.inbox').empty();
+            renderMails(data);
+            $('.inbox').fadeIn('fast');
+          }).catch((err) => console.error(err.message));
+        });
     });
   });
 };
 
 
-  const loadListings = function () {
-    $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
-      $('.listingDelete').css('display', 'none');
-      renderListing(data);
-    });
-  };
-}
+const loadListings = function() {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
+    $('.listingDelete').css('display', 'none');
+    renderListing(data);
+  });
+};
 
 $(() => {
 

@@ -12,17 +12,15 @@
 - As a User, I want to filter searches by price.
 - As a User, I can send Admin a message.
 - As a User, I can add items to favorite list.
-- As a nonlogged in User, I cannot make purchases.
 
 ### Admins
 
-- As a Admin, I want to post, to sell.
-- As a Admin, I want to preview, items to sell.
-- As a Admin, I want to preview, items I've sold.
-- As a Admin, I want to remove, items from list.
-- As a Admin, I want to mark, items as sold.
-- As an Admin, I can reply to User messages(via app/email/text).
-- As a nonlogged in Admin, I cannot post items.
+- As an Admin, I want to post, to sell.
+- As an Admin, I want to preview items to sell.
+- As an Admin, I want to mark items as sold.
+- As an Admin, I want to preview items I've sold.
+- As an Admin, I want to remove sold items from my list.
+- As an Admin, I can reply to User messages (via app/email/text).
 
 ## User Scenarios
 
@@ -30,19 +28,16 @@
 
 ### User
 
-- Given that I am logged in, when I click to on main feed, then featured items are displayed.
-- Given that I am logged in, when I click on purchased items, then list of purchased items is displayed.
-- Given that I am logged in, when I click message seller, then message can be delivered to Admin.
-- Given that I am logged in, when I click on favorite button, item is displayed on favorite list.
-- Given that I am NOT logged in, when I click on listed item, redirect to login page.
+- Given that I am logged in, when I make a search query, a list of posts within the parameters of my query are displayed.
+- Given that I am logged in, when I click message seller, a message can be delivered to an Admin.
+- Given that I am logged in, when I click on a favorite button, the post is displayed in the favorites tab.
 
 ### Admin
 
-- Given that I am logged in, when I click to post an item to sell, then it is added to my listings.
-- Given that I am logged in, when I click preview items to sell, then listings page is displayed.
-- Given that I am logged in, when I click sold on item, item will display 'SOLD'.
-- Given that I am logged in, when I click reply to message, then message can be delivered to User.
-- Given that I am NOT logged in, when I click on post an item, redirect to login page.
+- Given that I am logged in, when I click to post a new item to sell it is added to the Listings tab.
+- Given that I am logged in, when I click on the Listings tab, the Listings page is displayed.
+- Given that I am logged in, when I click sold on a post, the post will display 'SOLD' and be moved to the sold tab.
+- Given that I am logged in, when I click on a received message in the Message tab, I can reply to the sender with my own message.
 
 ## ERD
 
@@ -50,32 +45,46 @@
 
 - User (Users/Admins)
 
-  - User_id PK
+  - id PK
   - name
   - email
   - password
   - Admin (boolean)
 
-- Posts (items to sell)
+- Listings
 
-  - item_id PK
-  - seller_id FK
+  - id PK
+  - user_id FK
   - price
-  - photo
-  - message
-  - odometer
+  - year
   - make
   - model
-  - transmission
-  - year
+  - transmission (boolean)
   - color
   - description
+  - sold (boolean)
+  - image
 
 - Favorites (items to buy)
 
-  - favorite_id PK
-  - item_id FK
-  - User_id FK
+  - id PK
+  - user_id FK
+  - listing_id FK
+  - favorited (boolean)
+
+- Messages
+
+  - id PK
+  - listing_id FK
+  - messageReceived (boolean)
+
+- MessageListing
+
+  - id PK
+  - sender_id FK
+  - receiver_id FK
+  - message_id FK
+  - message
 
 - Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
 
@@ -84,12 +93,20 @@
 Once you know the resources that you'll have, write out the routes that you'll need to perform BREAD operations on those resources
 Remember RESTful conventions (they make it much easier)
 
-- home "/"
+- home '/'
 - my listings '/listings'
 - specific item listing '/listing/:id'
-- inbox '/inbox' ? drop down of recent messages from '/'
-- favorites '/favorites'
-- new listing '/new'
+- message '/messages', '/inbox', '/messages/:id', '/messages/new/:id'
+- user/admin session '/:id'
+- login '/login'
+- logout '/logout'
+- search '/browse', '/make', '/model', '/price', '/year'
+- posted listings '/mylisting'
+- sold listing '/soldlisting', '/sold/:listID'
+- favorites '/favorited', '/favoritesTrue/:listID', '/favoritesFalse/:listID'
+- new listing '/newlisting'
+- delete listing '/delete/:listID'
+-
 
 ## MVP vs MVD
 
@@ -124,6 +141,8 @@ app.get("/login/:id", (req, res) => {
   res.redirect("/");
 });
 ```
+
+We did it.
 
 ## Tech Choices
 
