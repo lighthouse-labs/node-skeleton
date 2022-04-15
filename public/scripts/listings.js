@@ -1,11 +1,4 @@
-
-const createListingElement = function(listing) {
-
-  // Message Seller Button
-  $('.messageButton').click(() => {
-    console.log('message seller button clicked');
-  });
-
+const createListingElement = function (listing) {
 
   let $listing = `
   <div id='listing${listing.id}' class="posts">
@@ -19,9 +12,11 @@ const createListingElement = function(listing) {
       <div class="postPrice">$${listing.price}</div>
     </div>
     <div class='messageButtonContainer'>
-      <div class='messageButton'>
+      <button class='messageButton ${listing.id}' data-id='${listing.id}'
+      type='button'
+      >
         message_seller
-      </div>
+      </button>
     </div>
     <div class="description">
     <div>
@@ -47,7 +42,7 @@ const createListingElement = function(listing) {
   return $listing;
 };
 
-const renderListing = function(listings) {
+const renderListing = function (listings) {
   listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
@@ -61,6 +56,7 @@ const renderListing = function(listings) {
 
 
 
+  const listingMessage = [...document.querySelectorAll('.messageButton')];
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   const listingFavorite = [...document.querySelectorAll('.starButton')];
@@ -138,10 +134,35 @@ const renderListing = function(listings) {
       });
     });
   });
+
+
+  
+
+  listingMessage.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', (event) => {
+      // const mailId = (chatSend[0]).dataset.id;
+      event.preventDefault();
+      console.log('message click', listingID);
+      $.ajax({
+        method: 'POST',
+        url: `/api/messages/new/${listingID}`,
+      //   data: $('#messageText').serialize()
+      })
+      .then(() => {
+        console.log('test from after then click from listing', listingID)
+      //   $('.chatBox').empty();
+      //   $('.chatBox').prepend(createChatBox(mailId));
+      //   renderChat(listings);
+      //   $('.chatText').focus();
+      });
+    });
+  });
+
 };
 
-const loadListings = function() {
-  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
+const loadListings = function () {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
     $('.listingDelete').css('display', 'none');
     renderListing(data);
 
@@ -157,7 +178,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
@@ -204,6 +225,7 @@ $(() => {
       $('.messageButton').css('display', 'flex');
       $('.listingDelete').css('display', 'none');
       $('.listingSold').css('display', 'none');
+
     });
   });
 

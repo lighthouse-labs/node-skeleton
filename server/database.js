@@ -168,8 +168,9 @@ const getUserByEmail = (email) => {
 };
 
 
-const createListing = (listings) => {
+const createListing = (id, listings) => {
   const queryParams = [
+    id,
     listings.price,
     listings.year,
     listings.make,
@@ -181,6 +182,7 @@ const createListing = (listings) => {
   ];
 
   const queryString = `INSERT INTO listings (
+    user_id,
     price,
     year,
     make,
@@ -189,7 +191,7 @@ const createListing = (listings) => {
     color,
     descriptions,
     imageURL
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`;
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`;
 
   return db.query(queryString, queryParams)
     .then((res) => res.rows)
@@ -274,6 +276,7 @@ const getFavorites = (userID) => {
   JOIN favorites ON user_id=users.id
   JOIN listings ON listing_id=listings.id
   WHERE favorites.user_id = $1
+  AND sold = FALSE
   GROUP BY name, listings.id, favorites.favorited, favorites.user_id
   ORDER BY id;`, [userID])
     .then((result) => result.rows)
