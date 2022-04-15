@@ -237,7 +237,9 @@ const createMessage = (request) =>  {
   ) VALUES ($1, $2, $3 RETURNING *;`;
 
   return db.query(queryString, queryParams)
-  .then((result) => result.rows)
+  .then((result) => {
+    console.log('DATABASEJS:',  'CHECK');
+    result.rows})
   .catch((err) => console.log(err.message));
 };
 
@@ -370,7 +372,6 @@ module.exports = {
   deleteFromList,
   changeToSold,
   getFavorites,
-  postFavorites,
   createMessage,
   postFavoritesTrue,
   postFavoritesFalse

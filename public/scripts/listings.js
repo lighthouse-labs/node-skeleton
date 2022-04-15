@@ -147,7 +147,7 @@ const renderListing = function (listings) {
       $.ajax({
         method: 'POST',
         url: `/api/messages/new/${listingID}`,
-      //   data: $('#messageText').serialize()
+        // data: $('.listings').serialize()
       })
       .then(() => {
         console.log('test from after then click from listing', listingID)
