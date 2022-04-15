@@ -51,6 +51,7 @@
   z-index: 1000;
   padding: 10px;
   flex-direction: column;
+  justify-content: space-between;
 
   .chatInput {
     @include flexRow;
@@ -59,6 +60,13 @@
   
     #messageText {
       width: 90%;
+      @include flexColumn;
+      
+      .sendButton {
+        @include flexRow;
+        justify-content: center;
+        margin: 1px;
+      }
     }
   
   }
@@ -116,5 +124,14 @@
     display: flex;
     justify-content: center;
     text-align: center;
+  }
+
+  .starterMessage {
+    font-size: x-small;
+    color: #ededed9e;
+    text-align: center;
+  }
+  .sender {
+    font-weight: bolder;
   }
 }
