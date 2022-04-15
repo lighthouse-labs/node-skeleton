@@ -68,7 +68,6 @@ const renderListing = function (listings) {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
-
       $.ajax({
         method: 'POST',
         url: `/listing/delete/${listingID}`,
@@ -81,7 +80,6 @@ const renderListing = function (listings) {
       });
     });
   });
-
 
   listingFavorite.forEach(listItem => {
     const listingID = listItem.dataset.id;
@@ -148,6 +146,7 @@ const renderListing = function (listings) {
     });
   });
 };
+
 
 const loadListings = function () {
   $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
