@@ -85,13 +85,13 @@ const renderChat = (inbox) => {
 
   const chatSend = [...document.querySelectorAll('.chatSend')];
   const chatClose = [...document.querySelectorAll('.closeChatBox')];
-  
+
   chatClose.forEach(closingChat => {
     closingChat.addEventListener('click', (event) => {
       $('.chatBox').hide();
     });
   });
-  
+
 
   $('#messageText').submit((event) => {
 
@@ -119,7 +119,7 @@ const renderChat = (inbox) => {
   });
 
 
-  
+
 };
 
 
@@ -144,4 +144,6 @@ $(() => {
     $('.inbox').css('display', 'flex');
     loadMessages();
   });
+
+  loadMessages();
 });
