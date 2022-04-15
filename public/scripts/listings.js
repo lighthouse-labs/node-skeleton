@@ -1,4 +1,5 @@
-const createListingElement = function(listing) {
+// Creates listings based on database info
+const createListingElement = function (listing) {
 
   let $listing = `
   <div id='listing${listing.id}' class="posts">
@@ -12,28 +13,31 @@ const createListingElement = function(listing) {
       <div class="postPrice">$${listing.price}</div>
     </div>
     <div class='messageButtonContainer'>
-      <button class='messageButton ${listing.id}' data-id='${listing.id}'
-      type='button'
-      >
-        message_seller
+      <button class='messageButton ${listing.id}' data-id='${listing.id}' type='button'>
+      message_seller
       </button>
     </div>
     <div class="description">
-    <div>
-      <div>${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}
+      <div>
+        <div>
+          ${listing.transmission ? 'M/T' : 'A/T'}, ${listing.color}
+        </div>
       </div>
+      <div>
+        ${listing.descriptions}
       </div>
-      <div>${listing.descriptions}
-      </div>
- </div>
-      <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
+    </div>
+      
+    <form class='listingSold' action='/listing/sold/${listing.id}' method='POST'>
       <button class='${listing.id} submitListingSold' data-id='${listing.id}' type='button'>
-      SOLD</button>
+        SOLD
+      </button>
     </form>
 
     <form class='listingDelete' action='/listing/delete/${listing.id}' method='POST'>
-    <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
-    Remove</button>
+      <button class='${listing.id} submitListingDelete' data-id='${listing.id}' type='button'>
+       Remove
+      </button>
   </form>
     </div>
 
@@ -42,7 +46,8 @@ const createListingElement = function(listing) {
   return $listing;
 };
 
-const renderListing = function(listings) {
+// Renders listings onto the DOM
+const renderListing = function (listings) {
   listings.forEach(listing => {
     $('.listings').prepend(createListingElement(listing));
     if (listing.sold) {
@@ -53,8 +58,6 @@ const renderListing = function(listings) {
       `);
     }
   });
-
-
 
   const listingMessage = [...document.querySelectorAll('.messageButton')];
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
@@ -83,8 +86,8 @@ const renderListing = function(listings) {
     listItem.addEventListener('click', (event) => {
       event.preventDefault();
       $(`.${listingID}`).toggleClass('favoriteTrue');
+
       if ($(`.${listingID}`).hasClass('favoriteTrue')) {
-        console.log('inside the true if statement');
         $.ajax({
           url: `/listing/favoritesTrue/${listingID}`,
           method: 'POST',
@@ -93,7 +96,6 @@ const renderListing = function(listings) {
           $('.sold').css('display', 'none');
         });
       } else {
-        console.log('inside the false if statement');
         $.ajax({
           url: `/listing/favoritesFalse/${listingID}`,
           method: 'POST',
@@ -146,8 +148,8 @@ const renderListing = function(listings) {
 };
 
 
-const loadListings = function() {
-  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
+const loadListings = function () {
+  $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
     $('.listingDelete').css('display', 'none');
     renderListing(data);
   });
@@ -160,7 +162,7 @@ $(() => {
 
   // BROWSE/SEARCH and Filter
 
-  $('#carSearch').on('submit', function(event) {
+  $('#carSearch').on('submit', function (event) {
     $('.listingDelete').css('display', 'none');
     const data = $(this).serialize();
     event.preventDefault();
