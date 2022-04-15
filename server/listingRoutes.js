@@ -4,8 +4,12 @@ const database = require('./database');
 
 
 router.get('', (req, res) => {
-  const userID = req.cookies.user_id;
-  database.getAllListings(userID, 10)
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
+  database.getAllListings(id, 10)
     .then(listings => {
       res.send(listings);
     })
@@ -16,7 +20,10 @@ router.get('', (req, res) => {
 });
 
 router.get('/browse', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
   const data = req.query;
   const filter = {
     search: data.search.toLowerCase(),
@@ -37,7 +44,11 @@ router.get('/browse', (req, res) => {
 });
 
 router.get('/mylisting', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   database.getMyListings(id)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -47,7 +58,11 @@ router.get('/mylisting', (req, res) => {
 });
 
 router.get('/soldlisting', (req, res) => {
-  const id = req.cookies.username || req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   database.getSoldListings(id)
     .then((listings) => res.send(listings))
     .catch(e => {
@@ -57,7 +72,11 @@ router.get('/soldlisting', (req, res) => {
 });
 
 router.get('/favorited', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   database.getFavorites(id)
     .then((favorites) => res.send(favorites))
     .catch(e => {
@@ -67,7 +86,11 @@ router.get('/favorited', (req, res) => {
 });
 
 router.post('/favoritesTrue/:listID', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   const listID = req.params.listID;
   // console.log('LISTID:', listID, 'in TRUE ROUTER');
   database.postFavoritesTrue(id, listID)
@@ -75,7 +98,11 @@ router.post('/favoritesTrue/:listID', (req, res) => {
 });
 
 router.post('/favoritesFalse/:listID', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   const listID = req.params.listID;
   // console.log('LISTID:', listID, 'in FALSE ROUTER');
   database.postFavoritesFalse(id, listID)
@@ -113,7 +140,12 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  const id = req.cookies.user_id;
+
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   database.createListing(id, req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");

@@ -7,7 +7,10 @@ const { checkInbox } = require('./helper/helper');
 
 
 router.get('/inbox', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
   database.getInbox(id)
     .then(messages => res.json(messages))
     .catch(e => {
@@ -17,7 +20,11 @@ router.get('/inbox', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   database.getUsers(id)
     .then((user) => {
       if (user[0].admin) {
@@ -33,13 +40,12 @@ router.get('/messages', (req, res) => {
 });
 
 router.post('/messages/new/:id', (req, res) => {
-  let id = 0;
-  if (req.cookies.user_id) {
-    id = req.cookies.user_id;
+  if (!req.cookies.user_id) {
+    res.sendStatus(403);
   }
   const params = {
     listing_id: req.params.id,
-    id: id,
+    id: req.cookies.user_id,
     created_at: Math.floor(Date.now() / 10000)
   }
 
