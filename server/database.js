@@ -201,6 +201,24 @@ const getMinMaxYear = () => {
     .catch((err) => console.log(err.message));
 };
 
+const createMessage = (request) =>  {
+  const queryParams = [
+    request.listing_id,
+    request.id,
+    request.created_at
+  ];
+  const queryString = `
+  INSERT INTO messages (
+    listing_id,
+    buyer_id,
+    created_at,
+  ) VALUES ($1, $2, $3 RETURNING *;`;
+
+  return db.query(queryString, queryParams)
+  .then((result) => result.rows)
+  .catch((err) => console.log(err.message));
+};
+
 
 const sendMessage = (message) => {
   const queryParams = [
@@ -309,5 +327,6 @@ module.exports = {
   deleteFromList,
   changeToSold,
   getFavorites,
-  postFavorites
+  postFavorites,
+  createMessage
 };
