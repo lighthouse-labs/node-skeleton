@@ -241,6 +241,7 @@ $(() => {
     }).then(listings => {
       $('.listings').empty();
       renderListing(listings);
+      $('.star').css('display', 'none');
       $('.messageButton').css('display', 'none');
       $('.listingDelete').css('display', 'flex');
     });
