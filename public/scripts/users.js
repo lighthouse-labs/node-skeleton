@@ -1,26 +1,26 @@
 $(() => {
 
   $('.formCancel').click(() => {
-    $('.loginForm').slideUp('fast');
-    $('.registerForm').slideUp('fast');
+    $('.loginForm').slideUp('slow');
+    $('.registerForm').slideUp('slow');
   })
 
   $('#login').click(() => {
-    $('.inbox').slideUp('fast');
-    $('.filterOptions').slideUp('fast');
-    $('.registerForm').slideUp('fast');
+    $('.inbox').slideUp('slow');
+    $('.filterOptions').slideUp('slow');
+    $('.registerForm').slideUp('slow');
     setTimeout(() => {
-      $('.loginForm').slideToggle('fast');
+      $('.loginForm').slideToggle('slow');
       $('.loginForm').css('display', 'flex');
     }, 200);
   });
 
   $('#signup').click(() => {
-    $('.inbox').slideUp('fast');
-    $('.filterOptions').slideUp('fast');
-    $('.loginForm').slideUp('fast');
+    $('.inbox').slideUp('slow');
+    $('.filterOptions').slideUp('slow');
+    $('.loginForm').slideUp('slow');
     setTimeout(() => {
-      $('.registerForm').slideToggle('fast');
+      $('.registerForm').slideToggle('slow');
       $('.registerForm').css('display', 'flex');
     }, 200);
   });

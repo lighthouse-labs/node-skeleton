@@ -269,7 +269,7 @@ const getMyListings = (id) => {
   SELECT * FROM listings
   WHERE user_id = $1
   AND sold IS FALSE
-  ORDER BY listings DESC;`, [id])
+  ORDER BY listings;`, [id])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };

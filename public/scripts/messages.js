@@ -10,7 +10,7 @@ const createChatBox = (inbox) => {
 
   const $chatBox = $(`
   <div>
-    <div>
+    <div class='closeContainer'>
     <button class="${inbox} closeChatBox" type="button" data-id="${inbox}">Close</button>
     </div>
     <div class="chatFeed">
@@ -23,7 +23,7 @@ const createChatBox = (inbox) => {
   </div>
   <div class="chatInput">
     <form id="messageText" method:"POST" action="/api/messages/${inbox}">
-      <div>
+      <div class='inputBox'>
         <textarea class="chatText" name="text" placeholder="Send a message..."></textarea>
       </div>
       <div class="sendButton">
@@ -69,8 +69,9 @@ const renderMails = (mails) => {
         url: `/api/messages/${mailId}`,
         data: $('.chatFeed').serialize()
       }).then((messages) => {
-        $('.chatBox').css('display', 'block');
+        $('.chatBox').css('display', 'flex');
         renderChat(messages);
+        $('.inbox').slideUp('slow');
         $('.chatText').focus();
       }).catch((err) => console.error(err));
     });
@@ -140,7 +141,7 @@ $(() => {
 
   $('#messages').click((event) => {
     event.preventDefault();
-    $('.inbox').fadeToggle('fast');
+    $('.inbox').fadeToggle('slow');
     $('.inbox').css('display', 'flex');
     loadMessages();
   });

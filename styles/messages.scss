@@ -50,11 +50,25 @@
   background-color: #89b8cb;
   z-index: 1000;
   padding: 10px;
+  flex-direction: column;
+  justify-content: space-between;
 
   .chatInput {
     @include flexRow;
     justify-content: center;
-    width: 100%
+    width: 100%;
+  
+    #messageText {
+      width: 90%;
+      @include flexColumn;
+      
+      .sendButton {
+        @include flexRow;
+        justify-content: center;
+        margin: 1px;
+      }
+    }
+  
   }
 
   .chatText {
@@ -62,14 +76,13 @@
     @include flexRow;
     justify-content: center;
     align-items: center;
-    // background-color: black;
     width: 100%;
 
     textarea {
       width: 70%;
       margin-top: 2%;
       margin-bottom: 0.5%;
-      margin-right: 0.5%
+      margin-right: 0.5%;
     }
 
     .buttonBox {
@@ -86,6 +99,7 @@
         border: 2px solid black;
       }
 
+      
       #chatClose {
         display: flex;
         flex-grow: 2;
@@ -96,7 +110,12 @@
       }
     }
   }
-
+  .closeContainer {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  }
+  
   .fromTo {
     @include flexRow;
   }
@@ -105,5 +124,14 @@
     display: flex;
     justify-content: center;
     text-align: center;
+  }
+
+  .starterMessage {
+    font-size: x-small;
+    color: #ededed9e;
+    text-align: center;
+  }
+  .sender {
+    font-weight: bolder;
   }
 }
