@@ -1,33 +1,36 @@
 @import "./partials/mixins";
 
 headers {
-
   nav {
     width: 100vw;
-    height: 10vh;
+    height: 100px;
     z-index: 1200;
     @include flexColumn;
     justify-content: space-evenly;
     align-items: center;
     position: fixed;
     top: 0;
-    background: rgb(255, 255, 255);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(148, 187, 233, 1) 51%
-    );
-    box-shadow: 0 5px 2px -2px #45a6fc;
+    background: rgba(255, 255, 255, 0);
+    font-weight: bold;
+    font-size: large;
 
     .navTop {
       width: 100%;
+      height: auto;
       display: flex;
       flex-direction: row;
-      margin-top: 20px;
       justify-content: flex-start;
 
       img {
-        width: 60%;
+        width: 10em;
+        position: absolute;
+        top: -1.5em;
+        left: 0;
+        background-color: #65fbf726;
+        border-top-right-radius: 150px;
+        border-bottom-right-radius: 250px;
+        border-right: solid;
+        clip: rect(0, 180px, 135px, 0);
       }
     }
 
@@ -47,9 +50,10 @@ headers {
 
       &:hover {
         opacity: 1;
+        text-decoration: underline solid;
         transform: scale(1.1);
-        font-weight: bold;
-        color: rgb(73, 84, 126);
+        font-weight: bolder;
+        color: rgba(16, 206, 249, 0.804);
         cursor: pointer;
       }
     }
@@ -100,6 +104,4 @@ headers {
       }
     }
   }
-
-
 }

@@ -131,32 +131,43 @@ const renderListing = function(listings) {
       // const mailId = (chatSend[0]).dataset.id;
       event.preventDefault();
       console.log('message click', listingID);
+
       $.ajax({
         method: 'POST',
         url: `/api/messages/new/${listingID}`,
-        // data: $('.listings').serialize()
+        // data: $('#messageText').serialize()
       })
         .then(() => {
-          console.log('test from after then click from listing', listingID);
-          //   $('.chatBox').empty();
-          //   $('.chatBox').prepend(createChatBox(mailId));
-          //   renderChat(listings);
-          //   $('.chatText').focus();
+
+          console.log('test from after then click from listing', listingID)
+          $('.chatBox').empty();
+          $('.chatBox').prepend();
+          renderChat(listings);
+          $('.chatText').focus();
+
+          $.ajax({
+            method: 'GET',
+            url: `/api/messages/${mailId}`,
+          }).then((messages) => {
+            $('.chatFeed').empty();
+            renderChat(messages);
+            $('.chatText').focus();
+          });
         });
     });
   });
 
-};
-
-const loadListings = function() {
-  $.ajax({ method: 'GET', url: '/listing' }).then(function(data) {
-    $('.listingDelete').css('display', 'none');
-    renderListing(data);
 
 
-  });
-};
+  const loadListings = function () {
+    $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
+      $('.listingDelete').css('display', 'none');
+      renderListing(data);
 
+
+    });
+  };
+}
 
 $(() => {
 
@@ -231,4 +242,3 @@ $(() => {
     });
   });
 });
-
