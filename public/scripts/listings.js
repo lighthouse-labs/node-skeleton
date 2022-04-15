@@ -73,7 +73,6 @@ const renderListing = listings => {
     const listingID = listItem.dataset.id;
     listItem.addEventListener('click', event => {
       event.preventDefault();
-
       $.ajax({
         method: 'POST',
         url: `/listing/delete/${listingID}`,

@@ -4,9 +4,12 @@ const database = require('./database');
 
 
 router.get('', (req, res) => {
-  const userID = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
 
-  database.getAllListings(userID, 10)
+  database.getAllListings(id, 10)
     .then(listings => {
       res.send(listings);
     })
@@ -18,7 +21,10 @@ router.get('', (req, res) => {
 
 
 router.get('/browse', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
   const data = req.query;
   const filter = {
     search: data.search.toLowerCase(),
@@ -40,7 +46,10 @@ router.get('/browse', (req, res) => {
 
 
 router.get('/mylisting', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
 
   database.getMyListings(id)
     .then((listings) => res.send(listings))
@@ -52,7 +61,10 @@ router.get('/mylisting', (req, res) => {
 
 
 router.get('/soldlisting', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
 
   database.getSoldListings(id)
     .then((listings) => res.send(listings))
@@ -64,7 +76,10 @@ router.get('/soldlisting', (req, res) => {
 
 
 router.get('/favorited', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
 
   database.getFavorites(id)
     .then((favorites) => res.send(favorites))
@@ -76,7 +91,11 @@ router.get('/favorited', (req, res) => {
 
 
 router.post('/favoritesTrue/:listID', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   const listID = req.params.listID;
 
   database.postFavoritesTrue(id, listID)
@@ -85,7 +104,11 @@ router.post('/favoritesTrue/:listID', (req, res) => {
 
 
 router.post('/favoritesFalse/:listID', (req, res) => {
-  const id = req.cookies.user_id;
+  let id = 3;
+  if ( req.cookies.user_id) {
+    id = req.cookies.user_id;
+  }
+
   const listID = req.params.listID;
 
   database.postFavoritesFalse(id, listID)
@@ -121,7 +144,6 @@ router.post('/sold/:listID', (req, res) => {
 
 router.post('', (req, res) => {
   const form = req.body;
-  const id = req.cookies.user_id;
   
   if (!form.imageURL ||
     !form.model ||
@@ -130,6 +152,11 @@ router.post('', (req, res) => {
     !form.price ||
     !form.color) {
     return;
+  }
+
+  let id = 3;
+  if (req.cookies.user_id) {
+    id = req.cookies.user_id;
   }
 
   database.createListing(id, req.body)

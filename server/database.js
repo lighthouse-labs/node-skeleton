@@ -133,26 +133,6 @@ const getMessages = (inbox) => {
 };
 
 
-const getChat = (inbox, id) => {
-  return db.query(`SELECT * WHEN ,
-  CASE
-  WHEN users.id = 1 THEN $2
-  WHEN users.id = 2 THEN $2
-  END
-  AS sender,
-  CASE
-  WHEN receiver_id = 1 THEN $1
-  WHEN receiver_id = 2 THEN $2
-  END AS receiver, messagetext, admin, listings.user_id AS seller, messages.listing_id AS listing_id FROM messagelisting
-  JOIN users ON users.id=sender_id
-  JOIN listings ON users.id=listings.id JOIN messages ON messages.id=messagelisting.message_id
-  ORDER BY messagelisting.id DESC
-  ;`, ['Jojo Leadbeatter', 'Tom Doretto'])
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
-
 const getUsers = (userID) => {
   return db.query(`SELECT * FROM users
   WHERE id = $1;`, [userID])

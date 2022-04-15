@@ -121,8 +121,6 @@ const renderChat = inbox => {
   });
 };
 
-
-
 // Messages inbox dropdown
 const loadMessages = () => {
   $.ajax({
