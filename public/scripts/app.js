@@ -1,7 +1,6 @@
 // Client facing scripts here
 $(() => {
 
-
   // Search filter dropdown
   $('.filter').click(() => {
     $('.filterOptions').slideToggle('slow');
