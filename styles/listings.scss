@@ -105,8 +105,10 @@
       opacity: 0.8;
       &:hover{
         cursor: pointer;
-        transform: scale(1.1);
         opacity: 1;
+        transform: scale(1.1);
+        transition: all .2s ease-in;
+        background-color: orange;
       }
 
       i {

@@ -22,6 +22,11 @@ body {
     bottom: 2em;
     display: none;
     transform: scale(2);
-    
+
+    &:hover {
+      transform: scale(2.1);
+      transition: all .2s ease-in;
+      color: orange;
+    }
   }
 }
