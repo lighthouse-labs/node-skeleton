@@ -149,14 +149,12 @@ const renderListing = function (listings) {
   });
 };
 
-
 const loadListings = function () {
   $.ajax({ method: 'GET', url: '/listing' }).then(function (data) {
     $('.listingDelete').css('display', 'none');
     renderListing(data);
   });
 };
-
 
 $(() => {
 
