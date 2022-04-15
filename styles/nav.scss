@@ -3,7 +3,7 @@
 headers {
   nav {
     width: 100vw;
-    height: 100px;
+    height: 10vh;
     z-index: 1200;
     @include flexColumn;
     justify-content: space-evenly;
@@ -22,15 +22,15 @@ headers {
       justify-content: flex-start;
 
       img {
-        width: 10em;
+        width: 8em;
         position: absolute;
-        top: -1.5em;
+        top: 0;
         left: 0;
         background-color: #65fbf726;
         border-top-right-radius: 150px;
-        border-bottom-right-radius: 250px;
+        border-bottom-right-radius: 200px;
         border-right: solid;
-        clip: rect(0, 180px, 135px, 0);
+        clip: rect(0, 180px, 130px, 0);
       }
     }
 
