@@ -125,7 +125,9 @@ router.post('', (req, res) => {
   if (!form.imageURL || !form.model || !form.make || !form.year || !form.price || !form.color) {
     return;
   }
-  database.createListing(req.body)
+  const id = req.cookies.user_id;
+
+  database.createListing(id, req.body)
     .then(listing => {
       console.log(req.body, "\nListing Added to Databse");
       res.status(201);

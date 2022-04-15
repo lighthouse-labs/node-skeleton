@@ -85,15 +85,15 @@ const renderChat = (inbox) => {
 
   const chatSend = [...document.querySelectorAll('.chatSend')];
   const chatClose = [...document.querySelectorAll('.closeChatBox')];
-
+  
   chatClose.forEach(closingChat => {
     closingChat.addEventListener('click', (event) => {
       $('.chatBox').hide();
     });
   });
+  
 
-
-  $('#messageText').submit( (event) => {
+  $('#messageText').submit((event) => {
 
 
     const mailId = (chatSend[0]).dataset.id;
@@ -101,10 +101,10 @@ const renderChat = (inbox) => {
     const data = $('#messageText').serialize();
 
     $.ajax({
-      method:'POST',
+      method: 'POST',
       url: `/api/messages/${mailId}`,
       data: data
-    }).then((data) => {
+    }).then(() => {
       $('.chatBox').empty();
       $('.chatBox').prepend(createChatBox(mailId));
       $.ajax({
@@ -117,7 +117,12 @@ const renderChat = (inbox) => {
       });
     });
   });
+
+
+  
 };
+
+
 
 // Messages inbox dropdown
 const loadMessages = () => {
