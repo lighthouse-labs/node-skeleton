@@ -41,13 +41,13 @@ router.post('/messages/new/:id'), (req, res) => {
     id: id,
     created_at: Date.now()
   }
-
+  console.log('APIROUTE:', 'CHECK');
   database.createMessage(params)
-  .then((newMessage) => res.send(newMessage))
-  .catch((e) => {
-    console.error(e);
-    res.send(e);
-  });
+    .then((newMessage) => res.send(newMessage))
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
 };
 
 router.post('/messages/:id', (req, res) => {
