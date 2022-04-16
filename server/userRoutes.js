@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const database = require('./database');
-const cookieParser = require('../server');
+const database = require('./helper/database');
 
 router.post('/logout', (req, res) => {
   res.clearCookie('user_id');

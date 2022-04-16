@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const database = require('./database');
+const database = require('./helper/database');
 
 router.get('/make', (req, res) => {
   database.getAllMakes()

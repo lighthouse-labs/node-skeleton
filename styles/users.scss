@@ -1,69 +1,74 @@
 @import "./partials/mixins";
 
-.userForm {
-  @include flexColumn;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 3%;
+@media screen and (min-width: 1289px) {
 
-  .loginForm {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .registerForm {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  form {
+  .userForm {
     @include flexColumn;
-    margin-top: 1%;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    padding: 10px;
-    background-color: white;
-    border: 3px solid black;
-    border-radius: 5px;
+    width: 100%;
+    color: orange;
+    margin-top: 7%;
 
-    div {
-      margin: 1% 1% 1% 1%;
-      width:50%;
-
-      input {
-        width: 100%;
-        padding: 5px
-      }
+    .loginForm {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    .submit {
-      @include flexRow;
-      justify-content: space-around;
-      width: 50%;
-      margin-bottom: 3%;
+    .registerForm {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-      button {
-        width: 50%;
+    form {
+      @include flexColumn;
+      margin-top: 1%;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      padding: 10px;
+      background-color:rgba(251, 251, 251, 0.674);
+      border: 3px solid black;
+      border-radius: 5px;
+
+      div {
         margin: 1% 1% 1% 1%;
-        padding: 5px;
-        border: solid;
-        border-radius: 5px;
-        background-color: #7cbef8;
-        opacity: 0.8;
-        &:hover {
-          cursor: pointer;
-          opacity: 1;
+        width:50%;
+
+        input {
+          width: 100%;
+          padding: 5px
+        }
+      }
+
+      .submit {
+        @include flexRow;
+        justify-content: space-around;
+        width: 50%;
+        margin-bottom: 3%;
+
+        button {
+          width: 50%;
+          margin: 1% 1% 1% 1%;
+          padding: 5px;
+          border: solid;
+          border-radius: 5px;
+          color: rgba(251, 251, 251, 0.674);
+          background-color: #7cbef8;
+          opacity: 0.8;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
+          }
         }
       }
     }
   }
-
 }
+

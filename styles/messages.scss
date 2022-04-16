@@ -1,139 +1,161 @@
 @import "./partials/mixins";
 
-.inbox {
-  position: fixed;
-  top: 10vh;
-  right: 0;
-  width: 25%;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  border: solid;
-  background-color: grey;
-  z-index: 1000;
-  padding: 1px;
-
-  .message {
-    background-color: white;
-    width: 100%;
-    border: solid black;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.2rem;
-    z-index: 1000;
-    margin: 0.5% 0.5% 0.5% 0.5%;
-
-    button {
-      width: 100%;
-      padding: 10px;
-      opacity: 0.7;
-      background-color: #45a6fc;
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.chatBox {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 49vw;
-  min-height: 20%;
-  max-height: 80%;
-  width: 50%;
-  border: solid;
-  border-radius: 5px;
-  background-color: #89b8cb;
-  z-index: 1000;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .chatInput {
-    @include flexRow;
-    justify-content: center;
-    width: 100%;
-
-    #messageText {
-      width: 90%;
-      @include flexColumn;
-
-      .sendButton {
-        @include flexRow;
-        justify-content: center;
-        margin: 1px;
-      }
-    }
-
-  }
-
-  .chatText {
-
-    @include flexRow;
-    justify-content: center;
+@media screen and (min-width: 1280px) {
+  .inbox {
+    position: fixed;
+    bottom: 1vh;
+    right: 0;
+    width: 10%;
+    display: none;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-
-    textarea {
-      width: 70%;
-      margin-top: 2%;
-      margin-bottom: 0.5%;
-      margin-right: 0.5%;
-    }
-
-    .buttonBox {
-      @include flexRow;
-      justify-content: space-around;
-      width: 30%;
-
-      .chatSend {
-        display: flex;
-        flex-grow: 2;
-        margin: 0.5%;
-        width: 50%;
-        padding: 10px;
-        border: 2px solid black;
-      }
-
-
-      .chatClose {
-        display: flex;
-        flex-grow: 2;
-        margin: 0.5%;
-        width: 50%;
-        padding: 10px;
-        background-color: #45a6fc;
-        border: 2px solid black;
-      }
-    }
-  }
-  .closeContainer {
-    display: flex;
-    justify-content: end;
-    width: 100%;
-  }
-
-  .fromTo {
-    @include flexRow;
-  }
-
-  .receiver {
-    display: flex;
     justify-content: center;
-    text-align: center;
+    background-color: transparent;
+    z-index: 1000;
+    max-height: 50%;
+    overflow-y: scroll;
+
+    .message {
+      width: 100%;
+      border-radius: 5px;
+      background-color: transparent;
+      text-align: center;
+      padding: 3px;
+      font-size: 1.2rem;
+      z-index: 1000;
+      margin: 0.5% 0.5% 0.5% 0.5%;
+
+      button {
+        width: 5vw;
+        height: 5vw;
+        padding: 10px;
+        border-radius: 50%;
+        color: orange;
+        opacity: 0.9;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 1) 0%,
+          rgb(183, 206, 233) 70%
+        );
+        &:hover {
+          cursor: pointer;
+          background-color: orange;
+          color: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 1) 0%,
+            rgb(183, 206, 233) 70%
+          );
+          opacity: 1;
+        }
+      }
+    }
   }
 
-  .starterMessage {
-    font-size: x-small;
-    color: #ededed9e;
-    text-align: center;
-  }
-  .sender {
-    font-weight: bolder;
+  .chatBox {
+    display: none;
+    position: fixed;
+    bottom: 1vh;
+    right: 1vw;
+    min-height: 35%;
+    max-height: 35%;
+    width: 40%;
+    border: solid;
+    border-radius: 10px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(183, 206, 233) 70%
+    );
+    z-index: 1000;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.5rem;
+
+    .feed {
+      overflow-y: scroll;
+      margin-bottom: 2vh
+    }
+
+    .starterMessage {
+      margin-bottom: 2vh;
+      color: #ededed9e;
+      text-align: center;
+
+      p  {
+        font-size: 1rem;
+        color: black;
+        opacity: 0.8;
+      }
+
+    }
+
+    .chatInput {
+      @include flexRow;
+      justify-content: center;
+      width: 100%;
+      max-height: 5vh;
+
+      form {
+        display: flex;
+        width: 100%;
+        @include flexRow;
+
+        .inputBox {
+          display: flex;
+          width: 100%;
+          margin: 1% 1% 1% 1%;
+          textarea {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-top: solid;
+            padding: 5px;
+            outline: none;
+          }
+        }
+
+        .sendButton {
+          display: flex;
+          width: 20%;
+          justify-content: center;
+          background-color: orange;
+          justify-content: space-around;
+        }
+      }
+    }
+
+
+
+
+    .chatSend {
+      display: flex;
+      flex-grow: 2;
+      margin: 0.5%;
+      width: 50%;
+      padding: 10px;
+      background-color: orange;
+    }
+
+    .closeContainer {
+      display: flex;
+      justify-content: end;
+      width: 100%;
+    }
+
+    .fromTo {
+      @include flexRow;
+    }
+
+    .receiver {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .sender {
+      font-weight: bolder;
+    }
   }
 }
+

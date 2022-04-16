@@ -41,10 +41,8 @@ CREATE TABLE favorites (
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  seller_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
-  buyer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  messageReceived BOOLEAN NOT NULL DEFAULT FALSE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   created_at INTEGER NOT NULL
 );
 
@@ -52,7 +50,6 @@ CREATE TABLE messageListing (
   id SERIAL PRIMARY KEY NOT NULL,
   message_id INTEGER REFERENCES messages(id) ON DELETE CASCADE,
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   messageText TEXT,
   timeSent INTEGER NOT NULL
 );

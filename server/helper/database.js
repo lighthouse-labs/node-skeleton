@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const dbParams = require("../lib/db");
+const dbParams = require("../../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
@@ -254,13 +254,14 @@ const sendMessage = (message) => {
 const getMyListings = (id) => {
   return db.query(`
   SELECT listings.*, users.city,
-  users.country, 
-  users.province
+  users.country,
+  users.province,
+  users.name
   FROM listings
   JOIN users ON listings.user_id=users.id
   WHERE user_id = $1
   AND sold IS FALSE
-  GROUP BY listings.id, users.city, users.country, users.province
+  GROUP BY listings.id, users.city, users.country, users.province, users.name
   ORDER BY listings.id;`, [id])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
@@ -269,8 +270,9 @@ const getMyListings = (id) => {
 const getSoldListings = (id) => {
   return db.query(`
   SELECT listings.*, users.city,
-  users.country, 
-  users.province
+  users.country,
+  users.province,
+  users.name
   FROM listings
   JOIN users ON users.id=listings.user_id
   WHERE user_id = $1
@@ -283,7 +285,7 @@ const getSoldListings = (id) => {
 
 const getFavorites = (userID) => {
   return db.query(`
-  SELECT name AS user_name,
+  SELECT name,
   favorites.user_id AS user_id,
   listings.id AS id,
   listings.user_id AS seller,
@@ -291,14 +293,14 @@ const getFavorites = (userID) => {
   transmission, color, descriptions,
   sold, imageURL, favorited,
   users.city,
-  users.country, 
+  users.country,
   users.province
   FROM users
   JOIN listings ON users.id=listings.user_id
   JOIN favorites ON listing_id=listings.id
   WHERE favorites.user_id = $1
   AND sold = FALSE
-  GROUP BY name, listings.id, favorites.favorited, favorites.user_id, 
+  GROUP BY name, listings.id, favorites.favorited, favorites.user_id,
   users.city, users.country, users.province
   ORDER BY id;`, [userID])
     .then((result) => result.rows)
