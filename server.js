@@ -8,11 +8,11 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
-const database = require('./server/database');
+const database = require('./server/helper/database');
 
 // Set Body Parser
 const bodyParser = require("body-parser");
-const db = require("./server/database.js");
+const db = require('./server/helper/database');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set Cookie Parser
