@@ -1,145 +1,167 @@
 @import "./partials/mixins";
 
-headers {
-  @include flexColumn;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 5vh;
-
-
-  .browse {
-    display: flex;
-    width: 100%;
+@media screen and (min-width: 1280px) {
+  headers {
+    @include flexColumn;
+    align-items: center;
     justify-content: center;
+    width: 100%;
     margin-top: 5vh;
-    color: #7cbef8;
 
 
-    #carSearch {
-      @include flexColumn;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
+    .browse {
+      display: flex;
       width: 100%;
+      justify-content: center;
+      margin-top: 5vh;
+      color: #7cbef8;
 
-      .searchBarBox {
-        width: 80%;
-        @include flexRow;
-        justify-content: center;
-      }
 
-      .searchBar {
-        @include flexRow;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        margin: 0;
-        padding: 0;
-        border-top-right-radius: 5px;
-        border-top-left-radius: 5px;
-
-        input {
-          display: flex;
-          width: 100%;
-          outline: none;
-          border: none;
-          border-bottom: 2px solid white;
-          color: black;
-          opacity: 0.8;
-          background-color: transparent;
-          margin: 0 2% 0 2%;
-          padding: 5px;
-          background-color: rgba(251, 251, 251, 0.674);
-        }
-
-        button {
-          padding: 5px;
-          background-color: #7cbef8;
-          border: solid rgba(251, 251, 251, 0.674);
-          color: rgba(251, 251, 251, 0.674);;
-          border-radius: 5px;
-          opacity: 0.8;
-          &:hover {
-            transition: all .2s ease-in;
-            opacity: 1;
-            transform: scale(1.1);
-            background-color: orange;
-            cursor: pointer;
-          }
-        }
-
-        .filter {
-          opacity: 0.8;
-          margin-left: 2%;
-          font-size: 2rem;
-          color: #3b9cf0;
-          &:hover {
-            transition: all .2s ease-in;
-            color: orange;
-            transform: scale(1.1);
-            opacity: 1;
-            cursor: pointer;
-          }
-        }
-      }
-
-      .filterOptions {
-        display: none;
-        width: 75%;
-        flex-direction: row;
+      #carSearch {
+        @include flexColumn;
         align-items: center;
         justify-content: center;
         padding: 10px;
-        margin-top: 1vh;
-        background-color: rgba(251, 251, 251, 0.674);
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
+        width: 100%;
 
-        .multiSelect {
-          @include flexColumn;
+        .searchBarBox {
+          width: 60%;
+          @include flexRow;
+          justify-content: center;
+        }
+
+        .searchBar {
+          @include flexRow;
+          width: 100%;
           justify-content: center;
           align-items: center;
-          font-size: 1rem;
-          width: 65%;
-          margin: 0.5% 0.5% 0.5% 0.5%;
+          font-size: 1.5rem;
+          margin: 0;
+          padding: 0;
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
 
-          div {
-            @include flexColumn;
+          input {
+            display: flex;
             width: 100%;
-            margin: 0.5% 0.5% 0.5% 0.5%;
+            outline: none;
+            border: none;
+            border-bottom: 2px solid white;
+            color: black;
+            opacity: 0.8;
+            background-color: transparent;
+            margin: 0 2% 0 2%;
+            padding: 5px;
+            background-color: rgba(251, 251, 251, 0.674);
           }
 
-          .rangeSlider {
-            margin-top: 3%;
-            font-size: 1.5rem;
-            label {
-              text-align: center;
-              margin-bottom: 0.5%;
+          button {
+            padding: 5px;
+            background-color: #7cbef8;
+            border: solid rgba(251, 251, 251, 0.674);
+            color: rgba(251, 251, 251, 0.674);;
+            border-radius: 5px;
+            opacity: 0.8;
+            &:hover {
+              transition: all .2s ease-in;
+              opacity: 1;
+              transform: scale(1.1);
+              background-color: orange;
+              cursor: pointer;
             }
           }
 
-          .sliderInput {
-            @include flexRow;
-            justify-content: center;
-            justify-items: center;
+          .filter {
+            opacity: 0.8;
+            margin-left: 2%;
             font-size: 2rem;
+            color: #3b9cf0;
+            &:hover {
+              transition: all .2s ease-in;
+              color: orange;
+              transform: scale(1.1);
+              opacity: 1;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .filterOptions {
+          display: none;
+          width: 60%;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          padding: 10px;
+          margin-top: 1vh;
+          background-color: rgba(251, 251, 251, 0.674);
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+
+          .multiSelect {
+            @include flexColumn;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            width: 65%;
             margin: 0.5% 0.5% 0.5% 0.5%;
 
-            input {
-              width: 30%;
-              justify-self: center;
-              text-align: center;
-              margin: 1% 1% 1% 1%;
-              background-color: white;
-              opacity: 0.8;
-              border: none;
-              font-size: 1.2rem;
+            div {
+              @include flexColumn;
+              width: 100%;
+              margin: 0.5% 0.5% 0.5% 0.5%;
+            }
+
+            .rangeSlider {
+              margin-top: 3%;
+              font-size: 1.5rem;
+              label {
+                text-align: center;
+                margin-bottom: 0.5%;
+              }
+
+              span {
+                background-color: rgba(30, 198, 30, 0.863);
+                border: solid;
+
+              }
+            }
+
+            #priceSlider {
+              background-color: rgba(244, 9, 9, 0.562);
+            }
+
+            #yearSlider {
+              background-color: rgba(244, 9, 9, 0.562);
+            }
+
+            .ui-slider-range {
+              background-color: rgba(30, 198, 30, 0.863);
+            }
+
+            .sliderInput {
+              @include flexRow;
+              justify-content: center;
+              justify-items: center;
+              font-size: 2rem;
+              margin: 0.5% 0.5% 0.5% 0.5%;
+
+              input {
+                width: 30%;
+                justify-self: center;
+                text-align: center;
+                margin: 1% 1% 1% 1%;
+                background-color: white;
+                opacity: 0.8;
+                border: none;
+                font-size: 1.2rem;
+              }
             }
           }
         }
       }
     }
   }
+
 }
+

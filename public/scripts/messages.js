@@ -1,7 +1,7 @@
 const createMails = mail => {
   let $mail = $('<div class="message">');
   let $message = $(`<form class="mail" action="/api/messages/${mail.id}" method="GET">`);
-  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">${mail.listing_id}</button>`);
+  let $button = $(`<button class="${mail.id} mailInbox" type="button" data-id="${mail.id}">#${mail.listing_id}</button>`);
 
   return $mail.append($message.append($button));
 };
@@ -10,11 +10,6 @@ const createChatBox = inbox => {
 
   const $chatBox = $(`
   <div class="feed">
-    <div class='closeContainer'>
-      <button class="${inbox} closeChatBox" type="button" data-id="${inbox}">
-        Close
-       </button>
-    </div>
     <div class="chatFeed">
       <div>
         <div class="starterMessage">

@@ -1,6 +1,6 @@
 @import "./partials/mixins";
 
-@media screen and (min-width: 720px) and (max-width: 912px) {
+@media screen and (min-width: 1280px) {
 
   .listings {
     @include flexColumn;
@@ -11,7 +11,7 @@
   .posts {
     @include flexRow;
     border: solid;
-    width: 90vw;
+    width: 60vw;
     margin: 3% 3% 3% 3%;
     background-color: #e4e4e4;
     position: relative;
@@ -30,14 +30,16 @@
       justify-content: center;
       box-shadow: 0px 0px 1px 0.5px rgb(208, 218, 230);
       border-radius: 50%;
-      height: 5vw;
-      width: 5vw;
-      right: 38vw;
+      opacity: 0.5;
+      height: 3vw;
+      width: 3vw;
+      right: 28vw;
       top: 1vh;
 
       &:hover {
         transition: all .2s ease-in;
         color: red;
+        opacity: 1;
       }
     }
 
@@ -51,8 +53,8 @@
     }
 
     .carPhoto {
-      max-width: 60%;
-      max-height: 30vh;
+      max-width: 55%;
+      max-height: 45%;
       position: relative;
     }
 

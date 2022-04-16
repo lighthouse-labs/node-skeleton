@@ -1,160 +1,161 @@
 @import "./partials/mixins";
 
-.inbox {
-  position: fixed;
-  bottom: 1vh;
-  right: 0;
-  width: 10%;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  z-index: 1000;
-  max-height: 35%;
-  overflow-y: scroll;
-
-  .message {
-    width: 100%;
-    border-radius: 5px;
+@media screen and (min-width: 1280px) {
+  .inbox {
+    position: fixed;
+    bottom: 1vh;
+    right: 0;
+    width: 10%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
-    text-align: center;
-    padding: 3px;
-    font-size: 1.2rem;
     z-index: 1000;
-    margin: 0.5% 0.5% 0.5% 0.5%;
+    max-height: 50%;
+    overflow-y: scroll;
 
-    button {
-      width: 5vw;
-      height: 5vw;
-      padding: 10px;
-      border-radius: 50%;
-      color: orange;
-      opacity: 0.9;
-      background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 1) 0%,
-        rgb(183, 206, 233) 70%
-      );
-      &:hover {
-        cursor: pointer;
-        background-color: orange;
-        color: radial-gradient(
+    .message {
+      width: 100%;
+      border-radius: 5px;
+      background-color: transparent;
+      text-align: center;
+      padding: 3px;
+      font-size: 1.2rem;
+      z-index: 1000;
+      margin: 0.5% 0.5% 0.5% 0.5%;
+
+      button {
+        width: 5vw;
+        height: 5vw;
+        padding: 10px;
+        border-radius: 50%;
+        color: orange;
+        opacity: 0.9;
+        background: radial-gradient(
           circle,
           rgba(255, 255, 255, 1) 0%,
           rgb(183, 206, 233) 70%
         );
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.chatBox {
-  display: none;
-  position: fixed;
-  bottom: 1vh;
-  right: 1vw;
-  min-height: 35%;
-  max-height: 35%;
-  width: 50%;
-  border: solid;
-  border-radius: 10px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgb(183, 206, 233) 70%
-  );
-  z-index: 1000;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 1.5rem;
-
-  .feed {
-    overflow-y: scroll;
-    margin-bottom: 2vh
-  }
-
-  .starterMessage {
-    margin-bottom: 2vh;
-    color: #ededed9e;
-    text-align: center;
-
-    p  {
-      font-size: 1rem;
-      color: black;
-      opacity: 0.8;
-    }
-
-  }
-
-  .chatInput {
-    @include flexRow;
-    justify-content: center;
-    width: 100%;
-
-    form {
-      display: flex;
-      width: 100%;
-      @include flexRow;
-
-      .inputBox {
-        display: flex;
-        width: 75%;
-        textarea {width: 100%;}
-      }
-
-      .sendButton {
-        display: flex;
-        width: 25%;
-        justify-content: center;
-        background-color: orange;
-        justify-content: space-around;
+        &:hover {
+          cursor: pointer;
+          background-color: orange;
+          color: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 1) 0%,
+            rgb(183, 206, 233) 70%
+          );
+          opacity: 1;
+        }
       }
     }
   }
 
-
-
-
-  .chatSend {
-    display: flex;
-    flex-grow: 2;
-    margin: 0.5%;
-    width: 50%;
+  .chatBox {
+    display: none;
+    position: fixed;
+    bottom: 1vh;
+    right: 1vw;
+    min-height: 35%;
+    max-height: 35%;
+    width: 40%;
+    border: solid;
+    border-radius: 10px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(183, 206, 233) 70%
+    );
+    z-index: 1000;
     padding: 10px;
-    background-color: orange;
-  }
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.5rem;
+
+    .feed {
+      overflow-y: scroll;
+      margin-bottom: 2vh
+    }
+
+    .starterMessage {
+      margin-bottom: 2vh;
+      color: #ededed9e;
+      text-align: center;
+
+      p  {
+        font-size: 1rem;
+        color: black;
+        opacity: 0.8;
+      }
+
+    }
+
+    .chatInput {
+      @include flexRow;
+      justify-content: center;
+      width: 100%;
+      max-height: 5vh;
+
+      form {
+        display: flex;
+        width: 100%;
+        @include flexRow;
+
+        .inputBox {
+          display: flex;
+          width: 100%;
+          margin: 1% 1% 1% 1%;
+          textarea {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-top: solid;
+            padding: 5px;
+            outline: none;
+          }
+        }
+
+        .sendButton {
+          display: flex;
+          width: 20%;
+          justify-content: center;
+          background-color: orange;
+          justify-content: space-around;
+        }
+      }
+    }
 
 
-  // .chatClose {
-  //   flex-grow: 2;
-  //   display: flex;
-  //   margin: 0.5%;
-  //   width: 50%;
-  //   padding: 10px;
-  //   background-color: orange
-  //   border: 2px solid black;
-  // }
 
-  .closeContainer {
-    display: flex;
-    justify-content: end;
-    width: 100%;
-  }
 
-  .fromTo {
-    @include flexRow;
-  }
+    .chatSend {
+      display: flex;
+      flex-grow: 2;
+      margin: 0.5%;
+      width: 50%;
+      padding: 10px;
+      background-color: orange;
+    }
 
-  .receiver {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
+    .closeContainer {
+      display: flex;
+      justify-content: end;
+      width: 100%;
+    }
 
-  .sender {
-    font-weight: bolder;
+    .fromTo {
+      @include flexRow;
+    }
+
+    .receiver {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .sender {
+      font-weight: bolder;
+    }
   }
 }
+
