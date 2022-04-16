@@ -82,7 +82,10 @@ router.get('/favorited', (req, res) => {
   }
 
   database.getFavorites(id)
-    .then((favorites) => res.send(favorites))
+    .then((favorites) => {
+      console.log(favorites);
+      res.send(favorites)
+    })
     .catch(e => {
       console.error(e);
       res.send(e);

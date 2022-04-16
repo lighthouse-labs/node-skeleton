@@ -1,6 +1,6 @@
-INSERT INTO users (name, email, password, country, city, province, admin) VALUES ('Jojo Leadbeatter', 'jleadbeatter2@bandcamp.com', 'UCHuhLhrTYy', 'Canada', 'Vancouver', 'BC', false),
+INSERT INTO users (name, email, password, country, city, province, admin) VALUES ('Ali Mohmed', 'jiji@ji.com', 'jikulon', 'Canada', 'Vancouver', 'BC', false),
 ('Tom Doretto', 'family@tooFast.com', 'family', 'Canada', 'Calgary', 'AB', true),
-('Guest', 'guest@cardb.com', 'easy', 'Canada', 'Burnaby', 'BC', false);
+('James Bly', 'jbly@cardb.com', 'easy', 'Canada', 'Burnaby', 'BC', true);
 
 
 INSERT INTO listings (user_id, price, year, make, model, transmission, color, descriptions, sold, imageURL) VALUES
@@ -81,18 +81,18 @@ INSERT INTO favorites (user_id, listing_id, favorited) VALUES
 
 
 INSERT INTO messages (buyer_id, listing_id, seller_id, messageReceived, created_at) VALUES
-(1, 46, 2, true, 19),
-(1, 14, 2, true, 29),
-(1, 11, 2, true, 23),
-(1, 26, 2, true, 15);
+(1, 46, 2, 19),
+(1, 14, 2, 29),
+(1, 11, 2, 23),
+(1, 26, 2, 15);
 
 
-INSERT INTO messageListing (sender_id, receiver_id, message_id, messageText, timeSent) VALUES
-(1, 2, 1, 'Hello, is this still available?', 20),
-(2, 1, 1, 'Yes, it is available!', 23),
-(1, 2, 2, 'Hello!', 30),
-(2, 1, 2, 'Hi! How can I help you?', 31),
-(1, 2, 3, 'is this still available?', 24),
-(2, 1, 3, 'yes', 26),
-(1, 2, 3, 'Hi, can I do a test drive?', 16),
-(2, 1, 3, 'Yes, when would you like to come in?', 18);
+INSERT INTO messageListing (sender_id, message_id, messageText, timeSent) VALUES
+(1, 1, 'Hello, is this still available?', 20),
+(2, 1, 'Yes, it is available!', 23),
+(1, 2, 'Hello!', 30),
+(2, 2, 'Hi! How can I help you?', 31),
+(1, 3, 'is this still available?', 24),
+(2, 3, 'yes', 26),
+(1, 3, 'Hi, can I do a test drive?', 16),
+(2, 3, 'Yes, when would you like to come in?', 18);

@@ -285,7 +285,7 @@ const getSoldListings = (id) => {
 
 const getFavorites = (userID) => {
   return db.query(`
-  SELECT name AS user_name,
+  SELECT name,
   favorites.user_id AS user_id,
   listings.id AS id,
   listings.user_id AS seller,

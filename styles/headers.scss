@@ -5,13 +5,15 @@ headers {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 5%;
+  margin-top: 5vh;
 
 
   .browse {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin-top: 5vh;
+    color: #7cbef8;
 
 
     #carSearch {
@@ -22,7 +24,7 @@ headers {
       width: 100%;
 
       .searchBarBox {
-        width: 60%;
+        width: 80%;
         @include flexRow;
         justify-content: center;
       }
@@ -85,7 +87,7 @@ headers {
 
       .filterOptions {
         display: none;
-        width: 65%;
+        width: 75%;
         flex-direction: row;
         align-items: center;
         justify-content: center;

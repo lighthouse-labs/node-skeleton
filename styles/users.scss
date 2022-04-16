@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 3%;
+  color: orange;
+  margin-top: 7%;
 
   .loginForm {
     display: none;
@@ -30,7 +31,7 @@
     justify-content: center;
     width: 50%;
     padding: 10px;
-    background-color: white;
+    background-color:rgba(251, 251, 251, 0.674);
     border: 3px solid black;
     border-radius: 5px;
 
@@ -56,6 +57,7 @@
         padding: 5px;
         border: solid;
         border-radius: 5px;
+        color: rgba(251, 251, 251, 0.674);
         background-color: #7cbef8;
         opacity: 0.8;
         &:hover {

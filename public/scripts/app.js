@@ -26,11 +26,11 @@ $(() => {
 
   // Nav Buttons disappear on page scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY < 100) {
-      $('.navBottom').fadeIn('slow');
+    if (window.scrollY < 120) {
+      $('.nav').fadeIn('slow');
       $('#arrow-up').fadeOut('slow');
     } else {
-      $('.navBottom').fadeOut('slow');
+      $('.nav').fadeOut('slow');
       $('#arrow-up').fadeIn('slow');
     }
   });

@@ -8,27 +8,30 @@ const createListingElement = listing => {
     </button>
     <div class="postBox">
       <div class="titlePrice">
-        <div class="postTitle"> ${listing.year} ${listing.make} ${listing.model}</div>
+        <div class="postTitle"> #${listing.id} ${listing.year} ${listing.make} ${listing.model}</div>
         <div class="postPrice">$${listing.price}</div>
       </div>
       <div class='messageButtonContainer'>
         <div class="postInfo">
           <div>
-            <b>Color:</b> ${listing.color}
+            <b><p style="color: ${listing.color}"> ${listing.color}</p></b>
           </div>
           <div>
-            <b>Transmission:</b> ${listing.transmission ? 'M/T' : 'A/T'}
-          </div>
-          <div>
-            ${listing.city}, ${listing.province} ${listing.country}
+            ${listing.transmission ?  '<b>M/T</b>' : '<b>A/T</b>'}
           </div>
         </div>
-        <button class='messageButton submitListingMessage message${listing.id}' data-id='${listing.id}' type='button'>
-        <i class="fa-solid fa-message"></i>
-        </button>
+        <div class="contact">
+          <button class='messageButton submitListingMessage message${listing.id}' data-id='${listing.id}' type='button'>
+          <i class="fa-solid fa-message"></i></button>
+          <div>
+          <b>${listing.name}</b>
+          </div>
+          <div>
+          <strong>${listing.city}, ${listing.province} ${listing.country}</strong>
+          </div>
+        </div>
       </div>
       <div class="description">
-
         <div class="postDesc">
           ${listing.descriptions}
         </div>
@@ -125,7 +128,7 @@ const renderListing = listings => {
 
     listItem.addEventListener('click', event => {
       event.preventDefault();
-      
+
       $.ajax({
         method: 'POST',
         url: `/listing/sold/${listingID}`,
@@ -224,6 +227,7 @@ $(() => {
       url: '/listing/favorited',
       data: $('.listings').serialize()
     }).then(listings => {
+      console.log("LISTINGS", listings);
       $('.listings').empty();
       renderListing(listings);
       $('.messageButton').css('color', 'black');
