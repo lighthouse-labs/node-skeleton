@@ -48,6 +48,13 @@
       align-items: center;
     }
 
+    .starRemoveButton {
+      display: none;
+      color: red;
+      align-items: center;
+      opacity: 1;
+    }
+
     .favoriteTrue {
       color: red;
     }

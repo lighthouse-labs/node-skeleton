@@ -12,6 +12,7 @@ const getAllListings = function (id, limit) {
   LEFT JOIN favorites ON favorites.listing_id = listings.id
   LEFT JOIN users ON users.id = listings.user_id
   WHERE sold IS FALSE
+  AND favorites.user_id IS NULL
   AND listings.user_id != $1
   GROUP BY listings.id, favorites.user_id,
   users.name, users.*, users.country,
@@ -28,12 +29,12 @@ const browseListings = function (filter, limit, id) {
   SELECT listings.*,
   name, city,
   country, province,
-  favorites.user_id as favorites
+  favorites.user_id
   FROM listings
-  LEFT JOIN users on users.id = listings.user_id
-  LEFT JOIN favorites on favorites.listing_id = listings.id
+  FULL JOIN favorites on favorites.listing_id = listings.id
+  FULL JOIN users on users.id = listings.user_id
   WHERE sold IS FALSE
-  `;
+  `
 
   if (filter.search) {
     queryParams.push(`%${filter.search}%`);
@@ -79,16 +80,18 @@ const browseListings = function (filter, limit, id) {
 
   if (filter.maxYear) {
     queryParams.push(filter.maxYear);
-    queryString += `AND year <= $${queryParams.length}`;
+    queryString += `AND year <= $${queryParams.length} `;
   }
 
   queryParams.push(id);
-  queryString += `AND listings.user_id != $${queryParams.length}`;
+  queryString += `AND listings.user_id != $${queryParams.length} `;
+  queryString += `AND (favorites.user_id != $${queryParams.length} OR favorites.user_id IS NULL)`;
+
 
   queryParams.push(limit);
   queryString += `
   GROUP BY listings.id, users.id, favorites.user_id
-  ORDER BY listings.id DESC
+  ORDER BY listings.id
   LIMIT $${queryParams.length};`;
 
 

@@ -6,6 +6,9 @@ const createListingElement = listing => {
     <button id="starButton${listing.id}" class='starButton submitListingStar star${listing.id}' data-id='${listing.id}' type="button">
       <i class="star fa-solid fa-star"></i>
     </button>
+    <button id="starRemoveButton${listing.id}" class='starRemoveButton submitRemoveListingStar starRemove${listing.id}' data-id='${listing.id}' type="button">
+      <i class="star fa-solid fa-star"></i>
+    </button>
     <div class="postBox">
       <div class="titlePrice">
         <div class="postTitle"> #${listing.id} ${listing.year} ${listing.make} ${listing.model}</div>
@@ -77,6 +80,7 @@ const renderListing = listings => {
   const listingSold = [...document.querySelectorAll('.submitListingSold')];
   const listingDelete = [...document.querySelectorAll('.submitListingDelete')];
   const listingFavorite = [...document.querySelectorAll('.submitListingStar')];
+  const listingRemoveFavorite = [...document.querySelectorAll('.submitRemoveListingStar')];
 
 
   // Creates click event listener for each injected delete button
@@ -107,11 +111,27 @@ const renderListing = listings => {
       $.ajax({
         url: `/listing/favoritesTrue/${listingID}`,
         method: 'POST',
-      }).then(function() {
+      }).then(() => {
         $(`#starButton${listingID}`).hide();
+        $(`#starRemoveButton${listingID}`).css('display', 'contents');
       }).catch(e => console.error(e));
     });
   });
+
+  listingRemoveFavorite.forEach(listItem => {
+    const listingID = listItem.dataset.id;
+    listItem.addEventListener('click', event => {
+      event.preventDefault();
+
+      $.ajax({
+        url: `/listing/favoritesFalse/${listingID}`,
+        method: 'POST'
+      }).then((listings) => {
+        $(`#starRemoveButton${listingID}`).hide();
+        $(`#starButton${listingID}`).show()
+      }).catch(err => console.error(err));
+    })
+  })
 
 
   // Creates click event listener for each injected sold button
@@ -227,6 +247,7 @@ $(() => {
       $('.listingDelete').css('display', 'none');
       $('.listingSold').css('display', 'none');
       $('.starButton').hide();
+      $('.starRemoveButton').css('display', 'contents');
     });
   });
 

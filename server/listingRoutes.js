@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const router = express.Router();
 const database = require('./helper/database');
@@ -26,7 +27,8 @@ router.get('/browse', (req, res) => {
     id = req.cookies.user_id;
   }
   const data = req.query;
-  const filter = {
+
+  let filter = {
     search: data.search.toLowerCase(),
     carMake: data.carMake,
     transmission: data.transmission,
@@ -96,7 +98,7 @@ router.post('/favoritesTrue/:listID', (req, res) => {
   const listID = req.params.listID;
 
   database.postFavoritesTrue(id, listID)
-    .then(() => res.redirect('/listing'))
+    .then((data) => res.send(data))
     .catch(e => console.error(e));
 });
 
@@ -107,7 +109,7 @@ router.post('/favoritesFalse/:listID', (req, res) => {
   const listID = req.params.listID;
 
   database.deleteFromTable(id, listID)
-    .then(() => res.redirect('/favorited'))
+    .then(() => res.redirect('/listing/favorited'))
     .catch(e => console.error(e));
 });
 
