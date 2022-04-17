@@ -12,7 +12,7 @@
     justify-content: center;
     background-color: transparent;
     z-index: 1000;
-    max-height: 50%;
+    max-height: 80%;
     overflow-y: scroll;
 
     .message {
@@ -70,7 +70,7 @@
     padding: 10px;
     flex-direction: column;
     justify-content: space-between;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 
     .feed {
       overflow-y: scroll;
@@ -105,12 +105,13 @@
           display: flex;
           width: 100%;
           margin: 1% 1% 1% 1%;
+          border-bottom: solid;
           textarea {
             width: 100%;
+            margin-bottom: 1vh;
             background-color: transparent;
             border: none;
-            border-top: solid;
-            padding: 5px;
+            padding: 10px;
             outline: none;
           }
         }

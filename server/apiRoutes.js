@@ -1,4 +1,3 @@
-const { json } = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const database = require('./helper/database');
@@ -7,7 +6,7 @@ const { checkInbox } = require('./helper/helper');
 
 
 router.get('/inbox', (req, res) => {
-  let id = 3;
+  let id = 1;
   if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
@@ -20,7 +19,7 @@ router.get('/inbox', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  let id = 3;
+  let id = 1;
   if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
@@ -43,6 +42,7 @@ router.post('/messages/new/:id', (req, res) => {
   let id = req.cookies.user_id;
   if (!req.cookies.user_id) {
     res.sendStatus(403);
+    return;
   }
   const params = {
     listing_id: req.params.id,
@@ -54,7 +54,7 @@ router.post('/messages/new/:id', (req, res) => {
     .then((inbox) => {
       if (!checkInbox(inbox, req.params.id)) {
         database.createMessage(params)
-          .then((newMessage) => res.send(newMessage))
+          .then((newMessage) => res.redirect('/api/messages'))
           .catch((e) => {
             console.error(e);
             res.send(e);

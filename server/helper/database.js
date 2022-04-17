@@ -5,17 +5,17 @@ db.connect();
 
 const getAllListings = function (id, limit) {
   return db.query(`
-  SELECT listings.id AS id,
-  listings.user_id AS seller,
-  price, year, make, model,
-  transmission, color, descriptions,
-  sold, imageURL, favorited
-  FROM users
-  JOIN favorites ON user_id=users.id
-  RIGHT JOIN listings ON listing_id=listings.id
-  WHERE sold IS false
+  SELECT listings.*, favorites.user_id,
+  users.name, users.city, users.country,
+  users.province
+  FROM listings
+  LEFT JOIN favorites ON favorites.listing_id = listings.id
+  LEFT JOIN users ON users.id = listings.user_id
+  WHERE sold IS FALSE
   AND listings.user_id != $1
-  GROUP BY listings.id, favorites.favorited, favorites.user_id
+  GROUP BY listings.id, favorites.user_id,
+  users.name, users.*, users.country,
+  users.city, users.province
   ORDER BY id
   LIMIT $2;`, [id, limit])
     .then((result) => result.rows)
@@ -25,14 +25,13 @@ const getAllListings = function (id, limit) {
 const browseListings = function (filter, limit, id) {
   const queryParams = [];
   let queryString = `
-  SELECT listings.id AS id,
-  listings.user_id AS user_id,
-  price, year, make, model, transmission,
-  color, descriptions, sold, imageURL,
-  name, admin, city,
-  country, province
+  SELECT listings.*,
+  name, city,
+  country, province,
+  favorites.user_id as favorites
   FROM listings
-  JOIN users on users.id = listings.user_id
+  LEFT JOIN users on users.id = listings.user_id
+  LEFT JOIN favorites on favorites.listing_id = listings.id
   WHERE sold IS FALSE
   `;
 
@@ -52,7 +51,7 @@ const browseListings = function (filter, limit, id) {
     if (filter.carMake.length > 1) {
       for (const make of filter.carMake.slice(1)) {
         queryParams.push(make);
-        queryString += `OR make = $${queryParams.length} `;
+        queryString += `OR make = $${queryParams.length}`;
       }
     }
     queryString += `) `;
@@ -80,32 +79,32 @@ const browseListings = function (filter, limit, id) {
 
   if (filter.maxYear) {
     queryParams.push(filter.maxYear);
-    queryString += `AND year <= $${queryParams.length} `;
+    queryString += `AND year <= $${queryParams.length}`;
   }
 
   queryParams.push(id);
-  queryString += `
-  AND listings.user_id != $${queryParams.length} `;
+  queryString += `AND listings.user_id != $${queryParams.length}`;
 
   queryParams.push(limit);
   queryString += `
-  GROUP BY listings.id, users.id
+  GROUP BY listings.id, users.id, favorites.user_id
   ORDER BY listings.id DESC
-  LIMIT $${queryParams.length};
-  `;
+  LIMIT $${queryParams.length};`;
+
+
 
   return db.query(queryString, queryParams)
-    .then((result) => result.rows)
-    .catch((err) => console.log(err.message));
-};
-
+    .then((result) => {
+      return result.rows;
+    }).catch((err) => console.log(err.message));
+}
 const getInboxBuyer = (id) => {
   return db.query(`
   SELECT messages.id, listing_id, users.name, created_at
   FROM messages
   JOIN listings ON listings.id = listing_id
   JOIN users ON users.id = listings.user_id
-  WHERE messages.buyer_id = $1 OR listings.user_id = $1
+  WHERE messages.user_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
     .then((result) => result.rows)
@@ -117,8 +116,8 @@ const getInboxSeller = (id) => {
   SELECT messages.id, listing_id, users.name, created_at
   FROM messages
   JOIN listings ON listings.id = listing_id
-  JOIN users ON users.id = messages.buyer_id
-  WHERE messages.buyer_id = $1 OR listings.user_id = $1
+  JOIN users ON users.id = messages.user_id
+  WHERE messages.user_id = $1 OR listings.user_id = $1
   ORDER BY created_at;
   `, [id])
     .then((result) => result.rows)
@@ -220,7 +219,7 @@ const createMessage = (request) => {
   const queryString = `
   INSERT INTO messages (
     listing_id,
-    buyer_id,
+    user_id,
     created_at
   ) VALUES ($1, $2, $3) RETURNING *;`;
 
@@ -253,7 +252,8 @@ const sendMessage = (message) => {
 
 const getMyListings = (id) => {
   return db.query(`
-  SELECT listings.*, users.city,
+  SELECT listings.*,
+  users.city,
   users.country,
   users.province,
   users.name
@@ -285,24 +285,34 @@ const getSoldListings = (id) => {
 
 const getFavorites = (userID) => {
   return db.query(`
-  SELECT name,
-  favorites.user_id AS user_id,
-  listings.id AS id,
-  listings.user_id AS seller,
-  price, year, make, model,
-  transmission, color, descriptions,
-  sold, imageURL, favorited,
+  SELECT listings.*,
+  favorites.user_id,
+  users.name,
   users.city,
   users.country,
   users.province
-  FROM users
-  JOIN listings ON users.id=listings.user_id
-  JOIN favorites ON listing_id=listings.id
+  FROM listings
+  JOIN users ON users.id = listings.user_id
+  JOIN favorites ON listings.id = favorites.listing_id
   WHERE favorites.user_id = $1
-  AND sold = FALSE
-  GROUP BY name, listings.id, favorites.favorited, favorites.user_id,
+  GROUP BY name, listings.id, favorites.user_id,
   users.city, users.country, users.province
   ORDER BY id;`, [userID])
+    .then((result) => result.rows)
+    .catch((err) => console.error(err));
+};
+
+
+
+
+// FAVORITES FIXES  V 1.01
+
+const checkFavoriteState = (id, listID) => {
+  return db.query(`
+  SELECT * FROM favorites
+  WHERE favorites.user_id = $1
+  AND favorites.user_id = $2
+  `, [id, listID])
     .then((result) => result.rows)
     .catch((err) => console.error(err));
 };
@@ -317,19 +327,10 @@ const deleteFromTable = (id, listID) => {
 };
 
 const postFavoritesTrue = (id, listID) => {
-  deleteFromTable(id, listID);
-  return db.query(`
-  INSERT INTO favorites (user_id, listing_id, favorited)
-  VALUES ($1, $2, TRUE)`, [id, listID])
-    .then((result) => (result.rows))
-    .catch((err) => console.error(err));
-};
 
-const postFavoritesFalse = (id, listID) => {
-  deleteFromTable(id, listID);
   return db.query(`
-  INSERT INTO favorites (user_id, listing_id, favorited)
-  VALUES ($1, $2, FALSE)`, [id, listID])
+  INSERT INTO favorites (user_id, listing_id)
+  VALUES ($1, $2)`, [id, listID])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
@@ -379,5 +380,6 @@ module.exports = {
   getFavorites,
   createMessage,
   postFavoritesTrue,
-  postFavoritesFalse
+  deleteFromTable,
+  checkFavoriteState
 };

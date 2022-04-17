@@ -60,7 +60,7 @@
 
     .postBox {
       @include flexColumn;
-      background-color: #f7b0b02e;
+      background-color: rgba(251, 251, 251, 0.674);
       justify-content: space-between;
       width: 100%;
       padding: 2px;
@@ -88,7 +88,7 @@
 
     .messageButtonContainer {
       @include flexRow;
-      background-color: #f7b0b02e;
+      background-color: rgba(251, 251, 251, 0.674);
       padding: 10px;
       border-top: solid;
       border-bottom: solid;
@@ -113,8 +113,8 @@
         display: flex;
         border: solid;
         border-radius: 50%;
-        width: 7vw;
-        height: 7vw;
+        width: 4vw;
+        height: 4vw;
         max-width: 8vw;
         max-height: 8vw;
         margin-bottom: 2vh;

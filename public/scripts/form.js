@@ -93,7 +93,12 @@ $(() => {
 
   loadYears();
 
-  $('#createList').on('submit', () => {
+
+  $('#createList').on('submit', (event) => {
+    const data = $('#createList').serialize();
+    event.preventDefault();
+    $('.newForm').slideUp('slow');
+    $('.filterOptions').slideUp('slow');
 
     if (!$('#imageURL').val().trim() ||
     !$('#price').val().trim() ||
@@ -106,11 +111,15 @@ $(() => {
       }, 2000);
       return;
     }
-
     $.ajax({
       url: '/listing',
-      method: 'POST'
-    }).done(() => {
+      method: 'POST',
+      data: data
+    }).done((listings) => {
+      $('.listings').empty();
+      renderListing(listings);
+      $('.messageButton').css('display', 'none');
+      $('.listingSold').css('display', 'flex');
       $('#createList').reset();
     });
   });

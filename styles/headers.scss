@@ -14,7 +14,7 @@
       width: 100%;
       justify-content: center;
       margin-top: 5vh;
-      color: #7cbef8;
+      color: black;
 
 
       #carSearch {
@@ -121,22 +121,35 @@
               }
 
               span {
-                background-color: rgba(30, 198, 30, 0.863);
-                border: solid;
-
+                background-color: #7cbef8;
+                border: solid rgba(251, 251, 251, 0.674);
+                outline: none;
+                border-radius: 50%;
+                &:hover {
+                  cursor: pointer;
+                  transform: scale(1.1);
+                  outline: solid rgba(251, 251, 251, 0.674);
+                }
               }
             }
 
             #priceSlider {
-              background-color: rgba(244, 9, 9, 0.562);
+              background-color: rgba(251, 251, 251, 0.674);
+              &:hover {
+                cursor: pointer;
+              }
             }
 
             #yearSlider {
-              background-color: rgba(244, 9, 9, 0.562);
+              background-color: rgba(251, 251, 251, 0.674);
+              &:hover {
+                cursor: pointer;
+              }
             }
 
             .ui-slider-range {
-              background-color: rgba(30, 198, 30, 0.863);
+              background-color: #7cbef8;
+              opacity:1;
             }
 
             .sliderInput {
