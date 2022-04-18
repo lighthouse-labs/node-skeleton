@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Creates listings based on database info
 const createListingElement = listing => {
   let $listing = `
@@ -130,8 +131,8 @@ const renderListing = listings => {
       }).then((listings) => {
         $(`#listing${listingID}`).hide();
       }).catch(err => console.error(err));
-    })
-  })
+    });
+  });
 
 
   // Creates click event listener for each injected sold button
@@ -179,15 +180,16 @@ const renderListing = listings => {
 };
 
 // function that loads listings to the front page (REMOVED FOR CLEANER FRONT UI)
-const loadListings = () => {
-  $.ajax({
-    method: 'GET',
-    url: '/listing'
-  }).then(data => {
-    $('.listingDelete').css('display', 'none');
-    renderListing(data);
-  });
-};
+
+// const loadListings = () => {
+//   $.ajax({
+//     method: 'GET',
+//     url: '/listing'
+//   }).then(data => {
+//     $('.listingDelete').css('display', 'none');
+//     renderListing(data);
+//   });
+// };
 
 $(() => {
   // loadListings(); (keeping in case we decide to have listings on load)

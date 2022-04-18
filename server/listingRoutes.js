@@ -6,7 +6,7 @@ const database = require('./helper/database');
 
 router.get('', (req, res) => {
   let id = 1;
-  if ( req.cookies.user_id) {
+  if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
 
@@ -23,7 +23,7 @@ router.get('', (req, res) => {
 
 router.get('/browse', (req, res) => {
   let id = 1;
-  if ( req.cookies.user_id) {
+  if (req.cookies.user_id) {
     id = req.cookies.user_id;
   }
   const data = req.query;
@@ -35,12 +35,12 @@ router.get('/browse', (req, res) => {
     minPrice: data.minPrice ? data.minPrice.slice(1) : '',
     maxPrice: data.maxPrice ? data.maxPrice.slice(1) : '',
     minYear: data ? data.minYear : '',
-    maxYear: data ? data.maxYear: ''
+    maxYear: data ? data.maxYear : ''
   };
 
   database.browseListings(filter, 50, id)
     .then((listings) => {
-      res.send(listings)
+      res.send(listings);
     })
     .catch(e => {
       console.error(e);
@@ -78,7 +78,7 @@ router.get('/favorited', (req, res) => {
 
   database.getFavorites(id)
     .then((favorites) => {
-      res.send(favorites)
+      res.send(favorites);
     })
     .catch(e => {
       console.error(e);
@@ -98,7 +98,7 @@ router.post('/favoritesTrue/:listID', (req, res) => {
   const listID = req.params.listID;
 
   database.postFavoritesTrue(id, listID)
-    .then((data) => res.redirect('/listing/browse'))
+    .then(() => res.redirect('/listing/browse'))
     .catch(e => console.error(e));
 });
 
@@ -155,7 +155,7 @@ router.post('', (req, res) => {
   let id = req.cookies.user_id;
 
   database.createListing(id, req.body)
-    .then((listing) => {
+    .then(() => {
       console.log(req.body, "\nListing Added to Database");
       console.log('New Listing Created!');
       res.redirect('listing/mylisting');

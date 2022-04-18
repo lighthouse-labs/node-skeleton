@@ -38,8 +38,7 @@ const browseListings = function (filter, limit, id) {
   WHERE sold IS FALSE
   AND listings.user_id != $${queryParams.length}
   AND (favorites.favorite IS FALSE OR favorites.favorite IS NULL)
-
-  `
+  `;
 
   if (filter.search) {
     queryParams.push(`%${filter.search}%`);
@@ -101,7 +100,7 @@ const browseListings = function (filter, limit, id) {
     .then((result) => {
       return result.rows;
     }).catch((err) => console.log(err.message));
-}
+};
 const getInboxBuyer = (id) => {
   return db.query(`
   SELECT messages.id, listing_id, users.name, created_at
@@ -229,7 +228,7 @@ const createMessage = (request) => {
 
   return db.query(queryString, queryParams)
     .then((result) => {
-      result.rows
+      result.rows;
     })
     .catch((err) => console.log(err.message));
 };
