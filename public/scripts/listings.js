@@ -112,8 +112,9 @@ const renderListing = listings => {
         url: `/listing/favoritesTrue/${listingID}`,
         method: 'POST',
       }).then(() => {
-        $(`#starButton${listingID}`).hide();
-        $(`#starRemoveButton${listingID}`).css('display', 'contents');
+        $(`#listing${listingID}`).hide();
+        // $(`#starButton${listingID}`).hide();
+        // $(`#starRemoveButton${listingID}`).css('display', 'contents');
       }).catch(e => console.error(e));
     });
   });
@@ -127,8 +128,7 @@ const renderListing = listings => {
         url: `/listing/favoritesFalse/${listingID}`,
         method: 'POST'
       }).then((listings) => {
-        $(`#starRemoveButton${listingID}`).hide();
-        $(`#starButton${listingID}`).show()
+        $(`#listing${listingID}`).hide();
       }).catch(err => console.error(err));
     })
   })

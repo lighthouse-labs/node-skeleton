@@ -29,13 +29,13 @@ router.get('/browse', (req, res) => {
   const data = req.query;
 
   let filter = {
-    search: data.search.toLowerCase(),
-    carMake: data.carMake,
-    transmission: data.transmission,
-    minPrice: data.minPrice.slice(1),
-    maxPrice: data.maxPrice.slice(1),
-    minYear: data.minYear,
-    maxYear: data.maxYear
+    search: data.search ? data.search.toLowerCase() : '',
+    carMake: data ? data.carMake : '',
+    transmission: data ? data.transmission : '',
+    minPrice: data.minPrice ? data.minPrice.slice(1) : '',
+    maxPrice: data.maxPrice ? data.maxPrice.slice(1) : '',
+    minYear: data ? data.minYear : '',
+    maxYear: data ? data.maxYear: ''
   };
 
   database.browseListings(filter, 50, id)
@@ -98,7 +98,7 @@ router.post('/favoritesTrue/:listID', (req, res) => {
   const listID = req.params.listID;
 
   database.postFavoritesTrue(id, listID)
-    .then((data) => res.send(data))
+    .then((data) => res.redirect('/listing/browse'))
     .catch(e => console.error(e));
 });
 
@@ -108,7 +108,7 @@ router.post('/favoritesFalse/:listID', (req, res) => {
 
   const listID = req.params.listID;
 
-  database.deleteFromTable(id, listID)
+  database.postFavoritesFalse(id, listID)
     .then(() => res.redirect('/listing/favorited'))
     .catch(e => console.error(e));
 });

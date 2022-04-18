@@ -18,23 +18,19 @@
 
     .star {
       position: absolute;
-      background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 1) 0%,
-        rgb(183, 206, 233) 70%
-      );
-      border: solid;
-      border-color: rgb(208, 218, 230);
+      background-color: transparent;
+      border: none;
+      outline: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0px 0px 1px 0.5px rgb(208, 218, 230);
       border-radius: 50%;
-      opacity: 0.5;
       height: 3vw;
+      opacity: 0.5;
       width: 3vw;
       right: 28vw;
       top: 1vh;
+      font-size: 1.35rem;
 
       &:hover {
         transition: all .2s ease-in;
@@ -46,6 +42,7 @@
     .starButton {
       display: contents;
       align-items: center;
+      opacity: 0.5;
     }
 
     .starRemoveButton {

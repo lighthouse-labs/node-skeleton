@@ -5,16 +5,17 @@ db.connect();
 
 const getAllListings = function (id, limit) {
   return db.query(`
-  SELECT listings.*, favorites.user_id,
-  users.name, users.city, users.country,
-  users.province
-  FROM listings
-  LEFT JOIN favorites ON favorites.listing_id = listings.id
-  LEFT JOIN users ON users.id = listings.user_id
+  SELECT listings.*,
+  users.name, users.country, users.city, users.province, favorites.favorite
+  FROM users
+  RIGHT JOIN listings on listings.user_id = users.id
+  LEFT JOIN (SELECT * FROM favorites
+  WHERE favorites.user_id = $1) as favorites
+  ON favorites.listing_id = listings.id;
   WHERE sold IS FALSE
-  AND favorites.user_id IS NULL
+  AND (favorites.favorite IS NULL OR favorites.favorite IS FALSE)
   AND listings.user_id != $1
-  GROUP BY listings.id, favorites.user_id,
+  GROUP BY listings.id, favorites.user_id, favorites.favorite,
   users.name, users.*, users.country,
   users.city, users.province
   ORDER BY id
@@ -25,15 +26,19 @@ const getAllListings = function (id, limit) {
 
 const browseListings = function (filter, limit, id) {
   const queryParams = [];
+  queryParams.push(id);
   let queryString = `
   SELECT listings.*,
-  name, city,
-  country, province,
-  favorites.user_id
-  FROM listings
-  FULL JOIN favorites on favorites.listing_id = listings.id
-  FULL JOIN users on users.id = listings.user_id
+  users.name, users.country, users.city, users.province, favorites.favorite
+  FROM users
+  RIGHT JOIN listings on listings.user_id = users.id
+  LEFT JOIN (SELECT * FROM favorites
+  WHERE favorites.user_id = $${queryParams.length}) as favorites
+  ON favorites.listing_id = listings.id
   WHERE sold IS FALSE
+  AND listings.user_id != $${queryParams.length}
+  AND (favorites.favorite IS FALSE OR favorites.favorite IS NULL)
+
   `
 
   if (filter.search) {
@@ -83,14 +88,10 @@ const browseListings = function (filter, limit, id) {
     queryString += `AND year <= $${queryParams.length} `;
   }
 
-  queryParams.push(id);
-  queryString += `AND listings.user_id != $${queryParams.length} `;
-  queryString += `AND (favorites.user_id != $${queryParams.length} OR favorites.user_id IS NULL)`;
-
 
   queryParams.push(limit);
   queryString += `
-  GROUP BY listings.id, users.id, favorites.user_id
+  GROUP BY listings.id, users.id, favorites.user_id, favorites.favorite
   ORDER BY listings.id
   LIMIT $${queryParams.length};`;
 
@@ -289,16 +290,19 @@ const getSoldListings = (id) => {
 const getFavorites = (userID) => {
   return db.query(`
   SELECT listings.*,
-  favorites.user_id,
+  favorites.favorite,
   users.name,
   users.city,
   users.country,
   users.province
-  FROM listings
-  JOIN users ON users.id = listings.user_id
-  JOIN favorites ON listings.id = favorites.listing_id
+  FROM users
+  RIGHT JOIN listings ON listings.user_id = users.id
+  LEFT JOIN (SELECT * FROM favorites
+  WHERE favorites.user_id = $1) AS favorites
+  ON favorites.listing_id = listings.id
   WHERE favorites.user_id = $1
-  GROUP BY name, listings.id, favorites.user_id,
+  AND favorites.favorite IS TRUE
+  GROUP BY name, listings.id, favorites.user_id, favorites.favorite,
   users.city, users.country, users.province
   ORDER BY id;`, [userID])
     .then((result) => result.rows)
@@ -334,6 +338,18 @@ const postFavoritesTrue = (id, listID) => {
   return db.query(`
   INSERT INTO favorites (user_id, listing_id)
   VALUES ($1, $2)`, [id, listID])
+    .then((result) => (result.rows))
+    .catch((err) => console.error(err));
+};
+
+const postFavoritesFalse = (id, listID) => {
+
+  return db.query(`
+  UPDATE favorites
+  SET favorite = FALSE
+  WHERE user_id = $1
+  AND listing_id = $2
+  ;`, [id, listID])
     .then((result) => (result.rows))
     .catch((err) => console.error(err));
 };
@@ -383,6 +399,7 @@ module.exports = {
   getFavorites,
   createMessage,
   postFavoritesTrue,
+  postFavoritesFalse,
   deleteFromTable,
   checkFavoriteState
 };
