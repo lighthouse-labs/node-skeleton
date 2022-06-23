@@ -34,7 +34,7 @@ CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  created_at INTEGER NOT NULL
+  created_at INTEGER NOT NULL,
   recipient_id INTERGER REFERENCES users(id) ON DELETE CASCADE,
   message_text TEXT
 );
