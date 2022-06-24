@@ -9,17 +9,20 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+  router.get("/all-wines", function(req, res) {
+    res.render('all-wines');
   });
+  router.get("/red-wines", function(req, res) {
+    res.render('red-wines');
+  });
+  router.get("/white-wines", function(req, res) {
+    res.render('white-wines');
+  });
+  router.get("/login", function(req, res) {
+    res.render('login');
+  });
+  router.get("/contact-page", function(req, res) {
+    res.render('contact')
+  })
   return router;
 };
