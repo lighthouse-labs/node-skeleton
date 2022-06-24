@@ -4,10 +4,42 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact</title>
+
+  <!-- <link rel="stylesheet" href="../styles/<create a new scss file for this>" type="text/css" /> -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+
+  <!-- SASS reference
+  <link rel="stylesheet" href="/styles/layout.scss">
+  -->
+
+  <title>Backyard Wines</title>
+
+
 </head>
 <body>
-  <h1>Contact the winery</h1>
-  <p>Some text for now</p>
+  <!-- <%- include('partials/_header') %> placeholder for partials -->
+
+<h1 class=".title-contact">Send a message</h5>
+
+  <div>
+    <img src="business-profile-picture" alt="">
+
+    <section class="contact-seller::id"> <!-- placeholder variable for business name id-->
+      <form>
+        <p class="contact-seller_new-message"></p>
+        <label for="contact-seller_email-message">Send a message to ABC Wines</label>
+        <textarea name="text" class="contact-seller_message-area" placeholder="Write your message here"></textarea>
+        <div class="contact-seller_button">
+          <button type="submit" class="contact-seller_send-btn">Send</button>
+          <output name="counter" class="counter" for="contact-seller-text">300</output>
+        </div>
+      </form>
+    </section>
+  </div>
+
 </body>
 </html>
