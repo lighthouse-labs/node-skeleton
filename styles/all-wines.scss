@@ -9,12 +9,14 @@ body {
   }
   .wine-listing {
     position: relative;
+    display: flex;
     background-color: white;
     height: 225px;
-    width: 95%;
-    left: 2.5%;
+    left: 12.5%;
+    width: 1400px;
     border-radius: 25px;
     border: #580C1F solid 2px;
+    justify-self: center;
     .price {
       position: absolute;
       display: flex;
@@ -25,81 +27,84 @@ body {
       justify-content: center;
       align-items: center;
       border-radius: 25px;
-      left: 20%;
-      top: 5px;
+      left: 15%;
+      bottom: 5%;
     }
     .year {
       position: absolute;
       display: flex;
-      height: 45px;
-      width: 181px;
-      background-color: #A7333F;
-      color: white;
       justify-content: center;
       align-items: center;
       border-radius: 25px;
-      left: 20%;
-      top: 60px;
+      left: 31%;
+      top: 165px;
     }
     .label {
       position: absolute;
       display: flex;
-      height: 45px;
-      width: 181px;
-      background-color: #A7333F;
-      color: white;
       justify-content: center;
       align-items: center;
       border-radius: 25px;
-      left: 20%;
-      top: 115px;
+      left: 31%;
+      top: 185px;
     }
     .award {
       position: absolute;
       display: flex;
-      height: 45px;
-      width: 181px;
-      background-color: #A7333F;
-      color: white;
       justify-content: center;
       align-items: center;
       border-radius: 25px;
-      left: 20%;
-      top: 170px;
+      left: 31%;
+      top: 205px;
     }
     .desc {
       position: absolute;
       display: flex;
       height: 29px;
-      width: 208px;
-      font-size: 35px;
-      color: #A7333F;
-      text-decoration: underline;
+      width: 300px;
+      font-size: 25px;
       left: 31%;
       top: 5px;
     }
     i {
       position: absolute;
       display: flex;
-      right: 11%;
+      right: 3%;
       top: 5px;
       font-size: 35px;
       color:#A7333F;
     }
-    .favourite {
-      position: absolute;
-      font-size: 25px;
-      right: 3%;
-      top: 10px;
-      color:#A7333F;
-    }
     .actual-desc {
       position: absolute;
-      width: 1250px;
+      width: 750px;
       height: 180px;
-      font-size: 25px;
+      font-size: 20px;
       left: 31%;
-      top: 75px;
+      top: 40px;
+    }
+    .contact {
+      position: absolute;
+      right: 3%;
+      display: flex;
+      height: 45px;
+      width: 181px;
+      background-color: #A7333F;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      bottom: 10px;
+    }
+    .image {
+      height: 150px;
+      position: absolute;
+      left: 7%;
+      top: 35px;
+    }
+    .logo {
+      height: 150px;
+      position: absolute;
+      left: 205px;
     }
   }
 }
