@@ -1,4 +1,4 @@
-body {
+.main {
   background-color: #E8E9F3;
   h1 {
     color: #580C1F;
@@ -37,7 +37,7 @@ body {
       align-items: center;
       border-radius: 25px;
       left: 31%;
-      top: 165px;
+      top: 160px;
     }
     .label {
       position: absolute;
@@ -46,7 +46,7 @@ body {
       align-items: center;
       border-radius: 25px;
       left: 31%;
-      top: 185px;
+      top: 180px;
     }
     .award {
       position: absolute;
@@ -55,7 +55,7 @@ body {
       align-items: center;
       border-radius: 25px;
       left: 31%;
-      top: 205px;
+      top: 200px;
     }
     .desc {
       position: absolute;
@@ -78,7 +78,7 @@ body {
       position: absolute;
       width: 750px;
       height: 180px;
-      font-size: 20px;
+      font-size: 17px;
       left: 31%;
       top: 40px;
     }

@@ -6,8 +6,8 @@
   justify-content: space-between;
   align-items: flex-end;
   font-family: sans-serif;
-  padding: 1rem;
   flex-grow: 0;
+  background-color: white;
   font-size: 1.2rem;
   position: static;
   top: 0;
@@ -34,6 +34,11 @@
       border-bottom: solid #74121d;
       cursor:pointer;
     }
+  }
+
+  .button {
+    background-color: white;
+    border: none;
   }
 
   &__user {
