@@ -1,6 +1,5 @@
 body {
   background-color: #E8E9F3;
-  padding-bottom: 15px;
   h1 {
     color: #580C1F;
     display: flex;
@@ -14,6 +13,7 @@ body {
     height: 225px;
     left: 12.5%;
     width: 1400px;
+    margin-bottom: 25px;
     border-radius: 25px;
     border: #580C1F solid 2px;
     justify-self: center;
@@ -94,6 +94,7 @@ body {
       align-items: center;
       border-radius: 25px;
       bottom: 10px;
+      border: none;
     }
     .image {
       height: 150px;

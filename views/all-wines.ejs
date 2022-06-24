@@ -3,12 +3,17 @@
 <head>
   <script src="https://kit.fontawesome.com/f6eb3ac13e.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../styles/all-wines.css" type="text/css" />
+  <link rel="stylesheet" href="../styles/navbar.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Wines Page</title>
 </head>
 <body>
+<header>
+  <%- include('partials/_navbar') %>
+</header>
 <h1>All our excellent wines</h1>
 <div class="wine-listing">
   <img src="https://greatnorthwestwine.com/wp-content/uploads/2019/08/la-frenz-winery-logo.jpg" class="logo">
@@ -19,8 +24,13 @@
   <span class="award">NWAC21 Platinum</span>
   <span class="desc">Name of the wine</span>
   <i class="fa-solid fa-heart"></i>
-  <span class="contact">Contact</span>
+  <form method="GET" action="/contact-page">
+    <button type="submit" class="contact">Contact</button>
+  </form>
   <article class="actual-desc">estibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.</article>
 </div>
+<footer>
+  <%- include('partials/_footer') %>
+</footer>
 </body>
 </html>
