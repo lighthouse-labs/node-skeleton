@@ -20,7 +20,8 @@ CREATE TABLE wine_listings (
   wine_type VARCHAR(255) NOT NULL,
   description TEXT,
   sold_out BOOLEAN NOT NULL DEFAULT FALSE,
-  image_url VARCHAR(255) NOT NULL
+  image_url VARCHAR(255) NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT true
 );
 
 CREATE TABLE favorites (
