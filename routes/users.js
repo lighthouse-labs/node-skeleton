@@ -24,6 +24,9 @@ module.exports = (db) => {
   router.get("/contact-page", function(req, res) {
     res.render('contact');
   });
+  router.get("/favourites", function(req, res) {
+    res.render('favorites');
+  });
 
 
 
