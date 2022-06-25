@@ -22,7 +22,15 @@ module.exports = (db) => {
     res.render('login');
   });
   router.get("/contact-page", function(req, res) {
-    res.render('contact')
-  })
+    res.render('contact');
+  });
+
+
+
+
+  // favorites page favorite button:
+  router.get("/favorites_status", function(req, res) {
+    res.render('/favorites_status/userid/listing');
+  });
   return router;
 };
