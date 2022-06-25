@@ -1,0 +1,35 @@
+<nav class="nav-bar" >
+  <div class="nav-bar__logo">
+    <form method="GET" action="/">
+      <button type="submit" class="button">
+        <img src="/images/Logo.png" alt="" />
+      </button>
+    </form>
+  </div>
+
+  <div class="nav-bar__selection">
+    <form method="get" action="/all-wines">
+      <button type="submit" id="viewAllWines" class="items button">View all wines</button>
+    </form>
+    <form method="GET" action="/red-wines">
+      <button type="submit" id="reds" class="items button">Reds</button>
+    </form>
+    <form method="GET" action="/white-wines">
+      <button type="submit" id="whites" class="items button">Whites</button>
+    </form>
+  </div>
+
+  <div class="nav-bar__user">
+    <form method="GET" action="/login">
+      <button type="submit" class="login button" > Login</button>
+    </form>
+      <!-- /
+    <a href="#" class="join">Join</a> -->
+  </div>
+
+  <div class="nav-bar__buttons">
+    <img class="search-btn" src="/images/search-bar.svg" alt="" />
+    <img class="search-btn" src="/images/heart-icon.svg" alt="" />
+    <img class="search-btn" src="/images/user-profile.svg" alt="" />
+  </div>
+</nav>

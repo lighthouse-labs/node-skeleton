@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- SASS reference  -->
+  <link rel="stylesheet" href="/styles/layout.scss">
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css">
+  <link rel="stylesheet" href="/styles/navbar.css" type="text/css">
+  <link rel="stylesheet" href="/styles/contact.css" type="text/css">
+
+  <title>Backyard Wines</title>
+
+</head>
+<body>
+  <header>
+    <%- include('partials/_navbar') %>
+  </header>
+
+<h1 class=".title-contact">Send a message</h5>
+
+  <div>
+    <img src="business-profile-picture" alt="">
+
+    <section class="contact-seller_business-name-placeholder-id"> <!-- placeholder variable for business name id-->
+      <form class="contact-seller_form-style">
+        <!-- <p class="contact-seller_new-message"></p> -->
+        <label for="contact-seller_-title">Send a message to: La Frenz Estate Winery</label>
+        <textarea name="text" class="contact-seller_message-area" placeholder="Write your message here"></textarea>
+        <div class="contact-seller_button">
+          <button type="submit" class="contact-seller_send-btn">Send</button>
+          <!-- <output name="counter" class="counter" for="contact-seller-text">300</output>  Stretch feature -->
+        </div>
+      </form>
+    </section>
+  </div>
+
+</body>
+<footer>
+  <%- include('partials/_footer') %>
+</footer>
+</html>
