@@ -6,7 +6,7 @@ db.connect();
 const getAllWines = async () => {
   const result = await db.query(`SELECT * FROM wine_listings`);
   console.log("result", result);
-  return result;
+  return result.rows;
 };
 
 module.exports = {

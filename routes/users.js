@@ -8,9 +8,16 @@
 const express = require('express');
 const router  = express.Router();
 
+const { getAllWines } = require('../db/database');
+
+
 module.exports = (db) => {
-  router.get("/all-wines", function(req, res) {
-    res.render('all-wines');
+  router.get("/all-wines", async(req, res) => {
+    const result = await getAllWines();
+    const templateVars = {
+      allWines: result
+    };
+    res.render('all-wines', templateVars);
   });
   router.get("/red-wines", function(req, res) {
     res.render('red-wines');
@@ -27,9 +34,11 @@ module.exports = (db) => {
   router.get("/favourites", function(req, res) {
     res.render('favorites');
   });
-
-
-
+  //Test db connection
+  // router.get("/test", async (req, res) => {
+  //   const result = await getAllWines();
+  //   res.send(result);
+  // });
 
   // favorites page favorite button:
   router.get("/favorites_status", function(req, res) {

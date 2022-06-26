@@ -9,9 +9,6 @@ const app = express();
 const morgan = require("morgan");
 
 const db = require('./db/database');
-
-const { getAllWines } = require("./db/database");
-
 // PG database client/connection setup
 // const { Pool } = require("pg");
 // const dbParams = require("./lib/db.js");
@@ -51,11 +48,6 @@ app.use("", usersRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// Test db connection
-// app.get("/test", async (req, res) => {
-//   const result = await getAllWines();
-//   res.send(result);
-// });
 
 app.get("/", (req, res) => {
   res.render("index");
