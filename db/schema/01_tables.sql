@@ -1,3 +1,12 @@
+
+
+-- Drop and recreate Users table (Example)
+
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS wine_listings CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -12,8 +21,8 @@ CREATE TABLE users (
 CREATE TABLE wine_listings (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  price INTEGER NOT NULL DEFAULT 0,
-  year INTEGER NOT NULL DEFAULT 0,
+  price MONEY NOT NULL,
+  year INTEGER NOT NULL,
   wine_name VARCHAR(255) NOT NULL,
   winery VARCHAR(255) NOT NULL,
   award VARCHAR(255) NOT NULL,
@@ -33,10 +42,10 @@ CREATE TABLE favorites (
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
+  listing_id INTEGER REFERENCES wine_listings(id) ON DELETE CASCADE,
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   created_at INTEGER NOT NULL,
-  recipient_id INTERGER REFERENCES users(id) ON DELETE CASCADE,
+  recipient_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   message_text TEXT
 );
 
