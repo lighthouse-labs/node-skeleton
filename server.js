@@ -8,11 +8,12 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
+const db = require('./db/database');
 // PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+// const dbParams = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -37,15 +38,18 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const wineRoutes = require('./routes/wineRoutes/wineRoutes');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("", usersRoutes(db));
+app.use("", wineRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
 
 app.get("/", (req, res) => {
   res.render("index");

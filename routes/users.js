@@ -8,16 +8,10 @@
 const express = require('express');
 const router  = express.Router();
 
+const { getAllWines } = require('../db/database');
+
+
 module.exports = (db) => {
-  router.get("/all-wines", function(req, res) {
-    res.render('all-wines');
-  });
-  router.get("/red-wines", function(req, res) {
-    res.render('red-wines');
-  });
-  router.get("/white-wines", function(req, res) {
-    res.render('white-wines');
-  });
   router.get("/login", function(req, res) {
     res.render('login');
   });
@@ -27,10 +21,6 @@ module.exports = (db) => {
   router.get("/favourites", function(req, res) {
     res.render('favorites');
   });
-
-
-
-
   // favorites page favorite button:
   router.get("/favorites_status", function(req, res) {
     res.render('/favorites_status/userid/listing');
