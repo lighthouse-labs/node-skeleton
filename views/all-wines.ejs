@@ -15,22 +15,26 @@
 <body class="main">
 <header>
   <%- include('partials/_navbar') %>
+  <h1>All our excellent wines</h1>
 </header>
-<h1>All our excellent wines</h1>
+<% allWines.forEach((wine) => { %>
 <div class="wine-listing">
-  <img src="https://greatnorthwestwine.com/wp-content/uploads/2019/08/la-frenz-winery-logo.jpg" class="logo">
-  <img src="https://i.imgur.com/hrvvm5M.jpeg" class="image">
-  <span class="price">Price: $22.00</span>
-  <span class="year">Year: 2021</span>
-  <span class="label">Label: White</span>
-  <span class="award">NWAC21 Platinum</span>
-  <span class="desc">Name of the wine</span>
+  <img src= <%= wine.wine_image_url %> class="image" >
+  <img src= <%= wine.winery_image_url %> class="logo">
+  <span class="price">Price: <%= wine.price %></span>
+  <span class="year">Year: <%= wine.year %></span>
+  <span class="label">Label: <%= wine.wine_type %> </span>
+  <span class="award"><%= wine.award %></span>
+  <span class="desc"><%= wine.name %></span>
   <i class="fa-solid fa-heart"></i>
   <form method="GET" action="/contact-page">
     <button type="submit" class="contact">Contact</button>
   </form>
-  <article class="actual-desc">estibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.</article>
+  <article class="actual-desc">
+    <%= wine.description %>
+  </article>
 </div>
+<% }) %>
 <footer>
   <%- include('partials/_footer') %>
 </footer>
