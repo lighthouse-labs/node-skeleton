@@ -1,34 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Bootstrap CSS -->
+<!--
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel = "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" type="text/css" />
+  <link rel = "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" type="text/css" />
 
-  <!-- SASS reference  -->
-  <link rel="stylesheet" href="/styles/layout.scss">
-  <link rel="stylesheet" href="/styles/footer.css" type="text/css">
-  <link rel="stylesheet" href="/styles/navbar.css" type="text/css">
-  <link rel="stylesheet" href="/styles/favorites.css" type="text/css">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+
+  <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/styles/favorites.scss" type="text/css">
+
+  <!-- <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script> -->
 
   <title>Backyard Wines</title>
 
 </head>
-<body>
+<body class="main">
   <header>
     <%- include('partials/_navbar') %>
   </header>
 
-<h1 class=".title-contact">Send a message</h5>
+<h1 class="title-contact">Send a message</h5>
 
   <div>
     <img src="business-profile-picture" alt="">
 
-    <section class="favorites_userid"> <!-- placeholders to show all favorites with the appropriate userid -->
-      <div class="favorites_userid_listing-id"> <!-- placeholders for appropriate userid & listing id -->
+    <section class="wine-listing"> <!-- placeholders to show all favorites with the appropriate: 'favorites_userid' -->
+      <div class="wine-listing"> <!--  placeholders for appropriate userid & listing id: 'favorites_userid_listing-id' -->
           <img src="https://greatnorthwestwine.com/wp-content/uploads/2019/08/la-frenz-winery-logo.jpg" class="logo">
           <img src="https://i.imgur.com/hrvvm5M.jpeg" class="image">
           <div>
@@ -38,16 +44,13 @@
             <span class="award">NWAC21 Platinum</span>
             <span class="desc">Name of the wine</span>
           </div>
-          <form method="GET" action="/favorites_status">
-            <i class="favorites-btn"></i>
-            <button type="submit" class="favorites-btn"></button>
+          <i class="fa-solid fa-heart"></i>
+          <form method="GET" action="/contact-page">
+            <button type="submit" class="contact">Contact</button>
           </form>
           <article class="actual-desc">estibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.</article>
       </div>
     </section>
-  </div>
-
-
 
 </body>
 <footer>
