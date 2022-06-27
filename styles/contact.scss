@@ -1,4 +1,67 @@
+.main {
+  background-color: #E8E9F3;
+ }
+
+ .contact-title {
+   display: flex;
+   justify-content: center;
+   font-family: "Montserrat", sans-serif;
+   color: #580C1F;
+  font-size: 50px;
+ }
+
+ .contact-seller_title {
+   display: flex;
+   justify-content: center;
+   font-family: "Montserrat", sans-serif;
+   color: #580C1F;
+   font-size: 25px;
+ }
+
 .contact-seller_form-style {
+  background-color: white;
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 75px 5%;
+  border: 2px solid #580C1F;
+  border-radius: 25px;
+  padding: 25px;
+  width: 800px;
+}
+
+
+.contact-seller_message-area {
+  resize: none;
+  border: 2px solid #580C1F; // #CECECE;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  margin: 15px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.contact-pictures {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.contact-seller-logo {
+  width: 10%;
+}
+
+.contact-seller_send-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: white;
+    background-color: #A7333F;
+    border-radius: 25px;
+    height: 45px;
+    width: 181px;
 }
