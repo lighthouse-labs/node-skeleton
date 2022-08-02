@@ -38,8 +38,6 @@ const usersRoutes = require('./routes/users');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
-
-// Note: Endpoints that return a webpage (ie. HTML) usually are "top-level" (no `/api` at the front)
 app.use("/users", usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
