@@ -7,12 +7,11 @@
 
 const express = require('express');
 const router  = express.Router();
-const db = require('../db/connection');
+const userQueries = require('../db/queries/users');
 
 router.get("/", (req, res) => {
-  db.query(`SELECT * FROM users;`)
-    .then(data => {
-      const users = data.rows;
+  userQueries.getUsers()
+    .then(users => {
       res.json({ users });
     })
     .catch(err => {
