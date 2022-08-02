@@ -36,17 +36,17 @@ const runSeedFiles = async () => {
 
 const runResetDB = async () => {
   try {
-    dbParams.host &&
-      console.log(`-> Connecting to PG on ${dbParams.host} as ${dbParams.user}...`);
-    dbParams.connectionString &&
-      console.log(`-> Connecting to PG with ${dbParams.connectionString}...`);
-    await db.connect();
+    process.env.DB_HOST &&
+      console.log(`-> Connecting to PG on ${process.env.DB_HOST} as ${process.env.DB_USER}...`);
+    process.env.connectionString &&
+      console.log(`-> Connecting to PG with ${process.env.connectionString}...`);
+
     await runSchemaFiles();
     await runSeedFiles();
-    db.end();
+    process.exit();
   } catch (err) {
     console.error(chalk.red(`Failed due to error: ${err}`));
-    db.end();
+    process.exit();
   }
 };
 
