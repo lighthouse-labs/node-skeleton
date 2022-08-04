@@ -1,16 +1,16 @@
 // Client facing scripts here
 $(() => {
-  $("#fetch-users").on("click", () => {
+  $('#fetch-users').on('click', () => {
     $.ajax({
-      method: "GET",
-      url: "/api/users"
+      method: 'GET',
+      url: '/api/users'
     })
     .done((response) => {
-      const $usersDiv = $("#users");
-      $usersDiv.empty();
+      const $usersList = $('#users');
+      $usersList.empty();
 
       for(const user of response.users) {
-        $("<div>").text(user.name).appendTo($usersDiv);
+        $(`<li class="user">`).text(user.name).appendTo($usersList);
       }
     });
   });
