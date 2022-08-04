@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   userQueries.getUsers()
     .then(users => {
       res.json({ users });
