@@ -2,11 +2,16 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Enable __dirname with ES6 modules
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 // Web server config
+import sassMiddleware from './lib/sass-middleware.js';
 import express from 'express';
 import morgan from 'morgan';
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -17,6 +22,14 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  '/styles',
+  sassMiddleware({
+    source: __dirname + '/styles',
+    destination: __dirname + '/public/styles',
+    isSass: false, // false => scss, true => sass
+  })
+);
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
