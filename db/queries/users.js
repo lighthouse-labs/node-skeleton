@@ -1,10 +1,8 @@
-const db = require('../connection');
+import db from '../connection.js';
 
-const getUsers = () => {
+export const getUsers = () => {
   return db.query('SELECT * FROM users;')
-    .then(data => {
+    .then((data) => {
       return data.rows;
-    });
+  });
 };
-
-module.exports = { getUsers };

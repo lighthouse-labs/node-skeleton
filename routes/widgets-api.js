@@ -5,9 +5,10 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
+import express from 'express';
 const router  = express.Router();
-const db = require('../db/connection');
+import db from '../db/connection.js';
+
 
 router.get('/', (req, res) => {
   const query = `SELECT * FROM widgets`;
@@ -24,4 +25,4 @@ router.get('/', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

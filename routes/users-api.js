@@ -5,20 +5,18 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
-const userQueries = require('../db/queries/users');
+import express from 'express';
+const router = express.Router();
+import { getUsers } from '../db/queries/users.js';
 
 router.get('/', (req, res) => {
-  userQueries.getUsers()
-    .then(users => {
+  getUsers()
+    .then((users) => {
       res.json({ users });
     })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
     });
 });
 
-module.exports = router;
+export default router;

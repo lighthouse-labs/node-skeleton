@@ -1,12 +1,12 @@
 // load .env data into process.env
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Web server config
-const sassMiddleware = require('./lib/sass-middleware');
-const express = require('express');
-const morgan = require('morgan');
+import express from 'express';
+import morgan from 'morgan';
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -16,21 +16,14 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  '/styles',
-  sassMiddleware({
-    source: __dirname + '/styles',
-    destination: __dirname + '/public/styles',
-    isSass: false, // false => scss, true => sass
-  })
-);
+app.use(express.json());
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
+import { default as userApiRoutes } from './routes/users-api.js';
+import { default as usersRoutes } from './routes/users.js';
+import { default as widgetApiRoutes } from './routes/widgets-api.js';
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -49,5 +42,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });

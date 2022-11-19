@@ -1,10 +1,11 @@
 // load .env data into process.env
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // other dependencies
-const fs = require('fs');
-const chalk = require('chalk');
-const db = require('../db/connection');
+import fs from 'fs';
+import chalk  from 'chalk';
+import db from '../db/connection.js';
 
 // PG connection setup
 // const connectionString = process.env.DATABASE_URL ||
@@ -47,5 +48,4 @@ const runResetDB = async () => {
     process.exit();
   }
 };
-
 runResetDB();
