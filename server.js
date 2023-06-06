@@ -1,8 +1,10 @@
 // load .env data into process.env
 require('dotenv').config();
 
+// compile SCSS files on server start/restart
+require('./lib/compile-sass')();
+
 // Web server config
-const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 
@@ -16,14 +18,6 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  '/styles',
-  sassMiddleware({
-    source: __dirname + '/styles',
-    destination: __dirname + '/public/styles',
-    isSass: false, // false => scss, true => sass
-  })
-);
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
