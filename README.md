@@ -24,7 +24,7 @@ The following steps are only for _one_ of the group members to perform.
   - Check the db folder to see what gets created and seeded in the DB
 5. Run the server: `npm run local`  
   - Note: nodemon is used, so you should not have to restart your server
-6. Visit `http://localhost:8080/`
+6. Visit [`http://localhost:8080/`](http://localhost:8080/)
 
 ## Warnings & Tips
 
