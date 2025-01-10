@@ -1,9 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
 
-// compile SCSS files on server start/restart
-require('./lib/compile-sass')();
-
 // Web server config
 const express = require('express');
 const morgan = require('morgan');
